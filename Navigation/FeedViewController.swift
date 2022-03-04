@@ -26,7 +26,7 @@ class FeedViewController: UIViewController {
         view.addSubview(button)
     }
     
-    @objc func tap(sender: UIButton) {
+    @objc private func tap(sender: UIButton) {
         let post = Post(title: "Запись")
         let postVC = PostViewController()
         postVC.title = post.title

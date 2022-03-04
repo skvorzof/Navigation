@@ -19,7 +19,7 @@ class PostViewController: UIViewController {
         }
     }
     
-    @objc func info() {
+    @objc private func info() {
         let infoVC = InfoViewController()
         let nc = UINavigationController(rootViewController: infoVC)
         present(nc, animated: true, completion: nil)

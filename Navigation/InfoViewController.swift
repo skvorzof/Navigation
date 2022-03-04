@@ -14,6 +14,11 @@ class InfoViewController: UIViewController {
         view.backgroundColor = UIColor(hue: 0.3, saturation: 0.3, brightness: 1, alpha: 1.0)
         title = "Информация"
         
+        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Закрыть",
+                                                            style: .plain,
+                                                            target: self,
+                                                            action: #selector(close))
+        
         let button = UIButton(frame: CGRect(x: 0, y: 0, width: 200, height: 30))
         button.center = view.center
         button.backgroundColor = .systemBlue
@@ -22,7 +27,7 @@ class InfoViewController: UIViewController {
         view.addSubview(button)
     }
     
-    @objc func tap(sender: UIButton) {
+    @objc private func tap(sender: UIButton) {
             let alert = UIAlertController(title: "Внимание",
                                           message: "Вы уверены?",
                                           preferredStyle: .alert)
@@ -41,4 +46,8 @@ class InfoViewController: UIViewController {
             alert.addAction(deletelAction)
             present(alert, animated: true, completion: nil)
         }
+    
+    @objc private func close(sender: UIButton) {
+        dismiss(animated: true, completion: nil)
+    }
 }
