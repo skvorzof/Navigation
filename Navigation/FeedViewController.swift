@@ -22,7 +22,6 @@ class FeedViewController: UIViewController {
         button.backgroundColor = .systemBlue
         button.setTitle("Смотреть запись", for: .normal)
         button.addTarget(self, action: #selector(tap), for: .touchUpInside)
-        
         view.addSubview(button)
     }
     

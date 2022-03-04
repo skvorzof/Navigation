@@ -31,16 +31,17 @@ class InfoViewController: UIViewController {
             let alert = UIAlertController(title: "Внимание",
                                           message: "Вы уверены?",
                                           preferredStyle: .alert)
+        
             let cancelAction = UIAlertAction(title: "Нет",
-                                       style: .cancel,
+                                             style: .cancel,
                                              handler: {_ in
                 print("Не уверен")
             })
             alert.addAction(cancelAction)
             
             let deletelAction = UIAlertAction(title: "Да",
-                                       style: .destructive,
-                                             handler: {_ in
+                                              style: .destructive,
+                                              handler: {_ in
                 print("Уверен")
             })
             alert.addAction(deletelAction)

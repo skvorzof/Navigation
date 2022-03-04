@@ -20,7 +20,9 @@ class TabBarController: UITabBarController {
     func createTabBarControllers() {
         viewControllers = [
             createNavController(for: FeedViewController(),
-                                   title: "Лента", image: UIImage(systemName: "list.dash.header.rectangle")!),
+                                   title: "Лента",
+                                   image: UIImage(systemName: "list.dash.header.rectangle")!),
+            
             createNavController(for: ProfileViewController(),
                                    title: "Профиль",
                                    image: UIImage(systemName: "person")!)
