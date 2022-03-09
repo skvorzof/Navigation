@@ -11,6 +11,7 @@
 		C9164FED27D0F57400034102 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9164FEC27D0F57400034102 /* SceneDelegate.swift */; };
 		C9164FF427D0F57500034102 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C9164FF327D0F57500034102 /* Assets.xcassets */; };
 		C9164FF727D0F57500034102 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C9164FF527D0F57500034102 /* LaunchScreen.storyboard */; };
+		C94FB4C927D884B4005ABB47 /* ProfileHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C94FB4C827D884B4005ABB47 /* ProfileHeaderView.swift */; };
 		C950451727D7C0530091A844 /* Post.swift in Sources */ = {isa = PBXBuildFile; fileRef = C950451627D7C0530091A844 /* Post.swift */; };
 		C9E1AA7327D0FBCB0021A97A /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9E1AA7227D0FBCB0021A97A /* ProfileViewController.swift */; };
 		C9E1AA7527D0FBF60021A97A /* PostViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9E1AA7427D0FBF60021A97A /* PostViewController.swift */; };
@@ -26,6 +27,7 @@
 		C9164FF327D0F57500034102 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		C9164FF627D0F57500034102 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		C9164FF827D0F57500034102 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		C94FB4C827D884B4005ABB47 /* ProfileHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileHeaderView.swift; sourceTree = "<group>"; };
 		C950451627D7C0530091A844 /* Post.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Post.swift; sourceTree = "<group>"; };
 		C9E1AA7227D0FBCB0021A97A /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 		C9E1AA7427D0FBF60021A97A /* PostViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostViewController.swift; sourceTree = "<group>"; };
@@ -64,12 +66,12 @@
 		C9164FE927D0F57400034102 /* Navigation */ = {
 			isa = PBXGroup;
 			children = (
+				C94FB4C727D8848D005ABB47 /* Profile */,
 				C9164FEA27D0F57400034102 /* AppDelegate.swift */,
 				C9164FEC27D0F57400034102 /* SceneDelegate.swift */,
 				C9164FF327D0F57500034102 /* Assets.xcassets */,
 				C9164FF527D0F57500034102 /* LaunchScreen.storyboard */,
 				C9164FF827D0F57500034102 /* Info.plist */,
-				C9E1AA7227D0FBCB0021A97A /* ProfileViewController.swift */,
 				C9E1AA7427D0FBF60021A97A /* PostViewController.swift */,
 				C9E1AA7627D0FC240021A97A /* InfoViewController.swift */,
 				C9E1AA7827D0FC510021A97A /* FeedViewController.swift */,
@@ -77,6 +79,15 @@
 				C950451627D7C0530091A844 /* Post.swift */,
 			);
 			path = Navigation;
+			sourceTree = "<group>";
+		};
+		C94FB4C727D8848D005ABB47 /* Profile */ = {
+			isa = PBXGroup;
+			children = (
+				C9E1AA7227D0FBCB0021A97A /* ProfileViewController.swift */,
+				C94FB4C827D884B4005ABB47 /* ProfileHeaderView.swift */,
+			);
+			path = Profile;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -89,6 +100,7 @@
 				C9164FE327D0F57400034102 /* Sources */,
 				C9164FE427D0F57400034102 /* Frameworks */,
 				C9164FE527D0F57400034102 /* Resources */,
+				C94FB4CA27D8C5BE005ABB47 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -144,6 +156,26 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		C94FB4CA27D8C5BE005ABB47 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "TAGS=\"TODO:|FIXME:\"\nERRORTAG=\"ERROR:\"\nfind \"${SRCROOT}\" \\( -name \"*.h\" -or -name \"*.m\" -or -name \"*.swift\" \\) -print0 | xargs -0 egrep --with-filename --line-number --only-matching \"($TAGS).*\\$|($ERRORTAG).*\\$\" | perl -p -e \"s/($TAGS)/ warning: \\$1/\" | perl -p -e \"s/($ERRORTAG)/ error: \\$1/\"\n";
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		C9164FE327D0F57400034102 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
@@ -153,6 +185,7 @@
 				C9E1AA7327D0FBCB0021A97A /* ProfileViewController.swift in Sources */,
 				C9164FEB27D0F57400034102 /* AppDelegate.swift in Sources */,
 				C950451727D7C0530091A844 /* Post.swift in Sources */,
+				C94FB4C927D884B4005ABB47 /* ProfileHeaderView.swift in Sources */,
 				C9164FED27D0F57400034102 /* SceneDelegate.swift in Sources */,
 				C9E1AA7B27D0FC9D0021A97A /* TabBarController.swift in Sources */,
 				C9E1AA7927D0FC510021A97A /* FeedViewController.swift in Sources */,

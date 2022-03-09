@@ -12,8 +12,6 @@ class TabBarController: UITabBarController {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .systemBackground
-        UITabBar.appearance().barTintColor = .systemBackground
-        tabBar.tintColor = .label
         createTabBarControllers()
     }
     
@@ -21,11 +19,11 @@ class TabBarController: UITabBarController {
         viewControllers = [
             createNavController(for: FeedViewController(),
                                    title: "Лента",
-                                   image: UIImage(systemName: "list.dash.header.rectangle")!),
+                                   image: UIImage(systemName: "house.fill")!),
             
             createNavController(for: ProfileViewController(),
                                    title: "Профиль",
-                                   image: UIImage(systemName: "person")!)
+                                   image: UIImage(systemName: "person.fill")!)
         ]
     }
     
