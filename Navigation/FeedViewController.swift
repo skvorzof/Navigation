@@ -9,19 +9,22 @@ import UIKit
 
 class FeedViewController: UIViewController {
     
-    struct Post {
-        let title: String
-    }
+    let button: UIButton = {
+        let button = UIButton(frame: CGRect(x: 0, y: 0, width: 200, height: 30))
+        button.backgroundColor = .systemBlue
+        button.setTitle("Смотреть запись", for: .normal)
+        button.addTarget(self, action: #selector(tap), for: .touchUpInside)
+        return button
+    }()
 
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .systemBackground
-        
-        let button = UIButton(frame: CGRect(x: 0, y: 0, width: 200, height: 30))
+        addButton()
+    }
+    
+    private func addButton() {
         button.center = view.center
-        button.backgroundColor = .systemBlue
-        button.setTitle("Смотреть запись", for: .normal)
-        button.addTarget(self, action: #selector(tap), for: .touchUpInside)
         view.addSubview(button)
     }
     

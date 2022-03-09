@@ -8,6 +8,14 @@
 import UIKit
 
 class InfoViewController: UIViewController {
+    
+    let button: UIButton = {
+        let button = UIButton(frame: CGRect(x: 0, y: 0, width: 200, height: 30))
+        button.backgroundColor = .systemBlue
+        button.setTitle("Предупреждение", for: .normal)
+        button.addTarget(self, action: #selector(tap), for: .touchUpInside)
+        return button
+    }()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -18,12 +26,11 @@ class InfoViewController: UIViewController {
                                                             style: .plain,
                                                             target: self,
                                                             action: #selector(close))
-        
-        let button = UIButton(frame: CGRect(x: 0, y: 0, width: 200, height: 30))
+        addButton()
+    }
+    
+    private func addButton() {
         button.center = view.center
-        button.backgroundColor = .systemBlue
-        button.setTitle("Предупреждение", for: .normal)
-        button.addTarget(self, action: #selector(tap), for: .touchUpInside)
         view.addSubview(button)
     }
     
