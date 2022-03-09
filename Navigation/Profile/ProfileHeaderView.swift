@@ -19,8 +19,10 @@ class ProfileHeaderView: UIView {
     }
     
     
+    private var statusText = "Подожтите..."
+    
     private let profileAvatar: UIImageView = {
-        let imageView = UIImageView(frame: CGRect(x: 0, y: 0, width: 100, height: 100))
+        let imageView = UIImageView(frame: CGRect(x: 0, y: 0, width: 110, height: 110))
         imageView.image = UIImage(named: "avatar.jpg")
         imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.clipsToBounds = true
@@ -49,20 +51,49 @@ class ProfileHeaderView: UIView {
         return label
     }()
     
+    private let profileTextChanged: UITextField = {
+       let textField = UITextField()
+        textField.translatesAutoresizingMaskIntoConstraints = false
+        textField.backgroundColor = .white
+        textField.font = UIFont.systemFont(ofSize: 15, weight: .regular)
+        textField.textColor = .black
+        textField.layer.cornerRadius = 12
+        textField.layer.borderWidth = 1
+        textField.layer.shadowColor = UIColor.black.cgColor
+        let leftView = UIView(frame: CGRect(x: 0, y: 0, width: 10, height: 2))
+        textField.leftView = leftView
+        textField.leftViewMode = .always
+        textField.addTarget(self, action: #selector(statusTextChanged), for: .editingChanged)
+        return textField
+    }()
+    
+    @objc func statusTextChanged(_ textField: UITextField) {
+        if (textField.text?.count)! > 0 {
+            statusText = textField.text!
+            statusButton.setTitle("Установить статус", for: .normal)
+        }
+    }
+    
     private let statusButton: UIButton = {
         let button = UIButton()
         button.translatesAutoresizingMaskIntoConstraints = false
         button.setTitle("Показать статус", for: .normal)
-        button.titleLabel?.font = .systemFont(ofSize: 14, weight: .medium)
+        button.titleLabel?.font = .systemFont(ofSize: 14)
         button.backgroundColor = .systemBlue
-        button.layer.cornerRadius = 4
-        button.layer.shadowOffset.width = 4
-        button.layer.shadowOffset.height = 4
+        button.layer.cornerRadius = 12
+        button.layer.shadowOffset.width = 3
+        button.layer.shadowOffset.height = 3
         button.layer.shadowRadius = 4
         button.layer.shadowColor = UIColor.black.cgColor
-        button.layer.shadowOpacity = 0.7
+        button.layer.shadowOpacity = 0.6
+        button.addTarget(self, action: #selector(buttonPressed), for: .touchUpInside)
         return button
     }()
+    
+    @objc private func buttonPressed() {
+        profileStatus.text = statusText
+        statusButton.setTitle("Показать статус", for: .normal)
+    }
     
     
     private func setupView() {
@@ -70,22 +101,28 @@ class ProfileHeaderView: UIView {
         addSubview(profileName)
         addSubview(profileStatus)
         addSubview(statusButton)
+        addSubview(profileTextChanged)
     }
     
     private func setupConstraint() {
-        profileAvatar.widthAnchor.constraint(equalToConstant: 100).isActive = true
-        profileAvatar.heightAnchor.constraint(equalToConstant: 100).isActive = true
-        profileAvatar.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor).isActive = true
+        profileAvatar.widthAnchor.constraint(equalToConstant: 110).isActive = true
+        profileAvatar.heightAnchor.constraint(equalToConstant: 110).isActive = true
+        profileAvatar.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: 16).isActive = true
         profileAvatar.leftAnchor.constraint(equalTo: leftAnchor, constant: 16).isActive = true
         
         profileName.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: 27).isActive = true
-        profileName.leftAnchor.constraint(equalTo: profileAvatar.rightAnchor, constant: 20).isActive = true
+        profileName.leftAnchor.constraint(equalTo: profileAvatar.rightAnchor, constant: 16).isActive = true
 
-        profileStatus.bottomAnchor.constraint(equalTo: statusButton.topAnchor, constant: -34).isActive = true
-        profileStatus.leftAnchor.constraint(equalTo: profileAvatar.rightAnchor, constant: 20).isActive = true
+        profileStatus.topAnchor.constraint(equalTo: profileName.bottomAnchor, constant: 43).isActive = true
+        profileStatus.leftAnchor.constraint(equalTo: profileAvatar.rightAnchor, constant: 16).isActive = true
+        
+        profileTextChanged.heightAnchor.constraint(equalToConstant: 40).isActive = true
+        profileTextChanged.topAnchor.constraint(equalTo: profileStatus.bottomAnchor, constant: 7).isActive = true
+        profileTextChanged.leftAnchor.constraint(equalTo: profileAvatar.rightAnchor, constant: 16).isActive = true
+        profileTextChanged.rightAnchor.constraint(equalTo: rightAnchor, constant: -16).isActive = true
         
         statusButton.heightAnchor.constraint(equalToConstant: 50).isActive = true
-        statusButton.topAnchor.constraint(equalTo: profileAvatar.bottomAnchor, constant: 16).isActive = true
+        statusButton.topAnchor.constraint(equalTo: profileTextChanged.bottomAnchor, constant: 16).isActive = true
         statusButton.leftAnchor.constraint(equalTo: leftAnchor, constant: 16).isActive = true
         statusButton.rightAnchor.constraint(equalTo: rightAnchor, constant: -16).isActive = true
     }

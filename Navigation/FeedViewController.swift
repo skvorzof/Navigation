@@ -23,6 +23,13 @@ class FeedViewController: UIViewController {
         addButton()
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+            super.viewWillAppear(animated)
+            let appearance = UINavigationBarAppearance()
+            appearance.backgroundColor = .white
+            navigationController?.navigationBar.scrollEdgeAppearance = appearance
+    }
+    
     private func addButton() {
         button.center = view.center
         view.addSubview(button)

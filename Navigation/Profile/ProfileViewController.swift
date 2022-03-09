@@ -8,16 +8,24 @@
 import UIKit
 
 class ProfileViewController: UIViewController {
-
+    
+    let profileHeaderView = ProfileHeaderView()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .lightGray
+        view.backgroundColor = UIColor(red: 209.0/255.0, green: 209.0/255.0, blue: 214.0/255.0, alpha: 1.0)
     }
     
     override func viewWillLayoutSubviews() {
         super.viewWillLayoutSubviews()
-        let profileHV = ProfileHeaderView()
-        profileHV.frame = self.view.bounds
-        view.addSubview(profileHV)
+        profileHeaderView.frame = self.view.frame
+        view.addSubview(profileHeaderView)
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+            super.viewWillAppear(animated)
+            let appearance = UINavigationBarAppearance()
+            appearance.backgroundColor = .white
+            navigationController?.navigationBar.scrollEdgeAppearance = appearance
     }
 }

@@ -19,8 +19,6 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         guard let startScene = (scene as? UIWindowScene) else { return }
         let window = UIWindow(windowScene: startScene)
         let home = TabBarController()
-        // TODO: Удалить
-        home.selectedIndex = 1
         home.tabBar.backgroundColor = .white
         window.rootViewController = home
         self.window = window
