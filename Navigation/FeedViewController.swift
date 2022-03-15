@@ -8,19 +8,11 @@
 import UIKit
 
 class FeedViewController: UIViewController {
-    
-    let button: UIButton = {
-        let button = UIButton(frame: CGRect(x: 0, y: 0, width: 200, height: 30))
-        button.backgroundColor = .systemBlue
-        button.setTitle("Смотреть запись", for: .normal)
-        button.addTarget(self, action: #selector(tap), for: .touchUpInside)
-        return button
-    }()
 
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .systemBackground
-        addButton()
+        layout()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -30,10 +22,34 @@ class FeedViewController: UIViewController {
             navigationController?.navigationBar.scrollEdgeAppearance = appearance
     }
     
-    private func addButton() {
-        button.center = view.center
-        view.addSubview(button)
-    }
+    
+    private let stackView: UIStackView = {
+        let stackView = UIStackView()
+        stackView.axis = .horizontal
+        stackView.distribution = .fillEqually
+        stackView.spacing = 10
+        stackView.translatesAutoresizingMaskIntoConstraints = false
+        return stackView
+    }()
+    
+    private let leftButton: UIButton = {
+        let button = UIButton()
+        button.backgroundColor = .systemBlue
+        button.setTitle("Смотреть запись", for: .normal)
+        button.titleLabel?.font = .systemFont(ofSize: 14)
+        button.addTarget(self, action: #selector(tap), for: .touchUpInside)
+        return button
+    }()
+    
+    private let rightButton: UIButton = {
+        let button = UIButton()
+        button.backgroundColor = .lightGray
+        button.setTitle("Смотреть запись", for: .normal)
+        button.titleLabel?.font = .systemFont(ofSize: 14)
+        button.addTarget(self, action: #selector(tap), for: .touchUpInside)
+        return button
+    }()
+    
     
     @objc private func tap(sender: UIButton) {
         let post = Post(title: "Запись")
@@ -46,5 +62,18 @@ class FeedViewController: UIViewController {
             action: nil)
         
         navigationController?.pushViewController(postVC, animated: true)
+    }
+    
+    
+    private func layout() {
+        view.addSubview(stackView)
+        stackView.addArrangedSubview(leftButton)
+        stackView.addArrangedSubview(rightButton)
+        
+        NSLayoutConstraint.activate([
+            stackView.topAnchor.constraint(equalTo: view.centerYAnchor),
+            stackView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 10),
+            stackView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -10)
+        ])
     }
 }
