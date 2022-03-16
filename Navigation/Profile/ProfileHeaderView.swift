@@ -67,8 +67,8 @@ class ProfileHeaderView: UIView {
     }()
     
     @objc func statusTextChanged(_ textField: UITextField) {
-        if (textField.text?.count)! > 0 {
-            if let newStatusText = textField.text {
+        if let newStatusText = textField.text {
+            if newStatusText != "" {
                 statusText = newStatusText
                 setStatusButton.setTitle("Установить статус", for: .normal)
             }
