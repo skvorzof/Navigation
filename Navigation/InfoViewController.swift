@@ -21,11 +21,6 @@ class InfoViewController: UIViewController {
         super.viewDidLoad()
         view.backgroundColor = UIColor(hue: 0.3, saturation: 0.3, brightness: 1, alpha: 1.0)
         title = "Информация"
-        
-        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Закрыть",
-                                                            style: .plain,
-                                                            target: self,
-                                                            action: #selector(close))
         addButton()
     }
     

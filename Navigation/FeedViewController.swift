@@ -52,16 +52,8 @@ class FeedViewController: UIViewController {
     
     
     @objc private func tap(sender: UIButton) {
-        let post = Post(title: "Запись")
-        let postVC = PostViewController()
-        postVC.title = post.title
-        postVC.navigationItem.rightBarButtonItem = UIBarButtonItem(
-            image: UIImage(systemName: "info.circle"),
-            style: .done,
-            target: self,
-            action: nil)
-        
-        navigationController?.pushViewController(postVC, animated: true)
+        let infoVC = InfoViewController()        
+        navigationController?.pushViewController(infoVC, animated: true)
     }
     
     

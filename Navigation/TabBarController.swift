@@ -21,7 +21,7 @@ class TabBarController: UITabBarController {
                                    title: "Лента",
                                    image: UIImage(systemName: "house.fill")!),
             
-            createNavController(for: ProfileViewController(),
+            createNavController(for: LogInViewController(),
                                    title: "Профиль",
                                    image: UIImage(systemName: "person.fill")!)
         ]

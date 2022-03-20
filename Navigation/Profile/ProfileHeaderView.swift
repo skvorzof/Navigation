@@ -18,6 +18,7 @@ class ProfileHeaderView: UIView {
     }
     
     
+    
     private var statusText = "Подожтите..."
     
     private let avatarImageView: UIImageView = {
@@ -50,7 +51,7 @@ class ProfileHeaderView: UIView {
         return label
     }()
     
-    private let statusTextField: UITextField = {
+    private lazy var statusTextField: UITextField = {
        let textField = UITextField()
         textField.translatesAutoresizingMaskIntoConstraints = false
         textField.backgroundColor = .white
@@ -63,6 +64,7 @@ class ProfileHeaderView: UIView {
         textField.leftView = leftView
         textField.leftViewMode = .always
         textField.addTarget(self, action: #selector(statusTextChanged), for: .editingChanged)
+        textField.delegate = self
         return textField
     }()
     
@@ -80,7 +82,7 @@ class ProfileHeaderView: UIView {
         button.translatesAutoresizingMaskIntoConstraints = false
         button.setTitle("Показать статус", for: .normal)
         button.titleLabel?.font = .systemFont(ofSize: 14)
-        button.backgroundColor = .systemBlue
+        button.backgroundColor = UIColor(named: "AccentColor")
         button.layer.cornerRadius = 12
         button.layer.shadowOffset.width = 3
         button.layer.shadowOffset.height = 3
@@ -95,6 +97,7 @@ class ProfileHeaderView: UIView {
         statusLabel.text = statusText
         setStatusButton.setTitle("Показать статус", for: .normal)
     }
+    
     
     
     private func layout() {
@@ -120,7 +123,16 @@ class ProfileHeaderView: UIView {
             setStatusButton.heightAnchor.constraint(equalToConstant: 50),
             setStatusButton.topAnchor.constraint(equalTo: statusTextField.bottomAnchor, constant: 16),
             setStatusButton.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16),
-            setStatusButton.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16)
+            setStatusButton.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16),
         ])
+    }
+}
+
+
+
+extension ProfileHeaderView: UITextFieldDelegate {
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        endEditing(true)
+        return true
     }
 }

@@ -5,4 +5,8 @@
 //  Created by mitr on 20.03.2022.
 //
 
-import Foundation
+import UIKit
+
+extension UIView {
+    static let identifier = String(describing: UIView.self)
+}
