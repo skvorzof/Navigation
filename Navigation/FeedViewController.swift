@@ -32,7 +32,7 @@ class FeedViewController: UIViewController {
         return stackView
     }()
     
-    private let leftButton: UIButton = {
+    private lazy var leftButton: UIButton = {
         let button = UIButton()
         button.backgroundColor = .systemBlue
         button.setTitle("Смотреть запись", for: .normal)
@@ -41,7 +41,7 @@ class FeedViewController: UIViewController {
         return button
     }()
     
-    private let rightButton: UIButton = {
+    private lazy var rightButton: UIButton = {
         let button = UIButton()
         button.backgroundColor = .lightGray
         button.setTitle("Смотреть запись", for: .normal)

@@ -9,7 +9,7 @@ import UIKit
 
 class InfoViewController: UIViewController {
     
-    let button: UIButton = {
+    lazy var button: UIButton = {
         let button = UIButton(frame: CGRect(x: 0, y: 0, width: 200, height: 30))
         button.backgroundColor = .systemBlue
         button.setTitle("Предупреждение", for: .normal)

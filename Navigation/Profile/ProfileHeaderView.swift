@@ -77,7 +77,7 @@ class ProfileHeaderView: UIView {
         }
     }
     
-    private let setStatusButton: UIButton = {
+    private lazy var setStatusButton: UIButton = {
         let button = UIButton()
         button.translatesAutoresizingMaskIntoConstraints = false
         button.setTitle("Показать статус", for: .normal)
