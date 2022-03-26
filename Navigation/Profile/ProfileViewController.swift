@@ -10,27 +10,29 @@ import UIKit
 class ProfileViewController: UIViewController {
     
     let posts = PostModel.makePostModel()
+    let photos = PhotoModel.makePhotoModel()
     
     private lazy var tableView: UITableView = {
-        $0.translatesAutoresizingMaskIntoConstraints = false
-        $0.dataSource = self
-        $0.delegate = self
-        $0.contentInset.bottom = -40
-        $0.register(PostTableViewCell.self, forCellReuseIdentifier: PostTableViewCell.identifier)
-        return $0
-    }(UITableView(frame: .zero, style: .grouped))
+        let tableView = UITableView(frame: .zero, style: .grouped)
+        tableView.translatesAutoresizingMaskIntoConstraints = false
+        tableView.dataSource = self
+        tableView.delegate = self
+        tableView.contentInset.bottom = -40
+        tableView.register(PhotoTableViewCell.self, forCellReuseIdentifier: PhotoTableViewCell.identifier)
+        tableView.register(PostTableViewCell.self, forCellReuseIdentifier: PostTableViewCell.identifier)
+        return tableView
+    }()
+    
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        title = "Профиль"
         layout()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        let appearance = UINavigationBarAppearance()
-        appearance.backgroundColor = .white
-        navigationController?.navigationBar.scrollEdgeAppearance = appearance
+        navigationController?.navigationBar.isHidden = true
     }
 
     
@@ -51,35 +53,75 @@ class ProfileViewController: UIViewController {
 
 extension ProfileViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(
-            withIdentifier: PostTableViewCell.identifier,
-            for: indexPath) as! PostTableViewCell
-        cell.setupCell(model: posts[indexPath.row])
-        return cell
+        switch indexPath.section {
+        case 0:
+            let cell = tableView.dequeueReusableCell(
+                withIdentifier: PhotoTableViewCell.identifier,
+                for: indexPath) as! PhotoTableViewCell
+            cell.buttonArrow.addTarget(self, action: #selector(onButtonTap), for: .touchUpInside)
+            cell.delegateNavigation = {
+                let photosVC = PhotosViewController()
+                self.navigationController?.pushViewController(photosVC, animated: true)
+            }
+            return cell
+        default:
+            let cell = tableView.dequeueReusableCell(
+                withIdentifier: PostTableViewCell.identifier,
+                for: indexPath) as! PostTableViewCell
+            cell.setupCell(model: posts[indexPath.row])
+            return cell
+        }
+    }
+    
+    @objc private func onButtonTap() {
+        let photosVC = PhotosViewController()
+        navigationController?.pushViewController(photosVC, animated: true)
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        posts.count
+        switch section {
+        case 0:
+            return 1
+        case 1:
+            return posts.count
+        default:
+            return 0
+        }
     }
     
+    func numberOfSections(in tableView: UITableView) -> Int {
+        2
+    }
 }
 
 
 
 extension ProfileViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        let headerView = ProfileHeaderView()
-        return headerView
+        if section == 0 {
+            let headerView = ProfileHeaderView()
+            return headerView
+        }
+        return nil
     }
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        240
+        if section == 0 {
+            return 240
+        }
+        return 0
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let postVC = PostViewController()
-        postVC.title = posts[indexPath.row].title
-        postVC.setupPost(model: posts[indexPath.row])
-        navigationController?.pushViewController(postVC, animated: true)
+        switch indexPath.section {
+        case 0:
+            let photosVC = PhotosViewController()
+            navigationController?.pushViewController(photosVC, animated: true)
+        default:
+            let postVC = PostViewController()
+            postVC.title = posts[indexPath.row].title
+            postVC.setupPost(model: posts[indexPath.row])
+            navigationController?.pushViewController(postVC, animated: true)
+        }
     }
 }

@@ -13,11 +13,6 @@ class PostViewController: UIViewController {
         super.viewDidLoad()
         view.backgroundColor = .white
         layout()
-        
-        if let rightBarButton = navigationItem.rightBarButtonItem {
-            rightBarButton.target = self
-            rightBarButton.action = #selector(info)
-        }
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -37,17 +32,19 @@ class PostViewController: UIViewController {
     }
     
     private let postTitle: UILabel = {
-        $0.translatesAutoresizingMaskIntoConstraints = false
-        $0.numberOfLines = 2
-        return $0
-    }(UILabel())
+        let label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.numberOfLines = 2
+        return label
+    }()
     
     private let postImage: UIImageView = {
-        $0.translatesAutoresizingMaskIntoConstraints = false
-        $0.contentMode = .scaleAspectFit
-        $0.backgroundColor = .black
-        return $0
-    }(UIImageView())
+        let imageView = UIImageView()
+        imageView.translatesAutoresizingMaskIntoConstraints = false
+        imageView.contentMode = .scaleAspectFit
+        imageView.backgroundColor = .black
+        return imageView
+    }()
     
     
     func setupPost(model: PostModel) {

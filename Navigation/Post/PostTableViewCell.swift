@@ -8,65 +8,73 @@
 import UIKit
 
 class PostTableViewCell: UITableViewCell {
-    
+        
     private let customView: UIView = {
-        $0.translatesAutoresizingMaskIntoConstraints = false
-        return $0
-    }(UIView())
+        let customView = UIView()
+        customView.translatesAutoresizingMaskIntoConstraints = false
+        return customView
+    }()
     
     private let titlePost: UILabel = {
-        $0.translatesAutoresizingMaskIntoConstraints = false
-        $0.font = UIFont.systemFont(ofSize: 20, weight: .bold)
-        $0.textColor = .black
-        $0.numberOfLines = 2
-        return $0
-    }(UILabel())
+        let label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.font = UIFont.systemFont(ofSize: 20, weight: .bold)
+        label.textColor = .black
+        label.numberOfLines = 2
+        return label
+    }()
     
     private let authorPost: UILabel = {
-        $0.translatesAutoresizingMaskIntoConstraints = false
-        $0.font = UIFont.systemFont(ofSize: 14, weight: .regular)
-        $0.textColor = .systemGray
-        $0.text = "Автор: "
-        return $0
-    }(UILabel())
+        let label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.font = UIFont.systemFont(ofSize: 14, weight: .regular)
+        label.textColor = .systemGray
+        label.text = "Автор: "
+        return label
+    }()
     
     private let imagePost: UIImageView = {
-        $0.translatesAutoresizingMaskIntoConstraints = false
-        $0.contentMode = .scaleAspectFit
-        $0.backgroundColor = .black
-        return $0
-    }(UIImageView())
+        let imageView = UIImageView()
+        imageView.translatesAutoresizingMaskIntoConstraints = false
+        imageView.contentMode = .scaleAspectFit
+        imageView.backgroundColor = .black
+        return imageView
+    }()
     
     private let descriptionPost: UILabel = {
-        $0.translatesAutoresizingMaskIntoConstraints = false
-        $0.font = UIFont.systemFont(ofSize: 14, weight: .regular)
-        $0.textColor = .systemGray
-        $0.numberOfLines = 0
-        return $0
-    }(UILabel())
+        let label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.font = UIFont.systemFont(ofSize: 14, weight: .regular)
+        label.textColor = .systemGray
+        label.numberOfLines = 0
+        return label
+    }()
     
     private let stackView: UIStackView = {
-        $0.translatesAutoresizingMaskIntoConstraints = false
-        $0.axis = .horizontal
-        $0.distribution = .fill
-        return $0
-    }(UIStackView())
+        let stackView = UIStackView()
+        stackView.translatesAutoresizingMaskIntoConstraints = false
+        stackView.axis = .horizontal
+        stackView.distribution = .fill
+        return  stackView
+    }()
     
     private let likesPost: UILabel = {
-        $0.translatesAutoresizingMaskIntoConstraints = false
-        $0.font = UIFont.systemFont(ofSize: 16, weight: .regular)
-        $0.textColor = .black
-        $0.text = "👍 "
-        return $0
-    }(UILabel())
+        let label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.font = UIFont.systemFont(ofSize: 16, weight: .regular)
+        label.textColor = .black
+        label.text = "👍 "
+        return label
+    }()
     
     private let viewsPost: UILabel = {
-        $0.translatesAutoresizingMaskIntoConstraints = false
-        $0.font = UIFont.systemFont(ofSize: 16, weight: .regular)
-        $0.textColor = .black
-        $0.text = "👀 "
-        return $0
-    }(UILabel())
+        let label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.font = UIFont.systemFont(ofSize: 16, weight: .regular)
+        label.textColor = .black
+        label.text = "👀 "
+        return label
+    }()
     
     
     

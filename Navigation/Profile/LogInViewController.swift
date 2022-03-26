@@ -12,48 +12,54 @@ class LogInViewController: UIViewController {
     private let nc = NotificationCenter.default
 
     private let scrollView: UIScrollView = {
-        $0.translatesAutoresizingMaskIntoConstraints = false
-        return $0
-    }(UIScrollView())
+        let scrollView = UIScrollView()
+        scrollView.translatesAutoresizingMaskIntoConstraints = false
+        return scrollView
+    }()
     
     private let contentView: UIView = {
-        $0.translatesAutoresizingMaskIntoConstraints = false
-        return $0
-    }(UIView())
+        let contentView = UIView()
+        contentView.translatesAutoresizingMaskIntoConstraints = false
+        return contentView
+    }()
     
     private let logo: UIImageView = {
-        $0.translatesAutoresizingMaskIntoConstraints = false
-        $0.image = UIImage(named: "logo")
-        return $0
-    }(UIImageView())
+        let imageView = UIImageView()
+        imageView.translatesAutoresizingMaskIntoConstraints = false
+        imageView.image = UIImage(named: "logo")
+        return imageView
+    }()
     
     private lazy var emailTextField: CustomTextField = {
-        $0.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
-        $0.delegate = self
-        return $0
-    }(CustomTextField(placeholder: "Ваша почта"))
+        let textField = CustomTextField(placeholder: "Ваша почта")
+        textField.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
+        textField.delegate = self
+        return textField
+    }()
     
     private lazy var passwordTextField: CustomTextField = {
-        $0.layer.maskedCorners = [.layerMaxXMaxYCorner, .layerMinXMaxYCorner]
-        $0.isSecureTextEntry = true
-        $0.delegate = self
-        return $0
-    }(CustomTextField(placeholder: "Ваш пароль"))
+        let textField = CustomTextField(placeholder: "Ваш пароль")
+        textField.layer.maskedCorners = [.layerMaxXMaxYCorner, .layerMinXMaxYCorner]
+        textField.isSecureTextEntry = true
+        textField.delegate = self
+        return textField
+    }()
     
     private lazy var loginButton: UIButton = {
-        $0.translatesAutoresizingMaskIntoConstraints = false
-        $0.setTitle("Войти", for: .normal)
-        $0.layer.cornerRadius = 10
-        $0.clipsToBounds = true
-        $0.setBackgroundImage(UIImage(named: "blue_pixel"), for: .normal)
-        if $0.isSelected || $0.isHighlighted {
-            $0.alpha = 0.8
+        let button = UIButton(configuration: .filled())
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.setTitle("Войти", for: .normal)
+        button.layer.cornerRadius = 10
+        button.clipsToBounds = true
+        button.setBackgroundImage(UIImage(named: "blue_pixel"), for: .normal)
+        if button.isSelected || button.isHighlighted {
+            button.alpha = 0.8
         } else {
-            $0.alpha = 1
+            button.alpha = 1
         }
-        $0.addTarget(self, action: #selector(pressLoginButton), for: .touchUpInside)
-        return $0
-    }(UIButton(configuration: .filled()))
+        button.addTarget(self, action: #selector(pressLoginButton), for: .touchUpInside)
+        return button
+    }()
 
     
     
