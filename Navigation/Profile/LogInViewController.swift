@@ -94,17 +94,12 @@ class LogInViewController: UIViewController {
     @objc private func keyboardShow(notification: NSNotification) {
         if let keyboardSize =
             (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue {
-            scrollView.contentInset.bottom = keyboardSize.height
-            scrollView.verticalScrollIndicatorInsets = UIEdgeInsets(top: 0,
-                                                                    left: 0,
-                                                                    bottom: keyboardSize.height,
-                                                                    right: 0)
+            scrollView.setContentOffset(CGPoint(x: 0, y: keyboardSize.height), animated: true)
         }
     }
     
     @objc private func keyboardHide() {
-        scrollView.contentInset = .zero
-        scrollView.verticalScrollIndicatorInsets = .zero
+        scrollView.setContentOffset(.zero, animated: true)
     }
     
     @objc private func pressLoginButton(sender: UIButton) {
