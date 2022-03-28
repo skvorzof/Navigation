@@ -11,15 +11,35 @@ class ProfileHeaderView: UIView {
     override init(frame: CGRect) {
         super.init(frame: frame)
         layout()
+        setupGesture()
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
+    private func setupGesture() {
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(animateAvatar))
+        avatarImageView.addGestureRecognizer(tapGesture)
+    }
+    
+    @objc private func animateAvatar() {
+        UIView.animate(withDuration: 0.5, delay: 0.5, animations: {
+            self.avatarImageView.transform = CGAffineTransform(translationX: 100, y: 200)
+        })
+    }
+    
     
     
     private var statusText = "Подожтите..."
+    
+    private let backgroundView: UIView = {
+        let view = UIView()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        view.backgroundColor = .green
+//        view.alpha = 0
+        return view
+    }()
     
     private let avatarImageView: UIImageView = {
         let imageView = UIImageView()
@@ -30,6 +50,7 @@ class ProfileHeaderView: UIView {
         imageView.layer.cornerRadius = 55
         imageView.layer.borderWidth = 3
         imageView.layer.borderColor = UIColor.white.cgColor
+        imageView.isUserInteractionEnabled = true
         return imageView
     }()
     
@@ -101,13 +122,18 @@ class ProfileHeaderView: UIView {
     
     
     private func layout() {
-        [avatarImageView, fullNameLabel, statusLabel, statusTextField, setStatusButton].forEach({addSubview($0)})
+        [backgroundView, avatarImageView, fullNameLabel, statusLabel, statusTextField, setStatusButton].forEach({addSubview($0)})
         
         NSLayoutConstraint.activate([
             avatarImageView.widthAnchor.constraint(equalToConstant: 110),
             avatarImageView.heightAnchor.constraint(equalToConstant: 110),
             avatarImageView.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: 16),
             avatarImageView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16),
+            
+            backgroundView.topAnchor.constraint(equalTo: topAnchor),
+            backgroundView.trailingAnchor.constraint(equalTo: trailingAnchor),
+            backgroundView.bottomAnchor.constraint(equalTo: bottomAnchor),
+            backgroundView.leadingAnchor.constraint(equalTo: leadingAnchor),
 
             fullNameLabel.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: 27),
             fullNameLabel.leadingAnchor.constraint(equalTo: avatarImageView.trailingAnchor, constant: 16),

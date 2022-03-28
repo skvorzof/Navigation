@@ -94,7 +94,7 @@ class LogInViewController: UIViewController {
     @objc private func keyboardShow(notification: NSNotification) {
         if let keyboardSize =
             (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue {
-            scrollView.contentInset.bottom = keyboardSize.height * 1.4
+            scrollView.contentInset.bottom = keyboardSize.height
             scrollView.verticalScrollIndicatorInsets = UIEdgeInsets(top: 0,
                                                                     left: 0,
                                                                     bottom: keyboardSize.height,
