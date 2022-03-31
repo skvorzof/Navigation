@@ -99,11 +99,36 @@
 			path = Navigation;
 			sourceTree = "<group>";
 		};
+		C92AF42C27F45700003EDD4B /* Cells */ = {
+			isa = PBXGroup;
+			children = (
+				C99A81EE27EDD9B90080B6A5 /* PhotoTableViewCell.swift */,
+				C99A81F427EE47810080B6A5 /* PhotoCollectionViewCell.swift */,
+			);
+			path = Cells;
+			sourceTree = "<group>";
+		};
+		C92AF42D27F4571E003EDD4B /* Cells */ = {
+			isa = PBXGroup;
+			children = (
+				C9A3884127E676A700CE4307 /* PostTableViewCell.swift */,
+			);
+			path = Cells;
+			sourceTree = "<group>";
+		};
+		C92AF42E27F45782003EDD4B /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				C94FB4C827D884B4005ABB47 /* ProfileHeaderView.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
 		C94FB4C727D8848D005ABB47 /* Profile */ = {
 			isa = PBXGroup;
 			children = (
+				C92AF42E27F45782003EDD4B /* Views */,
 				C9E1AA7227D0FBCB0021A97A /* ProfileViewController.swift */,
-				C94FB4C827D884B4005ABB47 /* ProfileHeaderView.swift */,
 				C9A3881B27E5C70700CE4307 /* LogInViewController.swift */,
 			);
 			path = Profile;
@@ -113,9 +138,8 @@
 			isa = PBXGroup;
 			children = (
 				C99A81F127EE3AF30080B6A5 /* PhotosViewController.swift */,
-				C99A81EE27EDD9B90080B6A5 /* PhotoTableViewCell.swift */,
 				C918534427ECEAAC00E56528 /* PhotoModel.swift */,
-				C99A81F427EE47810080B6A5 /* PhotoCollectionViewCell.swift */,
+				C92AF42C27F45700003EDD4B /* Cells */,
 			);
 			path = Photo;
 			sourceTree = "<group>";
@@ -123,8 +147,8 @@
 		C99A81F327EE3B5B0080B6A5 /* Post */ = {
 			isa = PBXGroup;
 			children = (
+				C92AF42D27F4571E003EDD4B /* Cells */,
 				C9E1AA7427D0FBF60021A97A /* PostViewController.swift */,
-				C9A3884127E676A700CE4307 /* PostTableViewCell.swift */,
 				C950451627D7C0530091A844 /* PostModel.swift */,
 			);
 			path = Post;

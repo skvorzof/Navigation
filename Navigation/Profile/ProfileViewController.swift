@@ -9,6 +9,7 @@ import UIKit
 
 class ProfileViewController: UIViewController {
     
+    let headerView = ProfileHeaderView()
     let posts = PostModel.makePostModel()
     let photos = PhotoModel.makePhotoModel()
     
@@ -23,11 +24,38 @@ class ProfileViewController: UIViewController {
         return tableView
     }()
     
+    private let overlayView: UIView = {
+        let view = UIView()
+        view.backgroundColor = .black
+        view.alpha = 0
+        view.translatesAutoresizingMaskIntoConstraints = false
+        return view
+    }()
+    
+    private lazy var closeButton: UIButton = {
+        let button = UIButton()
+        let config = UIImage.SymbolConfiguration(pointSize: 30)
+        button.tintColor = .white
+        button.setImage(UIImage(systemName: "xmark.circle", withConfiguration: config), for: .normal)
+        button.alpha = 0
+        button.addTarget(self, action: #selector(animateAvatarOut), for: .touchUpInside)
+        button.translatesAutoresizingMaskIntoConstraints = false
+        return button
+    }()
+    
+    private lazy var avatar = headerView.avatarImageView
+    
+    private var xAvatar = NSLayoutConstraint()
+    private var yAvatar = NSLayoutConstraint()
+    private var widthAvatar = NSLayoutConstraint()
+    private var heightAvatar = NSLayoutConstraint()
+
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
         layout()
+        setupGesture()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -38,14 +66,95 @@ class ProfileViewController: UIViewController {
     
     
     private func layout() {
-        view.addSubview(tableView)
+        [tableView, overlayView, avatar, closeButton].forEach({ view.addSubview($0)})
         
+        xAvatar = avatar.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16)
+        yAvatar = avatar.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 16)
+        widthAvatar = avatar.widthAnchor.constraint(equalToConstant: 110)
+        heightAvatar = avatar.heightAnchor.constraint(equalToConstant: 110)
+
         NSLayoutConstraint.activate([
             tableView.topAnchor.constraint(equalTo: view.topAnchor),
             tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
             tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor)    
+            tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            
+            overlayView.topAnchor.constraint(equalTo: view.topAnchor),
+            overlayView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+            overlayView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            overlayView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            
+            closeButton.topAnchor.constraint(equalTo: overlayView.topAnchor,constant: 16),
+            closeButton.trailingAnchor.constraint(equalTo: overlayView.trailingAnchor, constant: -16),
+            
+            xAvatar,
+            yAvatar,
+            widthAvatar,
+            heightAvatar
         ])
+    }
+    
+    
+    
+    private func setupGesture() {
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(animateAvatarIn))
+        headerView.avatarImageView.addGestureRecognizer(tapGesture)
+    }
+    
+    @objc private func animateAvatarIn() {
+        view.layoutIfNeeded()
+        
+        NSLayoutConstraint.deactivate([xAvatar, yAvatar, widthAvatar, heightAvatar])
+
+        xAvatar = avatar.centerXAnchor.constraint(equalTo: view.centerXAnchor)
+        yAvatar = avatar.centerYAnchor.constraint(equalTo: view.centerYAnchor)
+        widthAvatar = avatar.widthAnchor.constraint(equalTo: view.widthAnchor)
+        heightAvatar = avatar.heightAnchor.constraint(equalTo: view.widthAnchor)
+        
+        NSLayoutConstraint.activate([xAvatar, yAvatar, widthAvatar, heightAvatar])
+        
+        UIView.animate(withDuration: 0.5, delay: 0, animations: {
+            self.tabBarController?.tabBar.isHidden = true
+            self.overlayView.alpha = 0.70
+            self.avatar.layer.borderWidth = 0
+            self.avatar.contentMode = .scaleToFill
+            self.avatar.layer.cornerRadius = 0
+            self.view.layoutIfNeeded()
+        }, completion: {_ in
+            UIView.animate(withDuration: 0.3, delay: 0, animations: {
+                self.closeButton.transform = CGAffineTransform(rotationAngle: 165)
+                self.closeButton.alpha = 1
+            })
+        })
+
+    }
+    
+    @objc private func animateAvatarOut() {
+        view.layoutIfNeeded()
+        
+        NSLayoutConstraint.deactivate([xAvatar, yAvatar, widthAvatar, heightAvatar])
+        
+        widthAvatar = avatar.widthAnchor.constraint(equalToConstant: 110)
+        heightAvatar = avatar.heightAnchor.constraint(equalToConstant: 110)
+        yAvatar = avatar.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 16)
+        xAvatar = avatar.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16)
+        
+        NSLayoutConstraint.activate([xAvatar, yAvatar, widthAvatar, heightAvatar])
+        
+        UIView.animate(withDuration: 0.3, delay: 0, animations: {
+            self.closeButton.transform = .identity
+            self.closeButton.alpha = 0
+            self.avatar.layer.borderWidth = 3
+            self.avatar.layer.cornerRadius = 55
+            self.view.layoutIfNeeded()
+        }, completion: {_ in
+            UIView.animate(withDuration: 0.5, delay: 0, animations: {
+                self.closeButton.alpha = 0
+                self.overlayView.alpha = 0
+                self.tabBarController?.tabBar.isHidden = false
+            })
+        })
+
     }
 }
 
@@ -99,7 +208,6 @@ extension ProfileViewController: UITableViewDataSource {
 extension ProfileViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         if section == 0 {
-            let headerView = ProfileHeaderView()
             return headerView
         }
         return nil
