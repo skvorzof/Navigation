@@ -98,7 +98,7 @@ class ProfileViewController: UIViewController {
     
     private func setupGesture() {
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(animateAvatarIn))
-        headerView.avatarImageView.addGestureRecognizer(tapGesture)
+        avatar.addGestureRecognizer(tapGesture)
     }
     
     @objc private func animateAvatarIn() {
