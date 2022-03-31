@@ -84,7 +84,7 @@ class ProfileViewController: UIViewController {
             overlayView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             overlayView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             
-            closeButton.topAnchor.constraint(equalTo: overlayView.topAnchor,constant: 16),
+            closeButton.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
             closeButton.trailingAnchor.constraint(equalTo: overlayView.trailingAnchor, constant: -16),
             
             xAvatar,
