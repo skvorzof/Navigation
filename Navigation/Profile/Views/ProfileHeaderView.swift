@@ -10,7 +10,14 @@ import UIKit
 class ProfileHeaderView: UIView {
     override init(frame: CGRect) {
         super.init(frame: frame)
-        layout()
+        
+    #if DEBUG
+        backgroundColor = .systemPink
+    #else
+        backgroundColor = .systemGray4
+    #endif
+        
+    layout()
     }
     
     required init?(coder: NSCoder) {
