@@ -7,15 +7,15 @@
 
 import UIKit
 
-struct PostModel {
-    var title: String
-    var author: String
-    var description: String
-    var image: String
-    var likes: Int
-    var views: Int
+public struct PostModel {
+    public var title: String
+    public var author: String
+    public var description: String
+    public var image: String
+    public var likes: Int
+    public var views: Int
     
-    static func makePostModel() -> [PostModel] {
+    public static func makePostModel() -> [PostModel] {
         var model = [PostModel]()
         model.append(PostModel(
             title: "Брат (1997)",
