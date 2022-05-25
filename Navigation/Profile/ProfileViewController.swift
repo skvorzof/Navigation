@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import SnapKit
 import StorageService
 
 class ProfileViewController: UIViewController {
@@ -16,7 +17,6 @@ class ProfileViewController: UIViewController {
     
     private lazy var tableView: UITableView = {
         let tableView = UITableView(frame: .zero, style: .grouped)
-        tableView.translatesAutoresizingMaskIntoConstraints = false
         tableView.dataSource = self
         tableView.delegate = self
         tableView.contentInset.bottom = -40
@@ -29,7 +29,6 @@ class ProfileViewController: UIViewController {
         let view = UIView()
         view.backgroundColor = .black
         view.alpha = 0
-        view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
     
@@ -40,7 +39,6 @@ class ProfileViewController: UIViewController {
         button.setImage(UIImage(systemName: "xmark.circle", withConfiguration: config), for: .normal)
         button.alpha = 0
         button.addTarget(self, action: #selector(animateAvatarOut), for: .touchUpInside)
-        button.translatesAutoresizingMaskIntoConstraints = false
         return button
     }()
     
@@ -69,25 +67,25 @@ class ProfileViewController: UIViewController {
     private func layout() {
         [tableView, overlayView, avatar, closeButton].forEach({ view.addSubview($0)})
         
+        tableView.snp.makeConstraints {
+            $0.top.bottom.leading.trailing.equalToSuperview()
+        }
+        
+        overlayView.snp.makeConstraints {
+            $0.top.bottom.leading.trailing.equalToSuperview()
+        }
+        
+        closeButton.snp.makeConstraints {
+            $0.top.equalTo(view.safeAreaLayoutGuide.snp.top)
+            $0.trailing.equalTo(view).offset(-16)
+        }
+        
         xAvatar = avatar.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16)
         yAvatar = avatar.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 16)
         widthAvatar = avatar.widthAnchor.constraint(equalToConstant: 110)
         heightAvatar = avatar.heightAnchor.constraint(equalToConstant: 110)
 
         NSLayoutConstraint.activate([
-            tableView.topAnchor.constraint(equalTo: view.topAnchor),
-            tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
-            tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            
-            overlayView.topAnchor.constraint(equalTo: view.topAnchor),
-            overlayView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
-            overlayView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            overlayView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            
-            closeButton.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
-            closeButton.trailingAnchor.constraint(equalTo: overlayView.trailingAnchor, constant: -16),
-            
             xAvatar,
             yAvatar,
             widthAvatar,
