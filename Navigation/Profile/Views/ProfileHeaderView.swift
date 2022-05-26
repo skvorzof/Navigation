@@ -10,7 +10,14 @@ import UIKit
 class ProfileHeaderView: UIView {
     override init(frame: CGRect) {
         super.init(frame: frame)
-        layout()
+        
+    #if DEBUG
+        backgroundColor = .systemGray6
+    #else
+        backgroundColor = .systemGray4
+    #endif
+        
+    layout()
     }
     
     required init?(coder: NSCoder) {
@@ -36,7 +43,6 @@ class ProfileHeaderView: UIView {
     
     private let fullNameLabel: UILabel = {
         let label = UILabel()
-        label.translatesAutoresizingMaskIntoConstraints = false
         label.font = UIFont.systemFont(ofSize: 18, weight: .bold)
         label.textColor = .black
         label.text = "МитрофанОглы"
@@ -45,7 +51,6 @@ class ProfileHeaderView: UIView {
     
     private lazy var statusLabel: UILabel = {
         let label = UILabel()
-        label.translatesAutoresizingMaskIntoConstraints = false
         label.font = UIFont.systemFont(ofSize: 14, weight: .regular)
         label.textColor = .gray
         label.text = statusText
@@ -54,7 +59,6 @@ class ProfileHeaderView: UIView {
     
     private lazy var statusTextField: UITextField = {
        let textField = UITextField()
-        textField.translatesAutoresizingMaskIntoConstraints = false
         textField.backgroundColor = .white
         textField.font = UIFont.systemFont(ofSize: 15, weight: .regular)
         textField.textColor = .black
@@ -71,7 +75,6 @@ class ProfileHeaderView: UIView {
     
     private lazy var setStatusButton: UIButton = {
         let button = UIButton()
-        button.translatesAutoresizingMaskIntoConstraints = false
         button.setTitle("Показать статус", for: .normal)
         button.titleLabel?.font = .systemFont(ofSize: 14)
         button.backgroundColor = UIColor(named: "AccentColor")
@@ -106,23 +109,28 @@ class ProfileHeaderView: UIView {
     private func layout() {
         [fullNameLabel, statusLabel, statusTextField, setStatusButton].forEach({addSubview($0)})
         
-        NSLayoutConstraint.activate([
-            fullNameLabel.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: 27),
-            fullNameLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 132),
-
-            statusLabel.topAnchor.constraint(equalTo: fullNameLabel.bottomAnchor, constant: 43),
-            statusLabel.leadingAnchor.constraint(equalTo: fullNameLabel.leadingAnchor),
-
-            statusTextField.heightAnchor.constraint(equalToConstant: 40),
-            statusTextField.topAnchor.constraint(equalTo: statusLabel.bottomAnchor, constant: 7),
-            statusTextField.leadingAnchor.constraint(equalTo: statusLabel.leadingAnchor),
-            statusTextField.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16),
-
-            setStatusButton.heightAnchor.constraint(equalToConstant: 50),
-            setStatusButton.topAnchor.constraint(equalTo: statusTextField.bottomAnchor, constant: 16),
-            setStatusButton.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16),
-            setStatusButton.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16),
-        ])
+        fullNameLabel.snp.makeConstraints {
+            $0.top.equalTo(safeAreaLayoutGuide.snp.top).offset(27)
+            $0.leading.equalToSuperview().offset(132)
+        }
+        
+        statusLabel.snp.makeConstraints {
+            $0.top.equalTo(fullNameLabel.snp.bottom).offset(43)
+            $0.leading.equalTo(fullNameLabel)
+        }
+        
+        statusTextField.snp.makeConstraints {
+            $0.height.equalTo(40)
+            $0.top.equalTo(statusLabel.snp.bottom).offset(7)
+            $0.leading.equalTo(statusLabel)
+            $0.trailing.equalToSuperview().offset(-16)
+        }
+        
+        setStatusButton.snp.makeConstraints {
+            $0.height.equalTo(50)
+            $0.top.equalTo(statusTextField.snp.bottom).offset(16)
+            $0.leading.trailing.equalToSuperview().inset(16)
+        }
     }
 }
 
