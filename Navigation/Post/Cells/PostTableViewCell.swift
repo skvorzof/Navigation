@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import iOSIntPackage
 import StorageService
 
 class PostTableViewCell: UITableViewCell {
@@ -91,10 +92,16 @@ class PostTableViewCell: UITableViewCell {
     
     
     func setupCell(model: PostModel) {
+        guard let sourceImage = UIImage(named: model.image) else {return}
+        let imageProcessor = ImageProcessor()
+        imageProcessor.processImage(
+            sourceImage: sourceImage,
+            filter: .sepia(intensity: 2)) {image in
+                imagePost.image = image
+            }
         titlePost.text = model.title
         authorPost.text? += model.author
         descriptionPost.text = model.description
-        imagePost.image = UIImage(named: model.image)
         likesPost.text? += String(model.likes)
         viewsPost.text? += String(model.views)
     }
