@@ -12,9 +12,9 @@ class ProfileHeaderView: UIView {
         super.init(frame: frame)
         
     #if DEBUG
-        backgroundColor = .systemGray6
+        backgroundColor = UIColor(red: 243.0/255.0, green: 230.0/255.0, blue: 139.0/255.0, alpha: 1.0)
     #else
-        backgroundColor = .systemGray4
+        backgroundColor = .systemGray6
     #endif
         
     layout()
@@ -41,7 +41,7 @@ class ProfileHeaderView: UIView {
         return imageView
     }()
     
-    private let fullNameLabel: UILabel = {
+    let fullNameLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont.systemFont(ofSize: 18, weight: .bold)
         label.textColor = .black

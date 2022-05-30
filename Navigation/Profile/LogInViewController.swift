@@ -103,9 +103,17 @@ class LogInViewController: UIViewController {
     }
     
     @objc private func pressLoginButton(sender: UIButton) {
+        guard let login = emailTextField.text else { return }
+        #if DEBUG
+            let userService = TestUserService()
+        #else
+            let userService = CurrentUserService()
+        #endif
         sender.isSelected = !sender.isSelected
         sender.isHighlighted = !sender.isHighlighted
-        navigationController?.pushViewController(ProfileViewController(), animated: true)
+        navigationController?.pushViewController(
+            ProfileViewController(userService: userService, loginName: login),
+            animated: true)
     }
     
     

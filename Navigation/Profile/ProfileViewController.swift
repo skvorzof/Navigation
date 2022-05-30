@@ -14,6 +14,8 @@ class ProfileViewController: UIViewController {
     let headerView = ProfileHeaderView()
     let posts = PostModel.makePostModel()
     let photos = PhotoModel.makePhotoModel()
+    private var userService: UserService
+    
     
     private lazy var tableView: UITableView = {
         let tableView = UITableView(frame: .zero, style: .grouped)
@@ -61,7 +63,20 @@ class ProfileViewController: UIViewController {
         super.viewWillAppear(animated)
         navigationController?.navigationBar.isHidden = true
     }
+    
+    
+    
+    init(userService: UserService, loginName: String) {
+        self.userService = userService
+        super.init(nibName: nil, bundle: nil)
+        guard let user = self.userService.userService(userName: loginName) else { return }
+        headerView.fullNameLabel.text = user.fullName
+    }
 
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     
     
     private func layout() {
