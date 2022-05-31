@@ -94,9 +94,9 @@ class PostTableViewCell: UITableViewCell {
     func setupCell(model: PostModel) {
         guard let sourceImage = UIImage(named: model.image) else {return}
         let imageProcessor = ImageProcessor()
-        imageProcessor.processImage(
-            sourceImage: sourceImage,
-            filter: .sepia(intensity: 2)) {image in
+        let randomFilter = ColorFilter.allCases.randomElement() ?? .posterize
+        print(randomFilter)
+        imageProcessor.processImage(sourceImage: sourceImage, filter: randomFilter) {image in
                 imagePost.image = image
             }
         titlePost.text = model.title
