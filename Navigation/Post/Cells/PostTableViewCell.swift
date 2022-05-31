@@ -95,7 +95,6 @@ class PostTableViewCell: UITableViewCell {
         guard let sourceImage = UIImage(named: model.image) else {return}
         let imageProcessor = ImageProcessor()
         let randomFilter = ColorFilter.allCases.randomElement() ?? .posterize
-        print(randomFilter)
         imageProcessor.processImage(sourceImage: sourceImage, filter: randomFilter) {image in
                 imagePost.image = image
             }
