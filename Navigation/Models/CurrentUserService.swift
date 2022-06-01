@@ -5,7 +5,7 @@
 //  Created by mitr on 27.05.2022.
 //
 
-import Foundation
+import UIKit
 
 final class CurrentUserService: UserService {
     private let user: User

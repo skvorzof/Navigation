@@ -5,7 +5,7 @@
 //  Created by mitr on 30.05.2022.
 //
 
-import Foundation
+import UIKit
 
 final class TestUserService: UserService {
     let user = User(fullName: "Тестовый пользователь", avatar: "testAvatar", status: "testUser")

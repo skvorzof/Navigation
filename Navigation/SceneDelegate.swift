@@ -10,7 +10,7 @@ import UIKit
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
     var window: UIWindow?
-
+    var loginInspector: LoginInspector!
 
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
         // Use this method to optionally configure and attach the UIWindow `window` to the provided UIWindowScene `scene`.
@@ -18,9 +18,26 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // This delegate does not imply the connecting scene or session are new (see `application:configurationForConnectingSceneSession` instead).
         guard let startScene = (scene as? UIWindowScene) else { return }
         let window = UIWindow(windowScene: startScene)
-        let home = TabBarController()
-        home.tabBar.backgroundColor = .white
-        window.rootViewController = home
+        let tabBarController = UITabBarController()
+        let loginViewController = LoginViewController()
+        let feedViewController = FeedViewController()
+        loginInspector = LoginInspector()
+
+        loginViewController.delegate = loginInspector
+
+        let feed = UINavigationController(rootViewController: feedViewController)
+        feed.tabBarItem.title = "Лента"
+        feed.tabBarItem.image = UIImage(systemName: "house.fill")!
+        
+        let profile = UINavigationController(rootViewController: loginViewController)
+        profile.tabBarItem.title = "Профиль"
+        profile.tabBarItem.image = UIImage(systemName: "person.fill")!
+        
+        tabBarController.viewControllers = [feed, profile]
+        tabBarController.tabBar.backgroundColor = .white
+        tabBarController.selectedIndex = 1
+        window.rootViewController = tabBarController
+        
         self.window = window
         window.makeKeyAndVisible()
     }

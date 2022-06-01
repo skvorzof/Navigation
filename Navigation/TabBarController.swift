@@ -17,13 +17,12 @@ class TabBarController: UITabBarController {
     
     func createTabBarControllers() {
         viewControllers = [
+            createNavController(for: LoginViewController(),
+                                   title: "Профиль",
+                                   image: UIImage(systemName: "person.fill")!),
             createNavController(for: FeedViewController(),
                                    title: "Лента",
-                                   image: UIImage(systemName: "house.fill")!),
-            
-            createNavController(for: LogInViewController(),
-                                   title: "Профиль",
-                                   image: UIImage(systemName: "person.fill")!)
+                                   image: UIImage(systemName: "house.fill")!)
         ]
     }
     

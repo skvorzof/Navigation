@@ -8,7 +8,13 @@
 import UIKit
 import SnapKit
 
-class LogInViewController: UIViewController {
+protocol LoginViewControllerDelegate: AnyObject {
+    func checkerLoginInspector(login: String, password: String) -> Bool
+}
+
+class LoginViewController: UIViewController {
+    
+    weak var delegate: LoginViewControllerDelegate?
     
     private let nc = NotificationCenter.default
 
@@ -103,17 +109,28 @@ class LogInViewController: UIViewController {
     }
     
     @objc private func pressLoginButton(sender: UIButton) {
-        guard let login = emailTextField.text else { return }
-        #if DEBUG
-            let userService = TestUserService()
-        #else
-            let userService = CurrentUserService()
-        #endif
         sender.isSelected = !sender.isSelected
         sender.isHighlighted = !sender.isHighlighted
-        navigationController?.pushViewController(
-            ProfileViewController(userService: userService, loginName: login),
-            animated: true)
+        
+        guard let login = emailTextField.text, let password = passwordTextField.text else { return }
+        #if DEBUG
+        let isLoginOk = true
+        let userService = TestUserService()
+        #else
+        guard let isLoginOk = delegate?.checkerLoginInspector(login: login, password: password) else { return }
+        let userService = CurrentUserService()
+        #endif
+        
+        if isLoginOk {
+            navigationController?.pushViewController(
+                ProfileViewController(userService: userService, loginName: login),
+                animated: true)
+        } else {
+            let alert = UIAlertController(title: "Ошибка", message: "Неправильный логин или пароль", preferredStyle: .alert)
+            let ok = UIAlertAction(title: "Ok", style: .default)
+            alert.addAction(ok)
+            present(alert, animated: true)
+        }
     }
     
     
@@ -160,7 +177,7 @@ class LogInViewController: UIViewController {
 
 
 
-extension LogInViewController: UITextFieldDelegate {
+extension LoginViewController: UITextFieldDelegate {
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         view.endEditing(true)
         return true
