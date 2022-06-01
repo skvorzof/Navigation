@@ -14,7 +14,7 @@ protocol LoginViewControllerDelegate: AnyObject {
 
 class LoginViewController: UIViewController {
     
-    weak var delegate: LoginViewControllerDelegate?
+    var delegate: LoginViewControllerDelegate?
     
     private let nc = NotificationCenter.default
 

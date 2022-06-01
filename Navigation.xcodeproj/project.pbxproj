@@ -169,10 +169,9 @@
 		C9164FE927D0F57400034102 /* Navigation */ = {
 			isa = PBXGroup;
 			children = (
+				C9AB50B12847A40B001DF1CC /* Factory */,
 				C9AB5066284659D3001DF1CC /* Checker.swift */,
 				C9AB506828465DC8001DF1CC /* LoginInspector.swift */,
-				C9AB506A284668BB001DF1CC /* LoginFactory.swift */,
-				C9AB506C28466918001DF1CC /* MyLoginFactory.swift */,
 				C94C3C35284116FC00F4DE92 /* Models */,
 				C94FB4C727D8848D005ABB47 /* Profile */,
 				C9164FEA27D0F57400034102 /* AppDelegate.swift */,
@@ -253,6 +252,15 @@
 				C9E1AA7427D0FBF60021A97A /* PostViewController.swift */,
 			);
 			path = Post;
+			sourceTree = "<group>";
+		};
+		C9AB50B12847A40B001DF1CC /* Factory */ = {
+			isa = PBXGroup;
+			children = (
+				C9AB506A284668BB001DF1CC /* LoginFactory.swift */,
+				C9AB506C28466918001DF1CC /* MyLoginFactory.swift */,
+			);
+			path = Factory;
 			sourceTree = "<group>";
 		};
 		D31E52320234A494430FF12F /* Frameworks */ = {
