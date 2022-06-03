@@ -6,10 +6,12 @@
 //
 
 import UIKit
+import iOSIntPackage
 
 class PhotosViewController: UIViewController {
     
-    private let photos = PhotoModel.makePhotoModel()
+    private var photos = [UIImage]()
+    private var imagePublisherFacade: ImagePublisherFacade?
     private let offset: CGFloat = 8
     
     private lazy var collectionView: UICollectionView = {
@@ -26,6 +28,8 @@ class PhotosViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        imagePublisherFacade = ImagePublisherFacade()
+        imagePublisherFacade?.addImagesWithTimer(time: 0.1, repeat: 30)
         view.backgroundColor = .orange
         title = "Галерея"
         layout()
@@ -37,6 +41,12 @@ class PhotosViewController: UIViewController {
         let appearance = UINavigationBarAppearance()
         appearance.backgroundColor = .white
         navigationController?.navigationBar.scrollEdgeAppearance = appearance
+        imagePublisherFacade?.subscribe(self)
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        imagePublisherFacade?.removeSubscription(for: self)
+        imagePublisherFacade?.rechargeImageLibrary()
     }
     
     
@@ -58,12 +68,19 @@ class PhotosViewController: UIViewController {
 extension PhotosViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: PhotoCollectionViewCell.identifier, for: indexPath) as! PhotoCollectionViewCell
-        cell.setupCell(model: photos[indexPath.item])
+        cell.photoCell.image = photos[indexPath.item]
         return cell
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         photos.count
+    }
+}
+
+extension PhotosViewController: ImageLibrarySubscriber {
+    func receive(images: [UIImage]) {
+        photos = images
+        collectionView.reloadData()
     }
 }
 
