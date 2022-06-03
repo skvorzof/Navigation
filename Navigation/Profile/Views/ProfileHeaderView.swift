@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import SnapKit
 
 class ProfileHeaderView: UIView {
     override init(frame: CGRect) {
@@ -17,7 +18,8 @@ class ProfileHeaderView: UIView {
         backgroundColor = .systemGray6
     #endif
         
-    layout()
+        layout()
+        setupGesture()
     }
     
     required init?(coder: NSCoder) {
@@ -88,6 +90,28 @@ class ProfileHeaderView: UIView {
         return button
     }()
     
+    private let overlayView: UIView = {
+        let view = UIView()
+        view.backgroundColor = .black
+        view.alpha = 0
+        return view
+    }()
+    
+    private lazy var closeButton: UIButton = {
+        let button = UIButton()
+        let config = UIImage.SymbolConfiguration(pointSize: 30)
+        button.tintColor = .white
+        button.setImage(UIImage(systemName: "xmark.circle", withConfiguration: config), for: .normal)
+        button.alpha = 0
+        button.addTarget(self, action: #selector(animateAvatarOut), for: .touchUpInside)
+        return button
+    }()
+    
+    private var xAvatar = NSLayoutConstraint()
+    private var yAvatar = NSLayoutConstraint()
+    private var widthAvatar = NSLayoutConstraint()
+    private var heightAvatar = NSLayoutConstraint()
+    
     
     
     @objc func statusTextChanged(_ textField: UITextField) {
@@ -107,7 +131,7 @@ class ProfileHeaderView: UIView {
     
 
     private func layout() {
-        [fullNameLabel, statusLabel, statusTextField, setStatusButton].forEach({addSubview($0)})
+        [fullNameLabel, statusLabel, statusTextField, setStatusButton, overlayView, avatarImageView, closeButton].forEach({addSubview($0)})
         
         fullNameLabel.snp.makeConstraints {
             $0.top.equalTo(safeAreaLayoutGuide.snp.top).offset(27)
@@ -131,6 +155,93 @@ class ProfileHeaderView: UIView {
             $0.top.equalTo(statusTextField.snp.bottom).offset(16)
             $0.leading.trailing.equalToSuperview().inset(16)
         }
+        
+        
+        
+        overlayView.snp.makeConstraints {
+            $0.top.bottom.leading.trailing.equalToSuperview()
+        }
+        
+        closeButton.snp.makeConstraints {
+            $0.top.equalTo(safeAreaLayoutGuide.snp.top)
+            $0.trailing.equalToSuperview().offset(-16)
+        }
+        
+        xAvatar = avatarImageView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16)
+        yAvatar = avatarImageView.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: 16)
+        widthAvatar = avatarImageView.widthAnchor.constraint(equalToConstant: 110)
+        heightAvatar = avatarImageView.heightAnchor.constraint(equalToConstant: 110)
+
+        NSLayoutConstraint.activate([
+            xAvatar,
+            yAvatar,
+            widthAvatar,
+            heightAvatar
+        ])
+    }
+    
+    
+    
+    private func setupGesture() {
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(animateAvatarIn))
+        avatarImageView.addGestureRecognizer(tapGesture)
+    }
+    
+    
+    @objc private func animateAvatarIn() {
+        layoutIfNeeded()
+        
+        NSLayoutConstraint.deactivate([xAvatar, yAvatar, widthAvatar, heightAvatar])
+
+        xAvatar = avatarImageView.centerXAnchor.constraint(equalTo: centerXAnchor)
+        yAvatar = avatarImageView.centerYAnchor.constraint(equalTo: centerYAnchor)
+        widthAvatar = avatarImageView.widthAnchor.constraint(equalTo: widthAnchor)
+        heightAvatar = avatarImageView.heightAnchor.constraint(equalTo: widthAnchor)
+        
+        NSLayoutConstraint.activate([xAvatar, yAvatar, widthAvatar, heightAvatar])
+        
+        UIView.animate(withDuration: 0.5, delay: 0, animations: {
+//            self.tabBarController?.tabBar.isHidden = true
+            self.overlayView.alpha = 0.70
+            self.avatarImageView.layer.borderWidth = 0
+            self.avatarImageView.contentMode = .scaleToFill
+            self.avatarImageView.layer.cornerRadius = 0
+            self.layoutIfNeeded()
+        }, completion: {_ in
+            UIView.animate(withDuration: 0.3, delay: 0, animations: {
+                self.closeButton.transform = CGAffineTransform(rotationAngle: 165)
+                self.closeButton.alpha = 1
+            })
+        })
+
+    }
+    
+    @objc private func animateAvatarOut() {
+        layoutIfNeeded()
+        
+        NSLayoutConstraint.deactivate([xAvatar, yAvatar, widthAvatar, heightAvatar])
+        
+        widthAvatar = avatarImageView.widthAnchor.constraint(equalToConstant: 110)
+        heightAvatar = avatarImageView.heightAnchor.constraint(equalToConstant: 110)
+        yAvatar = avatarImageView.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: 16)
+        xAvatar = avatarImageView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16)
+        
+        NSLayoutConstraint.activate([xAvatar, yAvatar, widthAvatar, heightAvatar])
+        
+        UIView.animate(withDuration: 0.3, delay: 0, animations: {
+            self.closeButton.transform = .identity
+            self.closeButton.alpha = 0
+            self.avatarImageView.layer.borderWidth = 3
+            self.avatarImageView.layer.cornerRadius = 55
+            self.layoutIfNeeded()
+        }, completion: {_ in
+            UIView.animate(withDuration: 0.5, delay: 0, animations: {
+                self.closeButton.alpha = 0
+                self.overlayView.alpha = 0
+//                self.tabBarController?.tabBar.isHidden = false
+            })
+        })
+
     }
 }
 
