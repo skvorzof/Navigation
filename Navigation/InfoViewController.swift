@@ -6,13 +6,12 @@
 //
 
 import UIKit
+import SnapKit
 
 class InfoViewController: UIViewController {
     
-    lazy var button: UIButton = {
-        let button = UIButton(frame: CGRect(x: 0, y: 0, width: 200, height: 30))
-        button.backgroundColor = .systemBlue
-        button.setTitle("Предупреждение", for: .normal)
+    lazy var button: CustomButton = {
+        let button = CustomButton(title: "Предупреждение", titleColor: .white, backColor: .red)
         button.addTarget(self, action: #selector(tap), for: .touchUpInside)
         return button
     }()
@@ -27,6 +26,11 @@ class InfoViewController: UIViewController {
     private func addButton() {
         button.center = view.center
         view.addSubview(button)
+        button.snp.makeConstraints {
+            $0.width.equalTo(200)
+            $0.height.equalTo(40)
+            $0.center.equalToSuperview()
+        }
     }
     
     @objc private func tap(sender: UIButton) {

@@ -18,6 +18,7 @@ class ProfileHeaderView: UIView {
         backgroundColor = .systemGray6
     #endif
         
+        taps()
         layout()
         setupGesture()
     }
@@ -75,9 +76,8 @@ class ProfileHeaderView: UIView {
         return textField
     }()
     
-    private lazy var setStatusButton: UIButton = {
-        let button = UIButton()
-        button.setTitle("Показать статус", for: .normal)
+    private lazy var setStatusButton: CustomButton = {
+        let button = CustomButton(title: "Показать статус", titleColor: .white, backColor: .blue)
         button.titleLabel?.font = .systemFont(ofSize: 14)
         button.backgroundColor = UIColor(named: "AccentColor")
         button.layer.cornerRadius = 12
@@ -86,7 +86,6 @@ class ProfileHeaderView: UIView {
         button.layer.shadowRadius = 4
         button.layer.shadowColor = UIColor.black.cgColor
         button.layer.shadowOpacity = 0.6
-        button.addTarget(self, action: #selector(buttonPressed), for: .touchUpInside)
         return button
     }()
     
@@ -123,13 +122,15 @@ class ProfileHeaderView: UIView {
         }
     }
     
-    @objc private func buttonPressed() {
-        statusLabel.text = statusText
-        setStatusButton.setTitle("Показать статус", for: .normal)
+    
+    
+    private func taps() {
+        setStatusButton.tapAction = { [weak self] in
+            self?.statusLabel.text = self?.statusText
+            self?.setStatusButton.setTitle("Показать статус", for: .normal)
+        }
     }
     
-    
-
     private func layout() {
         [fullNameLabel, statusLabel, statusTextField, setStatusButton, overlayView, avatarImageView, closeButton].forEach({addSubview($0)})
         

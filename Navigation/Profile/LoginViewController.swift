@@ -51,11 +51,10 @@ class LoginViewController: UIViewController {
         return textField
     }()
     
-    private lazy var loginButton: UIButton = {
-        let button = UIButton(configuration: .filled())
+    private lazy var loginButton: CustomButton = {
+        let button = CustomButton(title: "Войти", titleColor: .white, backColor: .blue)
         button.translatesAutoresizingMaskIntoConstraints = false
-        button.setTitle("Войти", for: .normal)
-        button.layer.cornerRadius = 10
+//        button.layer.cornerRadius = 10
         button.clipsToBounds = true
         button.setBackgroundImage(UIImage(named: "blue_pixel"), for: .normal)
         if button.isSelected || button.isHighlighted {

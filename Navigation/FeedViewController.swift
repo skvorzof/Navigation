@@ -12,6 +12,7 @@ class FeedViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .systemBackground
+        taps()
         layout()
     }
     
@@ -32,28 +33,30 @@ class FeedViewController: UIViewController {
         return stackView
     }()
     
-    private lazy var leftButton: UIButton = {
-        let button = UIButton()
-        button.backgroundColor = .systemBlue
-        button.setTitle("Смотреть запись", for: .normal)
+    private lazy var leftButton: CustomButton = {
+        let button = CustomButton(title: "Первая", titleColor: .black, backColor: .yellow)
         button.titleLabel?.font = .systemFont(ofSize: 14)
-        button.addTarget(self, action: #selector(tap), for: .touchUpInside)
         return button
     }()
     
-    private lazy var rightButton: UIButton = {
-        let button = UIButton()
-        button.backgroundColor = .lightGray
-        button.setTitle("Смотреть запись", for: .normal)
+    private lazy var rightButton: CustomButton = {
+        let button = CustomButton(title: "Вторая", titleColor: .white, backColor: .brown)
         button.titleLabel?.font = .systemFont(ofSize: 14)
-        button.addTarget(self, action: #selector(tap), for: .touchUpInside)
         return button
     }()
     
     
-    @objc private func tap(sender: UIButton) {
-        let infoVC = InfoViewController()        
-        navigationController?.pushViewController(infoVC, animated: true)
+    
+    private func taps() {
+        leftButton.tapAction = { [weak self] in
+            let infoVC = InfoViewController()
+            self?.navigationController?.pushViewController(infoVC, animated: true)
+        }
+        
+        rightButton.tapAction = { [weak self] in
+            let infoVC = InfoViewController()
+            self?.navigationController?.pushViewController(infoVC, animated: true)
+        }
     }
     
     
