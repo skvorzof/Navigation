@@ -30,7 +30,6 @@ class PhotosViewController: UIViewController {
         super.viewDidLoad()
         imagePublisherFacade = ImagePublisherFacade()
         imagePublisherFacade?.addImagesWithTimer(time: 0.1, repeat: 30)
-        view.backgroundColor = .orange
         title = "Галерея"
         layout()
     }
