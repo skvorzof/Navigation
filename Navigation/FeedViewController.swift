@@ -8,6 +8,8 @@
 import UIKit
 
 class FeedViewController: UIViewController {
+    
+    private let passwordModel = PasswordModel()
         
     private let stackView: UIStackView = {
         let stackView = UIStackView()
@@ -87,8 +89,8 @@ class FeedViewController: UIViewController {
         
         checkButton.tapAction = { [weak self] in
             guard let password = self?.textField.text else { return }
-            let passwordModel = PasswordModel(word: password)
-            if passwordModel.check() {
+            guard let isCheck = self?.passwordModel.check(password: password) else { return }
+            if isCheck {
                 self?.textLabel.text = "Верно"
                 self?.textLabel.textColor = .systemGreen
             } else {

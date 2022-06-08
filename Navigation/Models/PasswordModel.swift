@@ -9,16 +9,9 @@ import Foundation
 
 
 final class PasswordModel {
-    private let word: String
+    private let word = "pass"
     
-    init(word: String) {
-        self.word = word
-    }
-    
-    func check() -> Bool {
-        if word == "pass" {
-            return true
-        }
-        return false
+    func check(password: String) -> Bool {
+        password == word
     }
 }
