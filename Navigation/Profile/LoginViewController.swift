@@ -54,7 +54,6 @@ class LoginViewController: UIViewController {
     private lazy var loginButton: CustomButton = {
         let button = CustomButton(title: "Войти", titleColor: .white, backColor: .blue)
         button.translatesAutoresizingMaskIntoConstraints = false
-//        button.layer.cornerRadius = 10
         button.clipsToBounds = true
         button.setBackgroundImage(UIImage(named: "blue_pixel"), for: .normal)
         if button.isSelected || button.isHighlighted {

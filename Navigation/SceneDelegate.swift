@@ -33,7 +33,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         
         tabBarController.viewControllers = [feed, profile]
         tabBarController.tabBar.backgroundColor = .white
-        tabBarController.selectedIndex = 1
+        tabBarController.selectedIndex = 0
         window.rootViewController = tabBarController
         self.window = window
         window.makeKeyAndVisible()
