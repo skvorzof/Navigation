@@ -9,6 +9,8 @@ import UIKit
 
 class FeedViewController: UIViewController {
     
+    var showDetailRequested: (() -> Void)?
+    
     private let passwordModel = PasswordModel()
         
     private let stackView: UIStackView = {
@@ -78,13 +80,11 @@ class FeedViewController: UIViewController {
     
     private func taps() {
         leftButton.tapAction = { [weak self] in
-            let infoVC = InfoViewController()
-            self?.navigationController?.pushViewController(infoVC, animated: true)
+            self?.showDetailRequested?()
         }
         
         rightButton.tapAction = { [weak self] in
-            let infoVC = InfoViewController()
-            self?.navigationController?.pushViewController(infoVC, animated: true)
+            self?.showDetailRequested?()
         }
         
         checkButton.tapAction = { [weak self] in
@@ -110,7 +110,6 @@ class FeedViewController: UIViewController {
             $0.leading.trailing.equalToSuperview().inset(32)
         }
         textField.snp.makeConstraints {
-            $0.width.equalTo(200)
             $0.height.equalTo(40)
             $0.centerY.equalToSuperview()
             $0.leading.trailing.equalToSuperview().inset(32)
