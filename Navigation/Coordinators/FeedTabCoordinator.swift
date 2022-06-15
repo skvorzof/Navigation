@@ -9,13 +9,12 @@ import UIKit
 
 final class FeedTabCoordinator: NSObject, CoordinatorProtocol {
     
-    var rootViewController: UINavigationController
+    let rootViewController = UINavigationController()
     
     private let feedViewController = FeedViewController()
         
     
     override init() {
-        rootViewController = UINavigationController()
         super.init()
         feedViewController.showDetailRequested = {[weak self] in
             self?.goToDetail()
