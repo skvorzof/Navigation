@@ -35,7 +35,7 @@ final class MainCoordinator: CoordinatorProtocol {
         
         
         self.rootViewController.viewControllers = [firstViewController, secondViewController]
-        self.rootViewController.selectedIndex = 0
+        self.rootViewController.selectedIndex = 1
     }
     
     
