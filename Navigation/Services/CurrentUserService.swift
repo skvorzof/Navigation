@@ -15,9 +15,6 @@ final class CurrentUserService: UserService {
     }
     
     func userService(userName: String) -> User? {
-        if userName == user.fullName {
-            return user
-        }
-        return nil
+        userName == user.fullName ? user: nil
     }
 }

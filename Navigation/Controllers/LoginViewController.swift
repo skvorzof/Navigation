@@ -71,6 +71,7 @@ class LoginViewController: UIViewController {
         super.viewDidLoad()
         view.backgroundColor = .white
         layout()
+        tap()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -109,25 +110,35 @@ class LoginViewController: UIViewController {
     @objc private func pressLoginButton(sender: UIButton) {
         sender.isSelected = !sender.isSelected
         sender.isHighlighted = !sender.isHighlighted
-        
-        guard let login = emailTextField.text, let password = passwordTextField.text else { return }
-        #if DEBUG
-        let isLoginOk = true
-        let userService = TestUserService()
-        #else
-        guard let isLoginOk = delegate?.checkerLoginInspector(login: login, password: password) else { return }
-        let userService = CurrentUserService()
-        #endif
-        
-        if isLoginOk {
-            navigationController?.pushViewController(
-                ProfileViewController(userService: userService, loginName: login),
-                animated: true)
-        } else {
-            let alert = UIAlertController(title: "Ошибка", message: "Неправильный логин или пароль", preferredStyle: .alert)
-            let ok = UIAlertAction(title: "Ok", style: .default)
-            alert.addAction(ok)
-            present(alert, animated: true)
+    }
+    
+    private func tap() {
+        loginButton.tapAction = {[weak self] in
+            guard let login = self?.emailTextField.text,
+                  let password = self?.passwordTextField.text else { return }
+            
+            #if DEBUG
+            
+            let isLoginOk = true
+            let userService = TestUserService()
+            
+            #else
+            
+            guard let isLoginOk = self?.delegate?.checkerLoginInspector(login: login, password: password) else { return }
+            let userService = CurrentUserService()
+            
+            #endif
+            
+            if isLoginOk {
+                self?.navigationController?.pushViewController(
+                    ProfileViewController(userService: userService, loginName: login),
+                    animated: true)
+            } else {
+                let alert = UIAlertController(title: "Ошибка", message: "Неправильный логин или пароль", preferredStyle: .alert)
+                let ok = UIAlertAction(title: "Ok", style: .default)
+                alert.addAction(ok)
+                self?.present(alert, animated: true)
+            }
         }
     }
     

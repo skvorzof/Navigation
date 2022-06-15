@@ -8,18 +8,17 @@
 import Foundation
 import UIKit
 
-final class ProfileTabCoordinator: NSObject, CoordinatorProtocol {
+final class ProfileTabCoordinator: CoordinatorProtocol {
     
-    var rootViewController: UINavigationController
+    let rootViewController = UINavigationController()
     private let loginViewController = LoginViewController()
+    private let myLoginFactory = MyLoginFactory()
     
-    
-    override init() {
-        rootViewController = UINavigationController()
-        super.init()
+    init() {
+        loginViewController.delegate = myLoginFactory.makeLoginFactory()
     }
     
-    
+
     func start() {
         rootViewController.setViewControllers([loginViewController], animated: false)
     }
