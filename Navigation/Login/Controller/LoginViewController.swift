@@ -131,8 +131,8 @@ class LoginViewController: UIViewController {
             
             if isLoginOk {
                 self?.navigationController?.pushViewController(
-                    ProfileViewController(userService: userService, loginName: login),
-                    animated: true)
+                    ProfileViewController(postViewModel: PostViewModel(), userService: userService, loginName: login),
+                    animated: false)
             } else {
                 let alert = UIAlertController(title: "Ошибка", message: "Неправильный логин или пароль", preferredStyle: .alert)
                 let ok = UIAlertAction(title: "Ok", style: .default)

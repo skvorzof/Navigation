@@ -11,15 +11,21 @@ import StorageService
 
 class ProfileViewController: UIViewController {
     
-    let posts = PostModel.makePostModel()
+    private let postViewModel: PostViewModel
+    
+    private var  posts = [Post]()
+    
     let photos = PhotoModel.makePhotoModel()
     let headerView = ProfileHeaderView()
     private lazy var avatar = headerView.avatarImageView
     private var userService: UserService
     
     
+    private let activityIndicator = UIActivityIndicatorView(style: .medium)
+    
     private lazy var tableView: UITableView = {
         let tableView = UITableView(frame: .zero, style: .grouped)
+        tableView.alpha = 0.0
         tableView.dataSource = self
         tableView.delegate = self
         tableView.contentInset.bottom = -40
@@ -27,22 +33,11 @@ class ProfileViewController: UIViewController {
         tableView.register(PostTableViewCell.self, forCellReuseIdentifier: PostTableViewCell.identifier)
         return tableView
     }()
-        
-
-
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        layout()
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        navigationController?.navigationBar.isHidden = true
-    }
     
     
     
-    init(userService: UserService, loginName: String) {
+    init(postViewModel: PostViewModel, userService: UserService, loginName: String) {
+        self.postViewModel = postViewModel
         self.userService = userService
         super.init(nibName: nil, bundle: nil)
         guard let user = self.userService.userService(userName: loginName) else { return }
@@ -53,11 +48,52 @@ class ProfileViewController: UIViewController {
         fatalError("init(coder:) has not been implemented")
     }
     
+        
+
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        layout()
+        setupViewModel()
+        postViewModel.changeState(.viewIsReady)
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        navigationController?.navigationBar.isHidden = true
+    }
+    
+    
+    
+    private func setupViewModel() {
+        postViewModel.stateChanged = { [weak self] state in
+            guard let self = self else { return }
+            switch state {
+            case .initial:
+                print("Initial")
+            case .loading:
+                self.activityIndicator.startAnimating()
+            case .loaded(let posts):
+                DispatchQueue.main.async {
+                    self.activityIndicator.stopAnimating()
+                    self.posts = posts
+                    self.tableView.alpha = 1.0
+                    self.tableView.reloadData()
+                }
+            case .error:
+                ()
+            }
+        }
+    }
+    
     
     
     private func layout() {
-        view.addSubview(tableView)
+        view.addSubview(activityIndicator)
+        activityIndicator.snp.makeConstraints {
+            $0.center.equalToSuperview()
+        }
         
+        view.addSubview(tableView)
         tableView.snp.makeConstraints {
             $0.top.bottom.leading.trailing.equalToSuperview()
         }

@@ -8,31 +8,22 @@
 import UIKit
 
 class TabBarController: UITabBarController {
+        
+    private let feedVC = ModuleFactory(nc: UINavigationController(), flow: .feed)
 
+    private let profileVC = ModuleFactory(nc: UINavigationController(), flow: .profile)
+
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .systemBackground
-        createTabBarControllers()
+        view.backgroundColor = .white
+        setControllers()
     }
     
-    func createTabBarControllers() {
+    private func setControllers() {
         viewControllers = [
-            createNavController(for: LoginViewController(),
-                                   title: "Профиль",
-                                   image: UIImage(systemName: "person.fill")!),
-            createNavController(for: FeedViewController(),
-                                   title: "Лента",
-                                   image: UIImage(systemName: "house.fill")!)
+            feedVC.nc,
+            profileVC.nc
         ]
-    }
-    
-    func createNavController(for rootViewController: UIViewController,
-                             title: String,
-                             image: UIImage) -> UIViewController {
-        let navController = UINavigationController(rootViewController: rootViewController)
-        navController.tabBarItem.title = title
-        navController.tabBarItem.image = image
-        rootViewController.navigationItem.title = title
-        return navController
     }
 }

@@ -10,11 +10,26 @@ import SnapKit
 
 class InfoViewController: UIViewController {
     
+    weak var coordinator: MainCoordinator?
+    
+//    private let coordinator: InfoViewControllerCoordinator
+    
     lazy var button: CustomButton = {
         let button = CustomButton(title: "Предупреждение", titleColor: .white, backColor: .red)
         button.addTarget(self, action: #selector(tap), for: .touchUpInside)
         return button
     }()
+    
+    
+//    init(coordinator: InfoViewControllerCoordinator) {
+//        self.coordinator = coordinator
+//        super.init(nibName: nil, bundle: nil)
+//    }
+//
+//    required init?(coder: NSCoder) {
+//        fatalError("init(coder:) has not been implemented")
+//    }
+    
 
     override func viewDidLoad() {
         super.viewDidLoad()

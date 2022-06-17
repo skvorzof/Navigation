@@ -9,7 +9,9 @@ import UIKit
 import StorageService
 
 class PostViewController: UIViewController {
-
+        
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
@@ -48,7 +50,7 @@ class PostViewController: UIViewController {
     }()
     
     
-    func setupPost(model: PostModel) {
+    func setupPost(model: Post) {
         postTitle.text = model.title
         postImage.image = UIImage(named: model.image)
     }

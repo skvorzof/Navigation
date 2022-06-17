@@ -91,7 +91,7 @@ class PostTableViewCell: UITableViewCell {
     
     
     
-    func setupCell(model: PostModel) {
+    func setupCell(model: Post) {
         guard let sourceImage = UIImage(named: model.image) else {return}
         let imageProcessor = ImageProcessor()
         let randomFilter = ColorFilter.allCases.randomElement() ?? .posterize
