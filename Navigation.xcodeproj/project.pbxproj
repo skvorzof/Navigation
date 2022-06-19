@@ -934,8 +934,8 @@
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/TrueMax/iOSIntPackage.git";
 			requirement = {
-				kind = exactVersion;
-				version = 2.2.0;
+				kind = upToNextMajorVersion;
+				minimumVersion = 3.2.3;
 			};
 		};
 		C9F9C06B285E55BE005350CE /* XCRemoteSwiftPackageReference "SnapKit" */ = {
