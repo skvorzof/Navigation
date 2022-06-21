@@ -22,8 +22,8 @@ class TabBarController: UITabBarController {
     
     private func setControllers() {
         viewControllers = [
-            feedVC.nc,
-            profileVC.nc
+            profileVC.nc,
+            feedVC.nc
         ]
     }
 }

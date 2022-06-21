@@ -31,8 +31,8 @@ class PhotoCollectionViewCell: UICollectionViewCell {
     
     
     
-    func setupCell(model: PhotoModel) {
-        photoCell.image = UIImage(named: model.photo)
+    func setupCell(model: UIImage) {
+        photoCell.image = model
     }
     
     private func layout() {

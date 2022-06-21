@@ -10,7 +10,7 @@ import UIKit
 class PhotoTableViewCell: UITableViewCell {
 
     let offset: CGFloat = 12
-    let photos = PhotoModel.makePhotoModel()
+    let photos = Photo().fetchPhotos()
     
     var delegateNavigation: (() -> Void)?
     

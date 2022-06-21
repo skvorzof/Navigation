@@ -11,6 +11,8 @@ import iOSIntPackage
 class PhotosViewController: UIViewController {
     
     private var photos = [UIImage]()
+    private var userPhotos = Photo().fetchPhotos()
+    private var imageProcessor = ImageProcessor()
     private var imagePublisherFacade: ImagePublisherFacade?
     private let offset: CGFloat = 8
     
@@ -29,7 +31,7 @@ class PhotosViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         imagePublisherFacade = ImagePublisherFacade()
-        imagePublisherFacade?.addImagesWithTimer(time: 0.1, repeat: 30)
+        imagePublisherFacade?.addImagesWithTimer(time: 0, repeat: 20, userImages: userPhotos)
         title = "Галерея"
         layout()
     }
@@ -76,10 +78,27 @@ extension PhotosViewController: UICollectionViewDataSource {
     }
 }
 
+/*
+ userInitiated   =  3.1948089599609375e-05
+ userInteractive =  3.2067298889160156e-05
+ default         =  3.3020973205566406e-05
+ utility         =  3.3020973205566406e-05
+ background      =  7.390975952148438e-05
+ */
 extension PhotosViewController: ImageLibrarySubscriber {
     func receive(images: [UIImage]) {
         photos = images
-        collectionView.reloadData()
+        imageProcessor.processImagesOnThread(
+            sourceImages: photos,
+            filter: .noir,
+            qos: .default) { sgImage in
+            let startTime = Date()
+            self.photos = sgImage.map({UIImage(cgImage: $0!)})
+            DispatchQueue.main.async {
+                self.collectionView.reloadData()
+            }
+            print( Date().timeIntervalSince(startTime) )
+        }
     }
 }
 
