@@ -13,7 +13,6 @@ class PhotosViewController: UIViewController {
     private var photos = [UIImage]()
     private var userPhotos = Photo().fetchPhotos()
     private var imageProcessor = ImageProcessor()
-    private var imagePublisherFacade: ImagePublisherFacade?
     private let offset: CGFloat = 8
     
     private lazy var collectionView: UICollectionView = {
@@ -30,8 +29,25 @@ class PhotosViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        imagePublisherFacade = ImagePublisherFacade()
-        imagePublisherFacade?.addImagesWithTimer(time: 0, repeat: 20, userImages: userPhotos)
+
+        /*
+         userInitiated   =  4.398822784423828e-05
+         userInteractive =  4.303455352783203e-05
+         default         =  4.398822784423828e-05
+         utility         =  4.696846008300781e-05
+         background      =  9.59634780883789e-05
+         */
+        imageProcessor.processImagesOnThread(
+            sourceImages: userPhotos,
+            filter: .noir,
+            qos: .background) { sgImage in
+            let startTime = Date()
+            self.photos = sgImage.map({UIImage(cgImage: $0!)})
+            DispatchQueue.main.async {
+                self.collectionView.reloadData()
+            }
+            print( Date().timeIntervalSince(startTime) )
+        }
         title = "Галерея"
         layout()
     }
@@ -39,12 +55,6 @@ class PhotosViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         navigationController?.navigationBar.isHidden = false
-        imagePublisherFacade?.subscribe(self)
-    }
-    
-    override func viewWillDisappear(_ animated: Bool) {
-        imagePublisherFacade?.removeSubscription(for: self)
-        imagePublisherFacade?.rechargeImageLibrary()
     }
     
     
@@ -72,30 +82,6 @@ extension PhotosViewController: UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         photos.count
-    }
-}
-
-/*
- userInitiated   =  3.1948089599609375e-05
- userInteractive =  3.2067298889160156e-05
- default         =  3.3020973205566406e-05
- utility         =  3.3020973205566406e-05
- background      =  7.390975952148438e-05
- */
-extension PhotosViewController: ImageLibrarySubscriber {
-    func receive(images: [UIImage]) {
-        photos = images
-        imageProcessor.processImagesOnThread(
-            sourceImages: photos,
-            filter: .noir,
-            qos: .default) { sgImage in
-            let startTime = Date()
-            self.photos = sgImage.map({UIImage(cgImage: $0!)})
-            DispatchQueue.main.async {
-                self.collectionView.reloadData()
-            }
-            print( Date().timeIntervalSince(startTime) )
-        }
     }
 }
 
