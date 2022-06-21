@@ -17,13 +17,14 @@ class TabBarController: UITabBarController {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
+        tabBar.backgroundColor = .white
         setControllers()
     }
     
     private func setControllers() {
         viewControllers = [
-            feedVC.nc,
-            profileVC.nc
+            profileVC.nc,
+            feedVC.nc
         ]
     }
 }

@@ -11,7 +11,8 @@ import iOSIntPackage
 class PhotosViewController: UIViewController {
     
     private var photos = [UIImage]()
-    private var imagePublisherFacade: ImagePublisherFacade?
+    private var userPhotos = Photo().fetchPhotos()
+    private var imageProcessor = ImageProcessor()
     private let offset: CGFloat = 8
     
     private lazy var collectionView: UICollectionView = {
@@ -28,8 +29,25 @@ class PhotosViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        imagePublisherFacade = ImagePublisherFacade()
-        imagePublisherFacade?.addImagesWithTimer(time: 0.1, repeat: 30)
+
+        /*
+         userInitiated   =  4.398822784423828e-05
+         userInteractive =  4.303455352783203e-05
+         default         =  4.398822784423828e-05
+         utility         =  4.696846008300781e-05
+         background      =  9.59634780883789e-05
+         */
+        imageProcessor.processImagesOnThread(
+            sourceImages: userPhotos,
+            filter: .noir,
+            qos: .background) { sgImage in
+            let startTime = Date()
+            self.photos = sgImage.map({UIImage(cgImage: $0!)})
+            DispatchQueue.main.async {
+                self.collectionView.reloadData()
+            }
+            print( Date().timeIntervalSince(startTime) )
+        }
         title = "Галерея"
         layout()
     }
@@ -37,15 +55,6 @@ class PhotosViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         navigationController?.navigationBar.isHidden = false
-        let appearance = UINavigationBarAppearance()
-        appearance.backgroundColor = .white
-        navigationController?.navigationBar.scrollEdgeAppearance = appearance
-        imagePublisherFacade?.subscribe(self)
-    }
-    
-    override func viewWillDisappear(_ animated: Bool) {
-        imagePublisherFacade?.removeSubscription(for: self)
-        imagePublisherFacade?.rechargeImageLibrary()
     }
     
     
@@ -73,13 +82,6 @@ extension PhotosViewController: UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         photos.count
-    }
-}
-
-extension PhotosViewController: ImageLibrarySubscriber {
-    func receive(images: [UIImage]) {
-        photos = images
-        collectionView.reloadData()
     }
 }
 

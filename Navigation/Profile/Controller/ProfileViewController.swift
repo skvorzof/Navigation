@@ -15,7 +15,7 @@ class ProfileViewController: UIViewController {
     
     private var  posts = [Post]()
     
-    let photos = PhotoModel.makePhotoModel()
+    let photos = Photo().fetchPhotos()
     let headerView = ProfileHeaderView()
     private lazy var avatar = headerView.avatarImageView
     private var userService: UserService

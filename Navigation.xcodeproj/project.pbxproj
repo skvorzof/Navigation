@@ -15,7 +15,6 @@
 		C9164FED27D0F57400034102 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9164FEC27D0F57400034102 /* SceneDelegate.swift */; };
 		C9164FF427D0F57500034102 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C9164FF327D0F57500034102 /* Assets.xcassets */; };
 		C9164FF727D0F57500034102 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C9164FF527D0F57500034102 /* LaunchScreen.storyboard */; };
-		C918534527ECEAAC00E56528 /* PhotoModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C918534427ECEAAC00E56528 /* PhotoModel.swift */; };
 		C9436632285B358500C706A4 /* FeedCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9436631285B358400C706A4 /* FeedCoordinator.swift */; };
 		C9436662285BBF9400C706A4 /* FeedViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9436661285BBF9400C706A4 /* FeedViewModel.swift */; };
 		C94C3C372841172100F4DE92 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = C94C3C362841172100F4DE92 /* User.swift */; };
@@ -39,6 +38,7 @@
 		C9AB506928465DC8001DF1CC /* LoginInspector.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9AB506828465DC8001DF1CC /* LoginInspector.swift */; };
 		C9AB506B284668BB001DF1CC /* LoginFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9AB506A284668BB001DF1CC /* LoginFactory.swift */; };
 		C9AB506D28466918001DF1CC /* MyLoginFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9AB506C28466918001DF1CC /* MyLoginFactory.swift */; };
+		C9ABC90528620292002684A1 /* Photo.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9ABC90428620292002684A1 /* Photo.swift */; };
 		C9C4A4972858E42E007338FE /* MainCoordinatorProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9C4A4962858E42E007338FE /* MainCoordinatorProtocol.swift */; };
 		C9C4A4992859B178007338FE /* MainCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9C4A4982859B178007338FE /* MainCoordinator.swift */; };
 		C9C4A4A12859E53D007338FE /* ModuleFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9C4A4A02859E53D007338FE /* ModuleFactory.swift */; };
@@ -85,7 +85,6 @@
 		C9164FF327D0F57500034102 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		C9164FF627D0F57500034102 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		C9164FF827D0F57500034102 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		C918534427ECEAAC00E56528 /* PhotoModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoModel.swift; sourceTree = "<group>"; };
 		C9436631285B358400C706A4 /* FeedCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedCoordinator.swift; sourceTree = "<group>"; };
 		C9436661285BBF9400C706A4 /* FeedViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedViewModel.swift; sourceTree = "<group>"; };
 		C94C3C362841172100F4DE92 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
@@ -109,6 +108,7 @@
 		C9AB506828465DC8001DF1CC /* LoginInspector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginInspector.swift; sourceTree = "<group>"; };
 		C9AB506A284668BB001DF1CC /* LoginFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginFactory.swift; sourceTree = "<group>"; };
 		C9AB506C28466918001DF1CC /* MyLoginFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyLoginFactory.swift; sourceTree = "<group>"; };
+		C9ABC90428620292002684A1 /* Photo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Photo.swift; sourceTree = "<group>"; };
 		C9C4A4962858E42E007338FE /* MainCoordinatorProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainCoordinatorProtocol.swift; sourceTree = "<group>"; };
 		C9C4A4982859B178007338FE /* MainCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainCoordinator.swift; sourceTree = "<group>"; };
 		C9C4A4A02859E53D007338FE /* ModuleFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModuleFactory.swift; sourceTree = "<group>"; };
@@ -279,7 +279,7 @@
 		C9661151285C757700F9DBD9 /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				C918534427ECEAAC00E56528 /* PhotoModel.swift */,
+				C9ABC90428620292002684A1 /* Photo.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -598,7 +598,7 @@
 				C9E1AA7327D0FBCB0021A97A /* ProfileViewController.swift in Sources */,
 				C99A81F527EE47810080B6A5 /* PhotoCollectionViewCell.swift in Sources */,
 				C9C4A4972858E42E007338FE /* MainCoordinatorProtocol.swift in Sources */,
-				C918534527ECEAAC00E56528 /* PhotoModel.swift in Sources */,
+				C9ABC90528620292002684A1 /* Photo.swift in Sources */,
 				C9164FEB27D0F57400034102 /* AppDelegate.swift in Sources */,
 				C94C3C372841172100F4DE92 /* User.swift in Sources */,
 				C9C4A4A12859E53D007338FE /* ModuleFactory.swift in Sources */,
@@ -934,8 +934,8 @@
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/TrueMax/iOSIntPackage.git";
 			requirement = {
-				kind = exactVersion;
-				version = 2.2.0;
+				kind = upToNextMajorVersion;
+				minimumVersion = 3.2.3;
 			};
 		};
 		C9F9C06B285E55BE005350CE /* XCRemoteSwiftPackageReference "SnapKit" */ = {

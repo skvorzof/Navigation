@@ -46,7 +46,6 @@ final class PostService {
     
     func fetchPosts(complection: @escaping (Result<[Post], Error>) -> Void) {
         DispatchQueue.global().async {
-            sleep(3)
             complection(.success(self.posts))
         }
     }
