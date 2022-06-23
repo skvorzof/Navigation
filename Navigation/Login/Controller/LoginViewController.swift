@@ -14,6 +14,8 @@ protocol LoginViewControllerDelegate: AnyObject {
 
 class LoginViewController: UIViewController {
     
+    private let loginViewModel = LoginViewModel()
+    
     var delegate: LoginViewControllerDelegate?
     
     private let nc = NotificationCenter.default
@@ -64,6 +66,13 @@ class LoginViewController: UIViewController {
         button.addTarget(self, action: #selector(pressLoginButton), for: .touchUpInside)
         return button
     }()
+    
+    private lazy var bruteButton: CustomButton = {
+        let button = CustomButton(title: "Подобрать пароль", titleColor: .white, backColor: .black)
+        return button
+    }()
+    
+    private let activityIndicator = UIActivityIndicatorView(style: .medium)
 
     
     
@@ -140,16 +149,44 @@ class LoginViewController: UIViewController {
                 self?.present(alert, animated: true)
             }
         }
+        
+        bruteButton.tapAction = { [weak self] in
+            self?.crackPass()
+        }
     }
     
     
     
+    private func crackPass() {
+        let widthPasswordTextField = passwordTextField.frame.width
+        activityIndicator.center = CGPoint(x: widthPasswordTextField - 20, y: 0)
+        
+        passwordTextField.leftView?.addSubview(activityIndicator)
+        activityIndicator.startAnimating()
+        
+        DispatchQueue.global().async { [weak self] in
+            guard let pass = self?.loginViewModel.force() else { return }
+
+            DispatchQueue.main.async {
+                self?.passwordTextField.isSecureTextEntry = false
+                self?.activityIndicator.stopAnimating()
+                self?.passwordTextField.text = pass
+            }
+        }
+    }
+    
     private func layout() {
         view.addSubview(scrollView)
-        [contentView, logo, emailTextField, passwordTextField, loginButton].forEach({ scrollView.addSubview($0) })
+        [contentView, logo, emailTextField, passwordTextField, loginButton, bruteButton].forEach({ scrollView.addSubview($0) })
         
         scrollView.snp.makeConstraints {
             $0.top.leading.trailing.bottom.equalToSuperview()
+        }
+        
+        
+        bruteButton.snp.makeConstraints {
+            $0.leading.trailing.equalToSuperview().inset(16)
+            $0.top.equalTo(loginButton.snp.bottom).offset(16)
         }
         
         
