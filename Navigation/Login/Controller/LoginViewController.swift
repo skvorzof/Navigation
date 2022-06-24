@@ -150,8 +150,8 @@ class LoginViewController: UIViewController {
             }
         }
         
-        bruteButton.tapAction = { [weak self] in
-            self?.crackPass()
+        bruteButton.tapAction = { [crackPass] in
+            crackPass()
         }
     }
     
@@ -164,13 +164,13 @@ class LoginViewController: UIViewController {
         passwordTextField.leftView?.addSubview(activityIndicator)
         activityIndicator.startAnimating()
         
-        DispatchQueue.global().async { [weak self] in
-            guard let pass = self?.loginViewModel.force() else { return }
+        DispatchQueue.global().async { [loginViewModel, passwordTextField, activityIndicator] in
+            let pass = loginViewModel.force()
 
             DispatchQueue.main.async {
-                self?.passwordTextField.isSecureTextEntry = false
-                self?.activityIndicator.stopAnimating()
-                self?.passwordTextField.text = pass
+                passwordTextField.isSecureTextEntry = false
+                activityIndicator.stopAnimating()
+                passwordTextField.text = pass
             }
         }
     }
