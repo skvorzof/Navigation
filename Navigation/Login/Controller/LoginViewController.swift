@@ -18,6 +18,9 @@ class LoginViewController: UIViewController {
     
     var delegate: LoginViewControllerDelegate?
     
+    private var timer: Timer?
+    private var count = 0
+    
     private let nc = NotificationCenter.default
 
     private let scrollView: UIScrollView = {
@@ -73,6 +76,13 @@ class LoginViewController: UIViewController {
     }()
     
     private let activityIndicator = UIActivityIndicatorView(style: .medium)
+    
+    private let timerLabel: UILabel = {
+        let label = UILabel()
+        label.textAlignment = .center
+        label.textColor = .systemGray2
+        return label
+    }()
 
     
     
@@ -81,6 +91,7 @@ class LoginViewController: UIViewController {
         view.backgroundColor = .white
         layout()
         tap()
+        counterTimer()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -175,9 +186,22 @@ class LoginViewController: UIViewController {
         }
     }
     
+    private func counterTimer() {
+        timer = Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true) { _ in
+            self.count += 1
+            self.timerLabel.text = "Обновление через \(self.count)"
+            
+            if self.count == 10 {
+                    self.timer?.invalidate()
+                    self.timer = nil
+                    self.timerLabel.text = ""
+            }
+        }
+    }
+    
     private func layout() {
         view.addSubview(scrollView)
-        [contentView, logo, emailTextField, passwordTextField, loginButton, bruteButton].forEach({ scrollView.addSubview($0) })
+        [contentView, logo, emailTextField, passwordTextField, loginButton, bruteButton, timerLabel].forEach({ scrollView.addSubview($0) })
         
         scrollView.snp.makeConstraints {
             $0.top.leading.trailing.bottom.equalToSuperview()
@@ -187,6 +211,12 @@ class LoginViewController: UIViewController {
         bruteButton.snp.makeConstraints {
             $0.leading.trailing.equalToSuperview().inset(16)
             $0.top.equalTo(loginButton.snp.bottom).offset(16)
+        }
+        
+        
+        timerLabel.snp.makeConstraints {
+            $0.leading.trailing.equalToSuperview().inset(16)
+            $0.top.equalTo(bruteButton.snp.bottom).offset(16)
         }
         
         
