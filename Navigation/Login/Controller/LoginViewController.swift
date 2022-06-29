@@ -18,9 +18,6 @@ class LoginViewController: UIViewController {
     
     var delegate: LoginViewControllerDelegate?
     
-    private var timer: Timer?
-    private var count = 0
-    
     private let nc = NotificationCenter.default
 
     private let scrollView: UIScrollView = {
@@ -187,13 +184,13 @@ class LoginViewController: UIViewController {
     }
     
     private func counterTimer() {
-        timer = Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true) { _ in
-            self.count += 1
-            self.timerLabel.text = "Обновление через \(self.count)"
+        var count = 0
+        Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true) { timer in
+            count += 1
+            self.timerLabel.text = "Обновление через \(count)"
             
-            if self.count == 10 {
-                    self.timer?.invalidate()
-                    self.timer = nil
+            if count == 10 {
+                    timer.invalidate()
                     self.timerLabel.text = ""
             }
         }
