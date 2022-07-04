@@ -185,13 +185,13 @@ class LoginViewController: UIViewController {
     
     private func counterTimer() {
         var count = 0
-        Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true) { timer in
+        Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true) {[timerLabel] timer in
             count += 1
-            self.timerLabel.text = "Обновление через \(count)"
+            timerLabel.text = "Обновление через \(count)"
             
             if count == 10 {
                     timer.invalidate()
-                    self.timerLabel.text = ""
+                    timerLabel.text = ""
             }
         }
     }
