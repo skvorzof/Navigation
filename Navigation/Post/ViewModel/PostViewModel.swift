@@ -5,7 +5,7 @@
 //  Created by mitr on 17.06.2022.
 //
 
-import Foundation
+import UIKit
 
 final class PostViewModel {
     
@@ -39,12 +39,19 @@ final class PostViewModel {
                 switch result {
                 case .success(let model):
                     self?.state = .loaded(model)
-                case .failure(_):
-                    self?.state = .error
+                case .failure(let error):
+                    self?.handleError(postError: error)
                 }
             }
         case .cellDidTap:
             print("cell did tapped")
+        }
+    }
+    
+    private func handleError(postError: PostError) {
+        switch postError {
+        case .empty:
+            print("Постов нет")
         }
     }
 }
