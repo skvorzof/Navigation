@@ -40,7 +40,7 @@ class ProfileViewController: UIViewController {
         self.postViewModel = postViewModel
         self.userService = userService
         super.init(nibName: nil, bundle: nil)
-        guard let user = self.userService.userService(userName: loginName) else { return }
+        guard let user = self.userService.userService(userName: loginName) else { preconditionFailure("Нет доступа к UserService") }
         headerView.fullNameLabel.text = user.fullName
     }
 
