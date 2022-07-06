@@ -32,7 +32,7 @@ class FeedViewController: UIViewController {
     }()
     
     private lazy var textField: CustomTextField = {
-        let textField = CustomTextField(placeholder: "Введите пароль")
+        let textField = CustomTextField(placeholder: "Введите пароль (q)")
         textField.backgroundColor = .white
         textField.font = UIFont.systemFont(ofSize: 15, weight: .regular)
         textField.textColor = .black
@@ -95,23 +95,34 @@ class FeedViewController: UIViewController {
     
     
     private func taps() {
-        leftButton.tapAction = { [weak self] in
-            
-        }
         
-        rightButton.tapAction = { [weak self] in
+        checkButton.tapAction = { [textField, passwordModel, textLabel] in
+            guard let password = textField.text else { return }
             
-        }
-        
-        checkButton.tapAction = { [weak self] in
-            guard let password = self?.textField.text else { return }
-            guard let isCheck = self?.passwordModel.check(password: password) else { return }
-            if isCheck {
-                self?.textLabel.text = "Верно"
-                self?.textLabel.textColor = .systemGreen
-            } else {
-                self?.textLabel.text = "Неверно"
-                self?.textLabel.textColor = .systemRed
+            do {
+                let _ = try passwordModel.check(password: password)
+                textLabel.text = "Верно"
+                textLabel.textColor = .systemGreen
+            } catch {
+                textLabel.text = "Неверно"
+                textLabel.textColor = .systemRed
+                
+                let message: String
+                switch error {
+                case CheckError.emptyPassword:
+                    message = "Пароль не введён"
+                case CheckError.wrongPassword:
+                    message = "Пароль неверный"
+                default:
+                    message = "Неизвестная ошибка"
+                }
+                
+                let alert = UIAlertController(title: "Ошибка", message: message, preferredStyle: .alert)
+                let cancelAction = UIAlertAction(title: "OK",
+                                                  style: .cancel,
+                                                  handler: nil)
+                alert.addAction(cancelAction)
+                self.present(alert, animated: true, completion: nil)
             }
         }
     }

@@ -7,9 +7,14 @@
 
 import Foundation
 
+enum PostError: Error {
+    case empty
+}
+
 final class PostService {
     
-    let posts = [
+    
+    private var posts: [Post]? = [
         Post(
             title: "Брат (1997)",
             author: "MitrofanOgly",
@@ -44,9 +49,13 @@ final class PostService {
     ]
     
     
-    func fetchPosts(complection: @escaping (Result<[Post], Error>) -> Void) {
-        DispatchQueue.global().async {
-            complection(.success(self.posts))
+    func fetchPosts(complection: @escaping (Result<[Post], PostError>) -> Void) {
+        DispatchQueue.global().async { [weak self] in
+            if let posts = self?.posts {
+                complection(.success(posts))
+            } else {
+                complection(.failure(.empty))
+            }
         }
     }
 }

@@ -30,23 +30,14 @@ class PhotosViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        /*
-         userInitiated   =  4.398822784423828e-05
-         userInteractive =  4.303455352783203e-05
-         default         =  4.398822784423828e-05
-         utility         =  4.696846008300781e-05
-         background      =  9.59634780883789e-05
-         */
         imageProcessor.processImagesOnThread(
             sourceImages: userPhotos,
             filter: .noir,
             qos: .background) { sgImage in
-            let startTime = Date()
             self.photos = sgImage.map({UIImage(cgImage: $0!)})
             DispatchQueue.main.async {
                 self.collectionView.reloadData()
             }
-            print( Date().timeIntervalSince(startTime) )
         }
         title = "Галерея"
         layout()
