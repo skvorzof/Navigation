@@ -12,6 +12,8 @@ final class ModuleFactory {
     enum Flow {
         case feed
         case profile
+        case music
+        case video
     }
     
     
@@ -39,6 +41,16 @@ final class ModuleFactory {
             let vc = LoginViewController()
             nc.tabBarItem.title = "Профиль"
             nc.tabBarItem.image = UIImage(systemName: "person.fill")
+            nc.setViewControllers([vc], animated: false)
+        case .music:
+            let vc = MusicViewController()
+            nc.tabBarItem.title = "Музыка"
+            nc.tabBarItem.image = UIImage(systemName: "music.note")
+            nc.setViewControllers([vc], animated: false)
+        case .video:
+            let vc = VideoViewController()
+            nc.tabBarItem.title = "Видео"
+            nc.tabBarItem.image = UIImage(systemName: "film")
             nc.setViewControllers([vc], animated: false)
         }
     }

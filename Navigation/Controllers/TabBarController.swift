@@ -10,8 +10,9 @@ import UIKit
 class TabBarController: UITabBarController {
         
     private let feedVC = ModuleFactory(nc: UINavigationController(), flow: .feed)
-
     private let profileVC = ModuleFactory(nc: UINavigationController(), flow: .profile)
+    private let musicVC = ModuleFactory(nc: UINavigationController(), flow: .music)
+    private let videoVC = ModuleFactory(nc: UINavigationController(), flow: .video)
 
     
     override func viewDidLoad() {
@@ -23,8 +24,10 @@ class TabBarController: UITabBarController {
     
     private func setControllers() {
         viewControllers = [
-            profileVC.nc,
-            feedVC.nc
+            feedVC.nc,
+            musicVC.nc,
+            videoVC.nc,
+            profileVC.nc
         ]
     }
 }
