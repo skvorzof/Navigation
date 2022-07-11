@@ -8,14 +8,12 @@
 import UIKit
 
 class FeedViewController: UIViewController {
-    
+
     private let viewModel: FeedViewModel?
     weak var coordinator: FeedCoordinator?
-    
-    var showDetailRequested: (() -> Void)?
-    
+
     private let passwordModel = PasswordModel()
-        
+
     private let stackView: UIStackView = {
         let stackView = UIStackView()
         stackView.axis = .horizontal
@@ -24,13 +22,13 @@ class FeedViewController: UIViewController {
         stackView.translatesAutoresizingMaskIntoConstraints = false
         return stackView
     }()
-    
+
     private let textLabel: UILabel = {
         let label = UILabel()
         label.textAlignment = .center
         return label
     }()
-    
+
     private lazy var textField: CustomTextField = {
         let textField = CustomTextField(placeholder: "Введите пароль (q)")
         textField.backgroundColor = .white
@@ -44,61 +42,53 @@ class FeedViewController: UIViewController {
         textField.leftViewMode = .always
         return textField
     }()
-    
+
     private lazy var checkButton: CustomButton = {
         let button = CustomButton(title: "Проверить", titleColor: .blue, backColor: .white)
         return button
     }()
-    
+
     private lazy var leftButton: CustomButton = {
         let button = CustomButton(title: "Первая", titleColor: .black, backColor: .yellow)
         button.titleLabel?.font = .systemFont(ofSize: 14)
         return button
     }()
-    
+
     private lazy var rightButton: CustomButton = {
         let button = CustomButton(title: "Вторая", titleColor: .white, backColor: .brown)
         button.titleLabel?.font = .systemFont(ofSize: 14)
         return button
     }()
-    
-    
-    
-    
+
     init(viewModel: FeedViewModel, coordinator: FeedCoordinator) {
         self.viewModel = viewModel
         self.coordinator = coordinator
         super.init(nibName: nil, bundle: nil)
     }
-    
+
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
-    
-    
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .systemBackground
         taps()
         layout()
     }
-    
+
     override func viewWillAppear(_ animated: Bool) {
-            super.viewWillAppear(animated)
-            let appearance = UINavigationBarAppearance()
-            appearance.backgroundColor = .white
-            navigationController?.navigationBar.scrollEdgeAppearance = appearance
+        super.viewWillAppear(animated)
+        let appearance = UINavigationBarAppearance()
+        appearance.backgroundColor = .white
+        navigationController?.navigationBar.scrollEdgeAppearance = appearance
     }
-    
-    
-    
+
     private func taps() {
-        
+
         checkButton.tapAction = { [textField, passwordModel, textLabel] in
             guard let password = textField.text else { return }
-            
+
             do {
                 let _ = try passwordModel.check(password: password)
                 textLabel.text = "Верно"
@@ -106,7 +96,7 @@ class FeedViewController: UIViewController {
             } catch {
                 textLabel.text = "Неверно"
                 textLabel.textColor = .systemRed
-                
+
                 let message: String
                 switch error {
                 case CheckError.emptyPassword:
@@ -116,18 +106,18 @@ class FeedViewController: UIViewController {
                 default:
                     message = "Неизвестная ошибка"
                 }
-                
+
                 let alert = UIAlertController(title: "Ошибка", message: message, preferredStyle: .alert)
-                let cancelAction = UIAlertAction(title: "OK",
-                                                  style: .cancel,
-                                                  handler: nil)
+                let cancelAction = UIAlertAction(
+                    title: "OK",
+                    style: .cancel,
+                    handler: nil)
                 alert.addAction(cancelAction)
                 self.present(alert, animated: true, completion: nil)
             }
         }
     }
-    
-    
+
     private func layout() {
         view.addSubview(textLabel)
         view.addSubview(textField)
@@ -148,8 +138,7 @@ class FeedViewController: UIViewController {
             $0.top.equalTo(textField.snp.bottom).offset(16)
             $0.centerX.equalToSuperview()
         }
-        
-        
+
         view.addSubview(stackView)
         stackView.addArrangedSubview(leftButton)
         stackView.addArrangedSubview(rightButton)
