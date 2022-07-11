@@ -23,9 +23,9 @@ private struct Constants {
 // MARK: - MusicViewController
 class MusicViewController: UIViewController {
 
-    private var player = AVAudioPlayer()
-
     private let viewModel = MusicViewModel()
+    private var player = AVAudioPlayer()
+    private var currentTrack = 0
 
     private let wrapView: UIView = {
         let view = UIView()
@@ -58,14 +58,15 @@ class MusicViewController: UIViewController {
         setupPlayer()
         setupStackView()
         setupUI()
+        backwardButton.isEnabled = false
     }
 
     // MARK: - setupPlayer
     private func setupPlayer(trackNumber: Int = 0) {
 
+        currentTrack = trackNumber
         let track = viewModel.tracks[trackNumber].url
         guard let trackURL = Bundle.main.url(forResource: track, withExtension: "mp3") else { return }
-
         do {
             let playerItem = AVPlayerItem(url: trackURL)
             let metadataList = playerItem.asset.metadata
@@ -134,6 +135,16 @@ class MusicViewController: UIViewController {
     // MARK: - Actions
     @objc
     private func tapPlayPauseButton() {
+        switch currentTrack {
+        case 0:
+            backwardButton.isEnabled = false
+        case viewModel.tracks.count - 1:
+            forwardButton.isEnabled = false
+        default:
+            backwardButton.isEnabled = true
+            forwardButton.isEnabled = true
+        }
+
         if player.isPlaying {
             player.pause()
             playPauseButton.setImage(UIImage(systemName: Constants.playButtonImage), for: .normal)
@@ -153,12 +164,18 @@ class MusicViewController: UIViewController {
 
     @objc
     private func backwardTrack() {
-
+        if currentTrack > 0 {
+            setupPlayer(trackNumber: currentTrack - 1)
+            tapPlayPauseButton()
+        }
     }
 
     @objc
     private func forwardTrack() {
-
+        if currentTrack < viewModel.tracks.count - 1 {
+            setupPlayer(trackNumber: currentTrack + 1)
+            tapPlayPauseButton()
+        }
     }
 
 }
@@ -182,6 +199,7 @@ extension MusicViewController: UITableViewDataSource {
 // MARK: - MusicViewController: UITableViewDelegate
 extension MusicViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: false)
         setupPlayer(trackNumber: indexPath.row)
         tapPlayPauseButton()
     }
