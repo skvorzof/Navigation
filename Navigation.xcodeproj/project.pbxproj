@@ -54,6 +54,8 @@
 		C9C4A4972858E42E007338FE /* MainCoordinatorProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9C4A4962858E42E007338FE /* MainCoordinatorProtocol.swift */; };
 		C9C4A4992859B178007338FE /* MainCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9C4A4982859B178007338FE /* MainCoordinator.swift */; };
 		C9C4A4A12859E53D007338FE /* ModuleFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9C4A4A02859E53D007338FE /* ModuleFactory.swift */; };
+		C9C6E6D9287D9A5800FB3069 /* NetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9C6E6D8287D9A5800FB3069 /* NetworkService.swift */; };
+		C9C6E6DB287D9FD300FB3069 /* AppConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9C6E6DA287D9FD300FB3069 /* AppConfiguration.swift */; };
 		C9D204632844DD37005D108A /* TestUserService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9D204622844DD37005D108A /* TestUserService.swift */; };
 		C9D315D82875C99A00DE52BC /* MusicViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9D315D72875C99A00DE52BC /* MusicViewController.swift */; };
 		C9D315DC2875CFA300DE52BC /* VideoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9D315DB2875CFA300DE52BC /* VideoViewController.swift */; };
@@ -137,6 +139,8 @@
 		C9C4A4962858E42E007338FE /* MainCoordinatorProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainCoordinatorProtocol.swift; sourceTree = "<group>"; };
 		C9C4A4982859B178007338FE /* MainCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainCoordinator.swift; sourceTree = "<group>"; };
 		C9C4A4A02859E53D007338FE /* ModuleFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModuleFactory.swift; sourceTree = "<group>"; };
+		C9C6E6D8287D9A5800FB3069 /* NetworkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkService.swift; sourceTree = "<group>"; };
+		C9C6E6DA287D9FD300FB3069 /* AppConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppConfiguration.swift; sourceTree = "<group>"; };
 		C9D204622844DD37005D108A /* TestUserService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestUserService.swift; sourceTree = "<group>"; };
 		C9D315D72875C99A00DE52BC /* MusicViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MusicViewController.swift; sourceTree = "<group>"; };
 		C9D315DB2875CFA300DE52BC /* VideoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoViewController.swift; sourceTree = "<group>"; };
@@ -199,6 +203,7 @@
 		C9164FE927D0F57400034102 /* Navigation */ = {
 			isa = PBXGroup;
 			children = (
+				C9C6E6D7287D9A4400FB3069 /* Services */,
 				C98F3350287C3C720064BB87 /* ResourcesMedia */,
 				C9D315D92875CF8A00DE52BC /* Video */,
 				C9D315D52875C97600DE52BC /* Music */,
@@ -214,6 +219,7 @@
 				C94C3C35284116FC00F4DE92 /* Models */,
 				C960815D285094B6009444DA /* Views */,
 				C9164FEA27D0F57400034102 /* AppDelegate.swift */,
+				C9C6E6DA287D9FD300FB3069 /* AppConfiguration.swift */,
 				C9AB5066284659D3001DF1CC /* Checker.swift */,
 				C9164FEC27D0F57400034102 /* SceneDelegate.swift */,
 				C9AB506828465DC8001DF1CC /* LoginInspector.swift */,
@@ -515,6 +521,14 @@
 			path = ViewModel;
 			sourceTree = "<group>";
 		};
+		C9C6E6D7287D9A4400FB3069 /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				C9C6E6D8287D9A5800FB3069 /* NetworkService.swift */,
+			);
+			path = Services;
+			sourceTree = "<group>";
+		};
 		C9D315D52875C97600DE52BC /* Music */ = {
 			isa = PBXGroup;
 			children = (
@@ -729,6 +743,7 @@
 				C9D315DC2875CFA300DE52BC /* VideoViewController.swift in Sources */,
 				C99A81EF27EDD9B90080B6A5 /* PhotoTableViewCell.swift in Sources */,
 				C9661160285C78E400F9DBD9 /* PostService.swift in Sources */,
+				C9C6E6D9287D9A5800FB3069 /* NetworkService.swift in Sources */,
 				C98F336F287CB32A0064BB87 /* VideoPlayerViewController.swift in Sources */,
 				C94FB4C927D884B4005ABB47 /* ProfileHeaderView.swift in Sources */,
 				C94C3C39284119DD00F4DE92 /* CurrentUserService.swift in Sources */,
@@ -742,6 +757,7 @@
 				C9E1AA7B27D0FC9D0021A97A /* TabBarController.swift in Sources */,
 				C9661156285C75C200F9DBD9 /* PhotoCoordinator.swift in Sources */,
 				C9AB506D28466918001DF1CC /* MyLoginFactory.swift in Sources */,
+				C9C6E6DB287D9FD300FB3069 /* AppConfiguration.swift in Sources */,
 				C94993D92863A02F003D80A2 /* LoginViewModel.swift in Sources */,
 				C9A3884427E67DCA00CE4307 /* Extensions.swift in Sources */,
 				C9ABC90828624931002684A1 /* LoginView.swift in Sources */,
