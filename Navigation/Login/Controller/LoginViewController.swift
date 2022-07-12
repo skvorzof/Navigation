@@ -68,7 +68,7 @@ class LoginViewController: UIViewController {
     }()
     
     private lazy var bruteButton: CustomButton = {
-        let button = CustomButton(title: "Подобрать пароль", titleColor: .white, backColor: .black)
+        let button = CustomButton(title: "Подобрать пароль", titleColor: UIColor(named: "AccentColor") ?? UIColor.lightGray, backColor: .white)
         return button
     }()
     
