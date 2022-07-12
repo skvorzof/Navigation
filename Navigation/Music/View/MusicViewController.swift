@@ -10,14 +10,14 @@ import UIKit
 
 // MARK: - Constants
 private struct Constants {
-    static var playButtonImage: String { "play.fill" }
-    static var stopButtonImage: String { "stop.fill" }
-    static var pauseButtonImage: String { "pause.fill" }
-    static var backwardButtonImage: String { "backward.fill" }
-    static var forwardButtonImage: String { "forward.fill" }
+    static let playButtonName = "play.fill"
+    static let stopButtonName = "stop.fill"
+    static let pauseButtonName = "pause.fill"
+    static let backwardButtonName = "backward.fill"
+    static let forwardButtonName = "forward.fill"
 
-    static var stackViewSpaccing: CGFloat { 32 }
-    static var offset: CGFloat { 16 }
+    static let stackViewSpaccing: CGFloat = 32
+    static let offset: CGFloat = 16
 }
 
 // MARK: - MusicViewController
@@ -104,10 +104,10 @@ class MusicViewController: UIViewController {
 
     // MARK: - createUI
     private func setupUI() {
-        createButton(backwardButton, image: Constants.backwardButtonImage, action: #selector(backwardTrack))
-        createButton(playPauseButton, image: Constants.playButtonImage, action: #selector(tapPlayPauseButton))
-        createButton(stopButton, image: Constants.stopButtonImage, action: #selector(tapStopButton))
-        createButton(forwardButton, image: Constants.forwardButtonImage, action: #selector(forwardTrack))
+        createButton(backwardButton, image: Constants.backwardButtonName, action: #selector(backwardTrack))
+        createButton(playPauseButton, image: Constants.playButtonName, action: #selector(tapPlayPauseButton))
+        createButton(stopButton, image: Constants.stopButtonName, action: #selector(tapStopButton))
+        createButton(forwardButton, image: Constants.forwardButtonName, action: #selector(forwardTrack))
 
         view.addSubview(wrapView)
         wrapView.snp.makeConstraints {
@@ -147,10 +147,10 @@ class MusicViewController: UIViewController {
 
         if player.isPlaying {
             player.pause()
-            playPauseButton.setImage(UIImage(systemName: Constants.playButtonImage), for: .normal)
+            playPauseButton.setImage(UIImage(systemName: Constants.playButtonName), for: .normal)
         } else {
             player.play()
-            playPauseButton.setImage(UIImage(systemName: Constants.pauseButtonImage), for: .normal)
+            playPauseButton.setImage(UIImage(systemName: Constants.pauseButtonName), for: .normal)
         }
 
     }
@@ -159,7 +159,7 @@ class MusicViewController: UIViewController {
     private func tapStopButton() {
         player.stop()
         player.currentTime = 0
-        playPauseButton.setImage(UIImage(systemName: Constants.playButtonImage), for: .normal)
+        playPauseButton.setImage(UIImage(systemName: Constants.playButtonName), for: .normal)
     }
 
     @objc

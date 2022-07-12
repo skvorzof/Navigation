@@ -499,39 +499,55 @@
 			path = Coordinators;
 			sourceTree = "<group>";
 		};
+		C9C6E6D5287D5D3B00FB3069 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				C98F335D287C6C530064BB87 /* MusicViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		C9C6E6D6287D5D6100FB3069 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				C98F3369287CA44F0064BB87 /* VideoViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
 		C9D315D52875C97600DE52BC /* Music */ = {
 			isa = PBXGroup;
 			children = (
-				C9D315D62875C98100DE52BC /* Controller */,
+				C9C6E6D5287D5D3B00FB3069 /* ViewModel */,
+				C9D315D62875C98100DE52BC /* View */,
 			);
 			path = Music;
 			sourceTree = "<group>";
 		};
-		C9D315D62875C98100DE52BC /* Controller */ = {
+		C9D315D62875C98100DE52BC /* View */ = {
 			isa = PBXGroup;
 			children = (
 				C9D315D72875C99A00DE52BC /* MusicViewController.swift */,
-				C98F335D287C6C530064BB87 /* MusicViewModel.swift */,
 			);
-			path = Controller;
+			path = View;
 			sourceTree = "<group>";
 		};
 		C9D315D92875CF8A00DE52BC /* Video */ = {
 			isa = PBXGroup;
 			children = (
-				C9D315DA2875CF9100DE52BC /* Controller */,
+				C9C6E6D6287D5D6100FB3069 /* ViewModel */,
+				C9D315DA2875CF9100DE52BC /* View */,
 			);
 			path = Video;
 			sourceTree = "<group>";
 		};
-		C9D315DA2875CF9100DE52BC /* Controller */ = {
+		C9D315DA2875CF9100DE52BC /* View */ = {
 			isa = PBXGroup;
 			children = (
 				C9D315DB2875CFA300DE52BC /* VideoViewController.swift */,
-				C98F3369287CA44F0064BB87 /* VideoViewModel.swift */,
 				C98F336E287CB32A0064BB87 /* VideoPlayerViewController.swift */,
 			);
-			path = Controller;
+			path = View;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
