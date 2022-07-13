@@ -14,4 +14,9 @@ final class FeedCoordinator {
         let vc = FeedViewController(viewModel: viewModel, coordinator: coordinator)
         return vc
     }
+
+    func showInfo() {
+        let coordinator = InfoCoordinator()
+        coordinator.showInfo(nc: UINavigationController(), coordinator: coordinator)
+    }
 }

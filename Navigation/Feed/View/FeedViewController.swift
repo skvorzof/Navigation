@@ -10,7 +10,7 @@ import UIKit
 class FeedViewController: UIViewController {
 
     private let viewModel: FeedViewModel?
-    weak var coordinator: FeedCoordinator?
+    private let coordinator: FeedCoordinator?
 
     private let passwordModel = PasswordModel()
 
@@ -85,6 +85,9 @@ class FeedViewController: UIViewController {
     }
 
     private func taps() {
+        leftButton.tapAction = {[coordinator] in
+            coordinator?.showInfo()
+        }
 
         checkButton.tapAction = { [textField, passwordModel, textLabel] in
             guard let password = textField.text else { return }

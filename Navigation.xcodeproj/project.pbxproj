@@ -56,6 +56,7 @@
 		C9C4A4A12859E53D007338FE /* ModuleFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9C4A4A02859E53D007338FE /* ModuleFactory.swift */; };
 		C9C6E6D9287D9A5800FB3069 /* NetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9C6E6D8287D9A5800FB3069 /* NetworkService.swift */; };
 		C9C6E6DB287D9FD300FB3069 /* AppConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9C6E6DA287D9FD300FB3069 /* AppConfiguration.swift */; };
+		C9C7A135287E930B0050B554 /* InfoCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9C7A134287E930B0050B554 /* InfoCoordinator.swift */; };
 		C9D204632844DD37005D108A /* TestUserService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9D204622844DD37005D108A /* TestUserService.swift */; };
 		C9D315D82875C99A00DE52BC /* MusicViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9D315D72875C99A00DE52BC /* MusicViewController.swift */; };
 		C9D315DC2875CFA300DE52BC /* VideoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9D315DB2875CFA300DE52BC /* VideoViewController.swift */; };
@@ -141,6 +142,7 @@
 		C9C4A4A02859E53D007338FE /* ModuleFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModuleFactory.swift; sourceTree = "<group>"; };
 		C9C6E6D8287D9A5800FB3069 /* NetworkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkService.swift; sourceTree = "<group>"; };
 		C9C6E6DA287D9FD300FB3069 /* AppConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppConfiguration.swift; sourceTree = "<group>"; };
+		C9C7A134287E930B0050B554 /* InfoCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoCoordinator.swift; sourceTree = "<group>"; };
 		C9D204622844DD37005D108A /* TestUserService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestUserService.swift; sourceTree = "<group>"; };
 		C9D315D72875C99A00DE52BC /* MusicViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MusicViewController.swift; sourceTree = "<group>"; };
 		C9D315DB2875CFA300DE52BC /* VideoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoViewController.swift; sourceTree = "<group>"; };
@@ -428,6 +430,7 @@
 			isa = PBXGroup;
 			children = (
 				C9661167285C8AB500F9DBD9 /* Controller */,
+				C9C7A134287E930B0050B554 /* InfoCoordinator.swift */,
 			);
 			path = Info;
 			sourceTree = "<group>";
@@ -751,6 +754,7 @@
 				C9AB506B284668BB001DF1CC /* LoginFactory.swift in Sources */,
 				C98F335E287C6C530064BB87 /* MusicViewModel.swift in Sources */,
 				C9661161285C7B2100F9DBD9 /* Post.swift in Sources */,
+				C9C7A135287E930B0050B554 /* InfoCoordinator.swift in Sources */,
 				C96081612850B5CC009444DA /* PasswordModel.swift in Sources */,
 				C9436662285BBF9400C706A4 /* FeedViewModel.swift in Sources */,
 				C9164FED27D0F57400034102 /* SceneDelegate.swift in Sources */,

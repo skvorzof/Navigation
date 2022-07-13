@@ -10,9 +10,7 @@ import SnapKit
 
 class InfoViewController: UIViewController {
     
-    weak var coordinator: MainCoordinator?
-    
-//    private let coordinator: InfoViewControllerCoordinator
+    private let coordinator: InfoCoordinator
     
     lazy var button: CustomButton = {
         let button = CustomButton(title: "Предупреждение", titleColor: .white, backColor: .red)
@@ -21,14 +19,14 @@ class InfoViewController: UIViewController {
     }()
     
     
-//    init(coordinator: InfoViewControllerCoordinator) {
-//        self.coordinator = coordinator
-//        super.init(nibName: nil, bundle: nil)
-//    }
-//
-//    required init?(coder: NSCoder) {
-//        fatalError("init(coder:) has not been implemented")
-//    }
+    init(coordinator: InfoCoordinator) {
+        self.coordinator = coordinator
+        super.init(nibName: nil, bundle: nil)
+    }
+
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
 
     override func viewDidLoad() {
