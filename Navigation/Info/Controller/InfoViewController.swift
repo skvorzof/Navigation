@@ -5,29 +5,16 @@
 //  Created by mitr on 03.03.2022.
 //
 
-import UIKit
 import SnapKit
+import UIKit
 
 class InfoViewController: UIViewController {
-    
-    private let coordinator: InfoCoordinator
-    
+
     lazy var button: CustomButton = {
         let button = CustomButton(title: "Предупреждение", titleColor: .white, backColor: .red)
         button.addTarget(self, action: #selector(tap), for: .touchUpInside)
         return button
     }()
-    
-    
-    init(coordinator: InfoCoordinator) {
-        self.coordinator = coordinator
-        super.init(nibName: nil, bundle: nil)
-    }
-
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-    
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -35,7 +22,7 @@ class InfoViewController: UIViewController {
         title = "Информация"
         addButton()
     }
-    
+
     private func addButton() {
         button.center = view.center
         view.addSubview(button)
@@ -45,28 +32,31 @@ class InfoViewController: UIViewController {
             $0.center.equalToSuperview()
         }
     }
-    
+
     @objc private func tap(sender: UIButton) {
-            let alert = UIAlertController(title: "Внимание",
-                                          message: "Вы уверены?",
-                                          preferredStyle: .alert)
-        
-            let cancelAction = UIAlertAction(title: "Нет",
-                                             style: .cancel,
-                                             handler: {_ in
+        let alert = UIAlertController(
+            title: "Внимание",
+            message: "Вы уверены?",
+            preferredStyle: .alert)
+
+        let cancelAction = UIAlertAction(
+            title: "Нет",
+            style: .cancel,
+            handler: { _ in
                 print("Не уверен")
             })
-            alert.addAction(cancelAction)
-            
-            let deletelAction = UIAlertAction(title: "Да",
-                                              style: .destructive,
-                                              handler: {_ in
+        alert.addAction(cancelAction)
+
+        let deletelAction = UIAlertAction(
+            title: "Да",
+            style: .destructive,
+            handler: { _ in
                 print("Уверен")
             })
-            alert.addAction(deletelAction)
-            present(alert, animated: true, completion: nil)
-        }
-    
+        alert.addAction(deletelAction)
+        present(alert, animated: true, completion: nil)
+    }
+
     @objc private func close(sender: UIButton) {
         dismiss(animated: true, completion: nil)
     }
