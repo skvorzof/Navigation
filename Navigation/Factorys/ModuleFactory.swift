@@ -8,32 +8,30 @@
 import UIKit
 
 final class ModuleFactory {
-    
+
     enum Flow {
         case feed
         case profile
         case music
         case video
     }
-    
-    
+
     let nc: UINavigationController
     let flow: Flow
-    
-    
+
     init(nc: UINavigationController, flow: Flow) {
         self.nc = nc
         self.flow = flow
-        
+
         startModule()
     }
-    
-    
+
     func startModule() {
         switch flow {
         case .feed:
-            let coordinator = FeedCoordinator()
-            let vc = coordinator.showFeed(coordinator: coordinator)
+            let viewModel = FeedViewModel()
+            let coordinator = FeedFlowCoordinator()
+            let vc = FeedViewController(viewModel: viewModel, coordinator: coordinator)
             nc.tabBarItem.title = "Лента"
             nc.tabBarItem.image = UIImage(systemName: "house.fill")
             nc.setViewControllers([vc], animated: false)
@@ -54,5 +52,5 @@ final class ModuleFactory {
             nc.setViewControllers([vc], animated: false)
         }
     }
-    
+
 }

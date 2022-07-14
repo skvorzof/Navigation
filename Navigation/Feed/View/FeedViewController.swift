@@ -9,8 +9,8 @@ import UIKit
 
 class FeedViewController: UIViewController {
 
-    private let viewModel: FeedViewModel?
-    weak var coordinator: FeedCoordinator?
+    private let viewModel: FeedViewModel
+    private let coordinator: FeedFlowCoordinator
 
     private let passwordModel = PasswordModel()
 
@@ -60,7 +60,7 @@ class FeedViewController: UIViewController {
         return button
     }()
 
-    init(viewModel: FeedViewModel, coordinator: FeedCoordinator) {
+    init(viewModel: FeedViewModel, coordinator: FeedFlowCoordinator) {
         self.viewModel = viewModel
         self.coordinator = coordinator
         super.init(nibName: nil, bundle: nil)
@@ -85,6 +85,9 @@ class FeedViewController: UIViewController {
     }
 
     private func taps() {
+        leftButton.tapAction = { [coordinator, navigationController] in
+            coordinator.showInfo(nc: navigationController, coordinator: coordinator)
+        }
 
         checkButton.tapAction = { [textField, passwordModel, textLabel] in
             guard let password = textField.text else { return }

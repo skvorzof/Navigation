@@ -28,11 +28,11 @@ class PostViewController: UIViewController {
         navigationController?.navigationBar.isHidden = true
     }
     
-    @objc private func info() {
-        let infoVC = InfoViewController()
-        let nc = UINavigationController(rootViewController: infoVC)
-        present(nc, animated: true, completion: nil)
-    }
+//    @objc private func info() {
+//        let infoVC = InfoViewController()
+//        let nc = UINavigationController(rootViewController: infoVC)
+//        present(nc, animated: true, completion: nil)
+//    }
     
     private let postTitle: UILabel = {
         let label = UILabel()
