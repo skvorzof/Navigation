@@ -15,6 +15,9 @@
 		C9164FED27D0F57400034102 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9164FEC27D0F57400034102 /* SceneDelegate.swift */; };
 		C9164FF427D0F57500034102 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C9164FF327D0F57500034102 /* Assets.xcassets */; };
 		C9164FF727D0F57500034102 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C9164FF527D0F57500034102 /* LaunchScreen.storyboard */; };
+		C93E99282881D91900444336 /* TodoService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C93E99272881D91900444336 /* TodoService.swift */; };
+		C93E992A2881DB3000444336 /* InfoViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C93E99292881DB3000444336 /* InfoViewModel.swift */; };
+		C93E992C2881E4E400444336 /* Todo.swift in Sources */ = {isa = PBXBuildFile; fileRef = C93E992B2881E4E400444336 /* Todo.swift */; };
 		C9436632285B358500C706A4 /* FeedFlowCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9436631285B358400C706A4 /* FeedFlowCoordinator.swift */; };
 		C9436662285BBF9400C706A4 /* FeedViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9436661285BBF9400C706A4 /* FeedViewModel.swift */; };
 		C94993D92863A02F003D80A2 /* LoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C94993D82863A02F003D80A2 /* LoginViewModel.swift */; };
@@ -101,6 +104,9 @@
 		C9164FF327D0F57500034102 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		C9164FF627D0F57500034102 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		C9164FF827D0F57500034102 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		C93E99272881D91900444336 /* TodoService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoService.swift; sourceTree = "<group>"; };
+		C93E99292881DB3000444336 /* InfoViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoViewModel.swift; sourceTree = "<group>"; };
+		C93E992B2881E4E400444336 /* Todo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Todo.swift; sourceTree = "<group>"; };
 		C9436631285B358400C706A4 /* FeedFlowCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedFlowCoordinator.swift; sourceTree = "<group>"; };
 		C9436661285BBF9400C706A4 /* FeedViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedViewModel.swift; sourceTree = "<group>"; };
 		C94993D82863A02F003D80A2 /* LoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewModel.swift; sourceTree = "<group>"; };
@@ -285,6 +291,7 @@
 		C94C3C35284116FC00F4DE92 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				C93E992B2881E4E400444336 /* Todo.swift */,
 				C94C3C362841172100F4DE92 /* User.swift */,
 				C94C3C38284119DD00F4DE92 /* CurrentUserService.swift */,
 				C9D204622844DD37005D108A /* TestUserService.swift */,
@@ -360,7 +367,6 @@
 			children = (
 				C966115E285C779700F9DBD9 /* View */,
 				C966115D285C778400F9DBD9 /* Controller */,
-				C966115C285C777000F9DBD9 /* Coordinator */,
 				C966115B285C774D00F9DBD9 /* ViewModel */,
 				C966115A285C774400F9DBD9 /* Model */,
 			);
@@ -382,13 +388,6 @@
 				C9661164285C7E4700F9DBD9 /* PostViewModel.swift */,
 			);
 			path = ViewModel;
-			sourceTree = "<group>";
-		};
-		C966115C285C777000F9DBD9 /* Coordinator */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Coordinator;
 			sourceTree = "<group>";
 		};
 		C966115D285C778400F9DBD9 /* Controller */ = {
@@ -428,6 +427,7 @@
 			isa = PBXGroup;
 			children = (
 				C9661167285C8AB500F9DBD9 /* Controller */,
+				C93E99292881DB3000444336 /* InfoViewModel.swift */,
 			);
 			path = Info;
 			sourceTree = "<group>";
@@ -525,6 +525,7 @@
 			isa = PBXGroup;
 			children = (
 				C9C6E6D8287D9A5800FB3069 /* NetworkService.swift */,
+				C93E99272881D91900444336 /* TodoService.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -728,8 +729,10 @@
 				C98F336A287CA44F0064BB87 /* VideoViewModel.swift in Sources */,
 				C9AB5067284659D3001DF1CC /* Checker.swift in Sources */,
 				C99A81F227EE3AF30080B6A5 /* PhotosViewController.swift in Sources */,
+				C93E992A2881DB3000444336 /* InfoViewModel.swift in Sources */,
 				C9661158285C75E300F9DBD9 /* PhotoViewModel.swift in Sources */,
 				C9436632285B358500C706A4 /* FeedFlowCoordinator.swift in Sources */,
+				C93E99282881D91900444336 /* TodoService.swift in Sources */,
 				C9A3884027E6692100CE4307 /* CustomTextField.swift in Sources */,
 				C9D315D82875C99A00DE52BC /* MusicViewController.swift in Sources */,
 				C9E1AA7327D0FBCB0021A97A /* ProfileViewController.swift in Sources */,
@@ -762,6 +765,7 @@
 				C9A3884427E67DCA00CE4307 /* Extensions.swift in Sources */,
 				C9ABC90828624931002684A1 /* LoginView.swift in Sources */,
 				C9E1AA7927D0FC510021A97A /* FeedViewController.swift in Sources */,
+				C93E992C2881E4E400444336 /* Todo.swift in Sources */,
 				C960815F285094D3009444DA /* CustomButton.swift in Sources */,
 				C9A3881C27E5C70700CE4307 /* LoginViewController.swift in Sources */,
 				C9E1AA7727D0FC240021A97A /* InfoViewController.swift in Sources */,

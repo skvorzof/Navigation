@@ -10,6 +10,14 @@ import UIKit
 
 class InfoViewController: UIViewController {
 
+    private let viewModel = InfoViewModel()
+
+    private let titleLabel: UILabel = {
+        let label = UILabel()
+        label.numberOfLines = 0
+        return label
+    }()
+
     lazy var button: CustomButton = {
         let button = CustomButton(title: "Предупреждение", titleColor: .white, backColor: .red)
         button.addTarget(self, action: #selector(tap), for: .touchUpInside)
@@ -20,7 +28,12 @@ class InfoViewController: UIViewController {
         super.viewDidLoad()
         view.backgroundColor = UIColor(hue: 0.3, saturation: 0.3, brightness: 1, alpha: 1.0)
         title = "Информация"
+
+        setupUI()
         addButton()
+        setupModel()
+
+        //        titleLabel.text = viewModel.todoTitle
     }
 
     private func addButton() {
@@ -59,5 +72,27 @@ class InfoViewController: UIViewController {
 
     @objc private func close(sender: UIButton) {
         dismiss(animated: true, completion: nil)
+    }
+
+    private func setupUI() {
+        view.addSubview(titleLabel)
+        titleLabel.snp.makeConstraints {
+            $0.centerX.equalToSuperview()
+            $0.top.equalTo(view.snp.top).inset(200)
+        }
+    }
+
+    private func setupModel() {
+        viewModel.changeState(.todo)
+        viewModel.statechanged = { [titleLabel] state in
+            switch state {
+            case .loading:
+                titleLabel.text = "..."
+            case .loaded(let todo):
+                DispatchQueue.main.async {
+                    titleLabel.text = todo.title
+                }
+            }
+        }
     }
 }
