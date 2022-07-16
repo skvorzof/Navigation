@@ -11,6 +11,7 @@
 		C90E05112837B888008C554C /* StorageService.h in Headers */ = {isa = PBXBuildFile; fileRef = C90E05102837B888008C554C /* StorageService.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C90E05142837B888008C554C /* StorageService.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C90E050E2837B888008C554C /* StorageService.framework */; };
 		C90E05152837B888008C554C /* StorageService.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C90E050E2837B888008C554C /* StorageService.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		C90F7F38288290120001225C /* ObservableObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = C90F7F37288290120001225C /* ObservableObject.swift */; };
 		C9164FEB27D0F57400034102 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9164FEA27D0F57400034102 /* AppDelegate.swift */; };
 		C9164FED27D0F57400034102 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9164FEC27D0F57400034102 /* SceneDelegate.swift */; };
 		C9164FF427D0F57500034102 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C9164FF327D0F57500034102 /* Assets.xcassets */; };
@@ -98,6 +99,7 @@
 /* Begin PBXFileReference section */
 		C90E050E2837B888008C554C /* StorageService.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = StorageService.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C90E05102837B888008C554C /* StorageService.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = StorageService.h; sourceTree = "<group>"; };
+		C90F7F37288290120001225C /* ObservableObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObservableObject.swift; sourceTree = "<group>"; };
 		C9164FE727D0F57400034102 /* Navigation.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Navigation.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C9164FEA27D0F57400034102 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C9164FEC27D0F57400034102 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -234,6 +236,7 @@
 				C9164FF527D0F57500034102 /* LaunchScreen.storyboard */,
 				C9164FF827D0F57500034102 /* Info.plist */,
 				C94993DA2863A0F0003D80A2 /* BruteForce.swift */,
+				C90F7F37288290120001225C /* ObservableObject.swift */,
 			);
 			path = Navigation;
 			sourceTree = "<group>";
@@ -761,6 +764,7 @@
 				C9661156285C75C200F9DBD9 /* PhotoCoordinator.swift in Sources */,
 				C9AB506D28466918001DF1CC /* MyLoginFactory.swift in Sources */,
 				C9C6E6DB287D9FD300FB3069 /* AppConfiguration.swift in Sources */,
+				C90F7F38288290120001225C /* ObservableObject.swift in Sources */,
 				C94993D92863A02F003D80A2 /* LoginViewModel.swift in Sources */,
 				C9A3884427E67DCA00CE4307 /* Extensions.swift in Sources */,
 				C9ABC90828624931002684A1 /* LoginView.swift in Sources */,

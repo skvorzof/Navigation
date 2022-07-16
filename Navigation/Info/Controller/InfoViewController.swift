@@ -32,8 +32,6 @@ class InfoViewController: UIViewController {
         setupUI()
         addButton()
         setupModel()
-
-        //        titleLabel.text = viewModel.todoTitle
     }
 
     private func addButton() {
@@ -83,16 +81,12 @@ class InfoViewController: UIViewController {
     }
 
     private func setupModel() {
-        viewModel.changeState(.todo)
-        viewModel.statechanged = { [titleLabel] state in
-            switch state {
-            case .loading:
-                titleLabel.text = "..."
-            case .loaded(let todo):
-                DispatchQueue.main.async {
-                    titleLabel.text = todo.title
-                }
+        viewModel.todoTitle.bind({ [titleLabel] title in
+            DispatchQueue.main.async {
+                titleLabel.text = title
             }
-        }
+        })
+
+        viewModel.get()
     }
 }
