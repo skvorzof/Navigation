@@ -117,7 +117,7 @@ class InfoViewController: UIViewController {
             switch state {
             case .loaded:
                 DispatchQueue.main.async {
-                    orbitalPeriodLabel.text = viewModel.planetModel[0].orbitalPeriod
+                    orbitalPeriodLabel.text = "orbitalPeriod: \(viewModel.planetModel[0].orbitalPeriod)"
                     table.reloadData()
                 }
             }
