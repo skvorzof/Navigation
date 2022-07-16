@@ -100,7 +100,7 @@ class InfoViewController: UIViewController {
 
         view.addSubview(table)
         table.snp.makeConstraints {
-            $0.height.equalTo(200)
+            $0.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom).offset(-120)
             $0.top.equalTo(orbitalPeriodLabel.snp.bottom).offset(16)
             $0.leading.trailing.equalToSuperview().inset(16)
         }
@@ -113,32 +113,35 @@ class InfoViewController: UIViewController {
                 titleLabel.text = "Todo title: \(title)"
             }
         })
-
-        viewModel.getTodo()
-        
-        viewModel.changeState(.initTable)
-        viewModel.statechanged = {[viewModel, table, orbitalPeriodLabel] state in
+        viewModel.statechanged = { [table, viewModel, orbitalPeriodLabel] state in
             switch state {
             case .loaded:
                 DispatchQueue.main.async {
-                    orbitalPeriodLabel.text = ("Orbital period: \(viewModel.planetModel[0].orbitalPeriod)")
+                    orbitalPeriodLabel.text = viewModel.planetModel[0].orbitalPeriod
                     table.reloadData()
                 }
             }
         }
+        
+        viewModel.getTodo()
+        
+        viewModel.changeState(.initModel)
+        viewModel.changeState(.initTable)
+        viewModel.getResident()
+        
     }
 }
 
 // MARK: - InfoViewController: UITableViewDataSource
 extension InfoViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        viewModel.planetModel.count
+        viewModel.residents.count
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = UITableViewCell(style: .default, reuseIdentifier: nil)
         var content: UIListContentConfiguration = cell.defaultContentConfiguration()
-        content.text = viewModel.planetModel[indexPath.row].name
+        content.text = viewModel.residents[indexPath.row]
         cell.contentConfiguration = content
         return cell
     }

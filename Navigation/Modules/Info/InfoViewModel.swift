@@ -8,15 +8,16 @@
 import Foundation
 
 final class InfoViewModel {
-    
+
     enum Action {
+        case initModel
         case initTable
     }
-    
+
     enum State {
         case loaded
     }
-    
+
     var statechanged: ((State) -> Void)?
     private(set) var state: State = .loaded {
         didSet {
@@ -26,18 +27,28 @@ final class InfoViewModel {
 
     var todoTitle = ObservableObject("")
     var planetModel = [Planet]()
-    
+    var residents: [String] = []
+
     func changeState(_ action: Action) {
         switch action {
-        case .initTable:
+        case .initModel:
             let urlString = "https://swapi.dev/api/planets/1"
-            PlanetService.shared.fetchPlanet(with: urlString) {[weak self] data in
+            PlanetService.shared.fetchPlanet(with: urlString) { [weak self] data in
                 switch data {
                 case .success(let planet):
                     self?.planetModel.append(planet)
-                    self?.state = .loaded
                 case .failure(let err):
                     print("Error \(err)")
+                }
+            }
+        case .initTable:
+            ResidentService.shared.fetchResident { [weak self] data in
+                switch data {
+                case .success(let model):
+                    self?.residents.append(model)
+                    self?.state = .loaded
+                case .failure(let err):
+                    print(err)
                 }
             }
         }
@@ -56,16 +67,16 @@ final class InfoViewModel {
         }
     }
 
-    func getPlanet() {
-        let urlString = "https://swapi.dev/api/planets/1"
-        PlanetService.shared.fetchPlanet(with: urlString) {[weak self] data in
+    func getResident() {
+        ResidentService.shared.fetchResident { [weak self] data in
             switch data {
-            case .success(let planet):
-                self?.planetModel.append(planet)
+            case .success(let model):
+                self?.residents.append(model)
             case .failure(let err):
-                print("Error \(err)")
+                print(err)
             }
+
         }
     }
-    
+
 }

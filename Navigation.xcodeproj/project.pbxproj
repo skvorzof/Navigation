@@ -57,6 +57,8 @@
 		C9ABC90828624931002684A1 /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9ABC90728624931002684A1 /* LoginView.swift */; };
 		C9B6B38128830B010056971D /* Planet.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9B6B38028830B010056971D /* Planet.swift */; };
 		C9B6B38328830BB50056971D /* PlanetService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9B6B38228830BB50056971D /* PlanetService.swift */; };
+		C9B6B385288322E20056971D /* Resident.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9B6B384288322E20056971D /* Resident.swift */; };
+		C9B6B387288323340056971D /* ResidentService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9B6B386288323340056971D /* ResidentService.swift */; };
 		C9C4A4972858E42E007338FE /* MainCoordinatorProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9C4A4962858E42E007338FE /* MainCoordinatorProtocol.swift */; };
 		C9C4A4992859B178007338FE /* MainCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9C4A4982859B178007338FE /* MainCoordinator.swift */; };
 		C9C4A4A12859E53D007338FE /* ModuleFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9C4A4A02859E53D007338FE /* ModuleFactory.swift */; };
@@ -148,6 +150,8 @@
 		C9ABC90728624931002684A1 /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
 		C9B6B38028830B010056971D /* Planet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Planet.swift; sourceTree = "<group>"; };
 		C9B6B38228830BB50056971D /* PlanetService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlanetService.swift; sourceTree = "<group>"; };
+		C9B6B384288322E20056971D /* Resident.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Resident.swift; sourceTree = "<group>"; };
+		C9B6B386288323340056971D /* ResidentService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResidentService.swift; sourceTree = "<group>"; };
 		C9C4A4962858E42E007338FE /* MainCoordinatorProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainCoordinatorProtocol.swift; sourceTree = "<group>"; };
 		C9C4A4982859B178007338FE /* MainCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainCoordinator.swift; sourceTree = "<group>"; };
 		C9C4A4A02859E53D007338FE /* ModuleFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModuleFactory.swift; sourceTree = "<group>"; };
@@ -310,6 +314,7 @@
 				C94C3C362841172100F4DE92 /* User.swift */,
 				C96081602850B5CC009444DA /* Password.swift */,
 				C9B6B38028830B010056971D /* Planet.swift */,
+				C9B6B384288322E20056971D /* Resident.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -543,6 +548,7 @@
 				C94C3C38284119DD00F4DE92 /* CurrentUserService.swift */,
 				C9D204622844DD37005D108A /* TestUserService.swift */,
 				C9B6B38228830BB50056971D /* PlanetService.swift */,
+				C9B6B386288323340056971D /* ResidentService.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -742,6 +748,7 @@
 				C9AB506928465DC8001DF1CC /* LoginInspector.swift in Sources */,
 				C9C4A4992859B178007338FE /* MainCoordinator.swift in Sources */,
 				C94993DB2863A0F0003D80A2 /* BruteForce.swift in Sources */,
+				C9B6B385288322E20056971D /* Resident.swift in Sources */,
 				C9E1AA7527D0FBF60021A97A /* PostViewController.swift in Sources */,
 				C98F336A287CA44F0064BB87 /* VideoViewModel.swift in Sources */,
 				C9AB5067284659D3001DF1CC /* Checker.swift in Sources */,
@@ -771,6 +778,7 @@
 				C9D204632844DD37005D108A /* TestUserService.swift in Sources */,
 				C9AB506B284668BB001DF1CC /* LoginFactory.swift in Sources */,
 				C98F335E287C6C530064BB87 /* MusicViewModel.swift in Sources */,
+				C9B6B387288323340056971D /* ResidentService.swift in Sources */,
 				C9661161285C7B2100F9DBD9 /* Post.swift in Sources */,
 				C96081612850B5CC009444DA /* Password.swift in Sources */,
 				C9436662285BBF9400C706A4 /* FeedViewModel.swift in Sources */,
