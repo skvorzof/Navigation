@@ -12,7 +12,7 @@ class FeedViewController: UIViewController {
     private let viewModel: FeedViewModel
     private let coordinator: FeedFlowCoordinator
 
-    private let passwordModel = PasswordModel()
+    private let passwordModel = Password()
 
     private let stackView: UIStackView = {
         let stackView = UIStackView()

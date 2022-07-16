@@ -1,5 +1,5 @@
 //
-//  PasswordModel.swift
+//  Password.swift
 //  Navigation
 //
 //  Created by mitr on 08.06.2022.
@@ -14,7 +14,7 @@ enum CheckError: Error {
 }
 
 
-final class PasswordModel {
+final class Password {
     
     func check(password: String) throws -> Bool? {
         switch password {
