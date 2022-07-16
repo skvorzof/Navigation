@@ -8,13 +8,25 @@
 import SnapKit
 import UIKit
 
+// MARK: - InfoViewController
 class InfoViewController: UIViewController {
 
     private let viewModel = InfoViewModel()
 
+    private lazy var table: UITableView = {
+        let table = UITableView()
+        table.dataSource = self
+        return table
+    }()
+
     private let titleLabel: UILabel = {
         let label = UILabel()
         label.numberOfLines = 0
+        return label
+    }()
+
+    private let orbitalPeriodLabel: UILabel = {
+        let label = UILabel()
         return label
     }()
 
@@ -40,7 +52,8 @@ class InfoViewController: UIViewController {
         button.snp.makeConstraints {
             $0.width.equalTo(200)
             $0.height.equalTo(40)
-            $0.center.equalToSuperview()
+            $0.centerX.equalToSuperview()
+            $0.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom).offset(-23)
         }
     }
 
@@ -76,17 +89,57 @@ class InfoViewController: UIViewController {
         view.addSubview(titleLabel)
         titleLabel.snp.makeConstraints {
             $0.centerX.equalToSuperview()
-            $0.top.equalTo(view.snp.top).inset(200)
+            $0.top.equalTo(view.safeAreaLayoutGuide.snp.top).offset(16)
         }
+
+        view.addSubview(orbitalPeriodLabel)
+        orbitalPeriodLabel.snp.makeConstraints {
+            $0.centerX.equalToSuperview()
+            $0.top.equalTo(titleLabel.snp.bottom).offset(16)
+        }
+
+        view.addSubview(table)
+        table.snp.makeConstraints {
+            $0.height.equalTo(200)
+            $0.top.equalTo(orbitalPeriodLabel.snp.bottom).offset(16)
+            $0.leading.trailing.equalToSuperview().inset(16)
+        }
+
     }
 
     private func setupModel() {
         viewModel.todoTitle.bind({ [titleLabel] title in
             DispatchQueue.main.async {
-                titleLabel.text = title
+                titleLabel.text = "Todo title: \(title)"
             }
         })
 
-        viewModel.get()
+        viewModel.getTodo()
+        
+        viewModel.changeState(.initTable)
+        viewModel.statechanged = {[viewModel, table, orbitalPeriodLabel] state in
+            switch state {
+            case .loaded:
+                DispatchQueue.main.async {
+                    orbitalPeriodLabel.text = ("Orbital period: \(viewModel.planetModel[0].orbitalPeriod)")
+                    table.reloadData()
+                }
+            }
+        }
+    }
+}
+
+// MARK: - InfoViewController: UITableViewDataSource
+extension InfoViewController: UITableViewDataSource {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        viewModel.planetModel.count
+    }
+
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = UITableViewCell(style: .default, reuseIdentifier: nil)
+        var content: UIListContentConfiguration = cell.defaultContentConfiguration()
+        content.text = viewModel.planetModel[indexPath.row].name
+        cell.contentConfiguration = content
+        return cell
     }
 }

@@ -55,6 +55,8 @@
 		C9AB506D28466918001DF1CC /* MyLoginFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9AB506C28466918001DF1CC /* MyLoginFactory.swift */; };
 		C9ABC90528620292002684A1 /* Photo.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9ABC90428620292002684A1 /* Photo.swift */; };
 		C9ABC90828624931002684A1 /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9ABC90728624931002684A1 /* LoginView.swift */; };
+		C9B6B38128830B010056971D /* Planet.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9B6B38028830B010056971D /* Planet.swift */; };
+		C9B6B38328830BB50056971D /* PlanetService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9B6B38228830BB50056971D /* PlanetService.swift */; };
 		C9C4A4972858E42E007338FE /* MainCoordinatorProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9C4A4962858E42E007338FE /* MainCoordinatorProtocol.swift */; };
 		C9C4A4992859B178007338FE /* MainCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9C4A4982859B178007338FE /* MainCoordinator.swift */; };
 		C9C4A4A12859E53D007338FE /* ModuleFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9C4A4A02859E53D007338FE /* ModuleFactory.swift */; };
@@ -144,6 +146,8 @@
 		C9AB506C28466918001DF1CC /* MyLoginFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyLoginFactory.swift; sourceTree = "<group>"; };
 		C9ABC90428620292002684A1 /* Photo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Photo.swift; sourceTree = "<group>"; };
 		C9ABC90728624931002684A1 /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
+		C9B6B38028830B010056971D /* Planet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Planet.swift; sourceTree = "<group>"; };
+		C9B6B38228830BB50056971D /* PlanetService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlanetService.swift; sourceTree = "<group>"; };
 		C9C4A4962858E42E007338FE /* MainCoordinatorProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainCoordinatorProtocol.swift; sourceTree = "<group>"; };
 		C9C4A4982859B178007338FE /* MainCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainCoordinator.swift; sourceTree = "<group>"; };
 		C9C4A4A02859E53D007338FE /* ModuleFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModuleFactory.swift; sourceTree = "<group>"; };
@@ -305,6 +309,7 @@
 				C93E992B2881E4E400444336 /* Todo.swift */,
 				C94C3C362841172100F4DE92 /* User.swift */,
 				C96081602850B5CC009444DA /* Password.swift */,
+				C9B6B38028830B010056971D /* Planet.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -537,6 +542,7 @@
 				C9C6E6D8287D9A5800FB3069 /* NetworkService.swift */,
 				C94C3C38284119DD00F4DE92 /* CurrentUserService.swift */,
 				C9D204622844DD37005D108A /* TestUserService.swift */,
+				C9B6B38228830BB50056971D /* PlanetService.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -745,6 +751,7 @@
 				C9436632285B358500C706A4 /* FeedFlowCoordinator.swift in Sources */,
 				C93E99282881D91900444336 /* TodoService.swift in Sources */,
 				C9A3884027E6692100CE4307 /* CustomTextField.swift in Sources */,
+				C9B6B38328830BB50056971D /* PlanetService.swift in Sources */,
 				C9D315D82875C99A00DE52BC /* MusicViewController.swift in Sources */,
 				C9E1AA7327D0FBCB0021A97A /* ProfileViewController.swift in Sources */,
 				C99A81F527EE47810080B6A5 /* PhotoCollectionViewCell.swift in Sources */,
@@ -782,6 +789,7 @@
 				C9A3881C27E5C70700CE4307 /* LoginViewController.swift in Sources */,
 				C9E1AA7727D0FC240021A97A /* InfoViewController.swift in Sources */,
 				C9A3884227E676A700CE4307 /* PostTableViewCell.swift in Sources */,
+				C9B6B38128830B010056971D /* Planet.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
