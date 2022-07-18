@@ -17,6 +17,7 @@ class InfoViewController: UIViewController {
 
     private lazy var table: UITableView = {
         let table = UITableView()
+        table.alpha = 0
         table.dataSource = self
         return table
     }()
@@ -40,7 +41,7 @@ class InfoViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = UIColor(hue: 0.3, saturation: 0.3, brightness: 1, alpha: 1.0)
+        view.backgroundColor = .white
         title = "Информация"
 
         setupUI()
@@ -126,8 +127,8 @@ class InfoViewController: UIViewController {
             case .loaded:
                 DispatchQueue.main.async {
                     orbitalPeriodLabel.text = "orbitalPeriod: \(viewModel.planetModel[0].orbitalPeriod)"
-                    activityIndicator.startAnimating()
-                    activityIndicator.alpha = 0
+                    activityIndicator.stopAnimating()
+                    table.alpha = 1
                     table.reloadData()
                 }
             }
