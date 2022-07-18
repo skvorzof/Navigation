@@ -12,7 +12,7 @@ class FeedViewController: UIViewController {
     private let viewModel: FeedViewModel
     private let coordinator: FeedFlowCoordinator
 
-    private let passwordModel = PasswordModel()
+    private let passwordModel = Password()
 
     private let stackView: UIStackView = {
         let stackView = UIStackView()
@@ -49,16 +49,11 @@ class FeedViewController: UIViewController {
     }()
 
     private lazy var leftButton: CustomButton = {
-        let button = CustomButton(title: "Первая", titleColor: .black, backColor: .yellow)
+        let button = CustomButton(title: "Информация", titleColor: .black, backColor: .yellow)
         button.titleLabel?.font = .systemFont(ofSize: 14)
         return button
     }()
 
-    private lazy var rightButton: CustomButton = {
-        let button = CustomButton(title: "Вторая", titleColor: .white, backColor: .brown)
-        button.titleLabel?.font = .systemFont(ofSize: 14)
-        return button
-    }()
 
     init(viewModel: FeedViewModel, coordinator: FeedFlowCoordinator) {
         self.viewModel = viewModel
@@ -144,7 +139,6 @@ class FeedViewController: UIViewController {
 
         view.addSubview(stackView)
         stackView.addArrangedSubview(leftButton)
-        stackView.addArrangedSubview(rightButton)
         stackView.snp.makeConstraints {
             $0.top.equalTo(checkButton.snp.bottom).offset(100)
             $0.leading.trailing.equalToSuperview().inset(32)

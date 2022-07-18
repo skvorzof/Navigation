@@ -9,24 +9,38 @@ import Foundation
 
 // MARK: - NetworkService
 struct NetworkService {
+    
+    enum CustomError: Error {
+        case invalidUrl
+        case invalidData
+    }
+    
     static let shared = NetworkService()
 
     private init() {}
     
-    func getUrlSession(stingUrl: String) {
-        if let url = URL(string: stingUrl) {
-            let task = URLSession.shared.dataTask(with: url) { data, response, error in
-                if let data = data, let response = response as? HTTPURLResponse {
-                    print("ОТВЕТ СЕРВЕРА (statusCode): \(response.statusCode)")
-                    print("ОТВЕТ СЕРВЕРА (Header)¬\n\(response.allHeaderFields)\n")
-                    print("ОТВЕТ СЕРВЕРА (data)¬\n\(String(decoding: data, as: UTF8.self))\n")
-                } else {
-                    if let error = error {
-                        print("ОШИБКА:\n \(error)")
-                    }
-                }
-            }
-            task.resume()
+    func request<T: Codable>(url: URL?, expecting: T.Type, completion: @escaping (Result<T, Error>) -> Void) {
+        guard let url = url else {
+            completion(.failure(CustomError.invalidUrl))
+            return
         }
+        
+        let task = URLSession.shared.dataTask(with: url) { data, _, error in
+            guard let data = data else {
+                if let error = error {
+                    completion(.failure(error))
+                } else {
+                    completion(.failure(CustomError.invalidData))
+                }
+                return
+            }
+            do {
+                let result = try JSONDecoder().decode(T.self, from: data)
+                completion(.success(result))
+            } catch {
+                completion(.failure(error))
+            }
+        }
+        task.resume()
     }
 }
