@@ -13,18 +13,15 @@ final class PlanetService {
 
     private init() {}
 
-    func fetchPlanet(with urlString: String, completion: @escaping (Result<Planet, Error>) -> Void) {
-        guard let url = URL(string: urlString) else { return }
-        let task = URLSession.shared.dataTask(with: url) { data, resp, err in
-            guard let data = data, err == nil else { return }
-
-            do {
-                let planet = try JSONDecoder().decode(Planet.self, from: data)
-                completion(.success(planet))
-            } catch let err {
-                completion(.failure(err))
+    func getPlanet(completion: @escaping(Result<Planet, Error>) -> Void) {
+        let url = URL(string: "https://swapi.dev/api/planets/1")
+        NetworkService.shared.request(url: url, expecting: Planet.self) { result in
+            switch result {
+            case .success(let model):
+                completion(.success(model))
+            case .failure(let error):
+                completion(.failure(error))
             }
         }
-        task.resume()
     }
 }

@@ -8,7 +8,7 @@
 import Foundation
 
 // MARK: - Planet
-struct Planet: Decodable {
+struct Planet: Codable {
     let name, rotationPeriod, orbitalPeriod, diameter: String
     let climate, gravity, terrain, surfaceWater: String
     let population: String

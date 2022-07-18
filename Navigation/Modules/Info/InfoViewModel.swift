@@ -26,14 +26,13 @@ final class InfoViewModel {
     }
 
     var todoTitle = ObservableObject("")
-    var planetModel = [Planet]()
-    var residents: [String] = []
+    var planetModel: [Planet] = []
+    var residents: [Resident] = []
 
     func changeState(_ action: Action) {
         switch action {
         case .initModel:
-            let urlString = "https://swapi.dev/api/planets/1"
-            PlanetService.shared.fetchPlanet(with: urlString) { [weak self] data in
+            PlanetService.shared.getPlanet { [weak self] data in
                 switch data {
                 case .success(let planet):
                     self?.planetModel.append(planet)
@@ -42,7 +41,7 @@ final class InfoViewModel {
                 }
             }
         case .initTable:
-            ResidentService.shared.fetchResident { [weak self] data in
+            ResidentService.shared.getResident { [weak self] data in
                 switch data {
                 case .success(let model):
                     self?.residents.append(model)
@@ -64,18 +63,6 @@ final class InfoViewModel {
             case .failure(let err):
                 print("\(err.localizedDescription)")
             }
-        }
-    }
-
-    func getResident() {
-        ResidentService.shared.fetchResident { [weak self] data in
-            switch data {
-            case .success(let model):
-                self?.residents.append(model)
-            case .failure(let err):
-                print(err)
-            }
-
         }
     }
 

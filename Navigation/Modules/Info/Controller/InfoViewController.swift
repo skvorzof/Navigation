@@ -13,6 +13,8 @@ class InfoViewController: UIViewController {
 
     private let viewModel = InfoViewModel()
 
+    private let activityIndicator = UIActivityIndicatorView(style: .medium)
+
     private lazy var table: UITableView = {
         let table = UITableView()
         table.dataSource = self
@@ -44,6 +46,7 @@ class InfoViewController: UIViewController {
         setupUI()
         addButton()
         setupModel()
+        activityIndicator.startAnimating()
     }
 
     private func addButton() {
@@ -104,6 +107,11 @@ class InfoViewController: UIViewController {
             $0.top.equalTo(orbitalPeriodLabel.snp.bottom).offset(16)
             $0.leading.trailing.equalToSuperview().inset(16)
         }
+        
+        view.addSubview(activityIndicator)
+        activityIndicator.snp.makeConstraints {
+            $0.center.equalToSuperview()
+        }
 
     }
 
@@ -113,22 +121,23 @@ class InfoViewController: UIViewController {
                 titleLabel.text = "Todo title: \(title)"
             }
         })
-        viewModel.statechanged = { [table, viewModel, orbitalPeriodLabel] state in
+        viewModel.statechanged = { [table, viewModel, orbitalPeriodLabel, activityIndicator] state in
             switch state {
             case .loaded:
                 DispatchQueue.main.async {
                     orbitalPeriodLabel.text = "orbitalPeriod: \(viewModel.planetModel[0].orbitalPeriod)"
+                    activityIndicator.startAnimating()
+                    activityIndicator.alpha = 0
                     table.reloadData()
                 }
             }
         }
-        
+
         viewModel.getTodo()
-        
+
         viewModel.changeState(.initModel)
         viewModel.changeState(.initTable)
-        viewModel.getResident()
-        
+
     }
 }
 
@@ -141,7 +150,7 @@ extension InfoViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = UITableViewCell(style: .default, reuseIdentifier: nil)
         var content: UIListContentConfiguration = cell.defaultContentConfiguration()
-        content.text = viewModel.residents[indexPath.row]
+        content.text = viewModel.residents[indexPath.row].name
         cell.contentConfiguration = content
         return cell
     }

@@ -14,31 +14,25 @@ final class ResidentService {
 
     private init() {}
 
-    func fetchResident(completion: @escaping(Result<String, Error>) -> Void) {
-
-        let urlString = "https://swapi.dev/api/planets/1"
-        PlanetService.shared.fetchPlanet(with: urlString) { data in
-            switch data {
+    func getResident(completion: @escaping(Result<Resident, Error>) -> Void) {
+        let url = URL(string: "https://swapi.dev/api/planets/1")
+        NetworkService.shared.request(url: url, expecting: Planet.self) { result in
+            switch result {
             case .success(let model):
-                for modelUrl in model.residents {
-                    guard let url = URL(string: modelUrl) else { return }
-                    let task = URLSession.shared.dataTask(with: url) { data, resp, err in
-                        guard let data = data, err == nil else { return }
-
-                        do {
-                            let resident = try JSONDecoder().decode(Resident.self, from: data)
-                            completion(.success(resident.name))
-                        } catch let err {
-                            completion(.failure(err))
+                for stringUrl in model.residents {
+                    let url = URL(string: stringUrl)
+                    NetworkService.shared.request(url: url, expecting: Resident.self) { result in
+                        switch result {
+                        case .success(let model):
+                            completion(.success(model))
+                        case .failure(let error):
+                            completion(.failure(error))
                         }
                     }
-                    task.resume()
                 }
-
-            case .failure(let err):
-                print("Error \(err)")
+            case .failure(let error):
+                print(error)
             }
         }
-
     }
 }
