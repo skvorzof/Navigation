@@ -8,17 +8,18 @@
 import UIKit
 import SnapKit
 import StorageService
+import FirebaseAuth
 
 class ProfileViewController: UIViewController {
     
-    private let postViewModel: PostViewModel
+    private let viewModel: PostViewModel
+    private let coordinator: ProfileFlowCoorinator
     
     private var  posts = [Post]()
     
     let photos = Photo().fetchPhotos()
     let headerView = ProfileHeaderView()
     private lazy var avatar = headerView.avatarImageView
-    private var userService: UserService
     
     
     private let activityIndicator = UIActivityIndicatorView(style: .medium)
@@ -36,12 +37,10 @@ class ProfileViewController: UIViewController {
     
     
     
-    init(postViewModel: PostViewModel, userService: UserService, loginName: String) {
-        self.postViewModel = postViewModel
-        self.userService = userService
+    init(viewModel: PostViewModel, coordinator: ProfileFlowCoorinator) {
+        self.viewModel = viewModel
+        self.coordinator = coordinator
         super.init(nibName: nil, bundle: nil)
-        guard let user = self.userService.userService(userName: loginName) else { preconditionFailure("Нет доступа к UserService") }
-        headerView.fullNameLabel.text = user.fullName
     }
 
     required init?(coder: NSCoder) {
@@ -54,7 +53,13 @@ class ProfileViewController: UIViewController {
         super.viewDidLoad()
         layout()
         setupViewModel()
-        postViewModel.changeState(.viewIsReady)
+        viewModel.changeState(.viewIsReady)
+        
+        Auth.auth().addStateDidChangeListener { auth, user in
+            if user == nil {
+                self.coordinator.showLogin(nc: self.navigationController, coordinator: self.coordinator)
+            }
+        }
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -65,7 +70,7 @@ class ProfileViewController: UIViewController {
     
     
     private func setupViewModel() {
-        postViewModel.stateChanged = { [weak self] state in
+        viewModel.stateChanged = { [weak self] state in
             guard let self = self else { return }
             switch state {
             case .initial:

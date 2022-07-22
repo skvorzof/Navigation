@@ -36,7 +36,9 @@ final class ModuleFactory {
             nc.tabBarItem.image = UIImage(systemName: "house.fill")
             nc.setViewControllers([vc], animated: false)
         case .profile:
-            let vc = LoginViewController()
+            let viewModel = PostViewModel()
+            let coordinator = ProfileFlowCoorinator()
+            let vc = ProfileViewController(viewModel: viewModel, coordinator: coordinator)
             nc.tabBarItem.title = "Профиль"
             nc.tabBarItem.image = UIImage(systemName: "person.fill")
             nc.setViewControllers([vc], animated: false)

@@ -24,10 +24,10 @@ class TabBarController: UITabBarController {
     
     private func setControllers() {
         viewControllers = [
+            profileVC.nc,
             feedVC.nc,
             musicVC.nc,
-            videoVC.nc,
-            profileVC.nc
+            videoVC.nc
         ]
     }
 }

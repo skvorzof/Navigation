@@ -6,6 +6,8 @@
 //
 
 import UIKit
+import FirebaseCore
+import FirebaseAuth
 
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -15,7 +17,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // MARK: - AppConfiguration.getRandomUrl()
 //        let randomUrl = AppConfiguration.getRandomUrl()
 //        NetworkService.shared.getUrlSession(stingUrl: randomUrl)
+        FirebaseApp.configure()
         return true
+    }
+    
+    func applicationWillTerminate(_ application: UIApplication) {
+        do {
+                try Auth.auth().signOut()
+            } catch let error {
+                print(error.localizedDescription)
+            }
     }
 }
 
