@@ -5,25 +5,24 @@
 //  Created by mitr on 03.03.2022.
 //
 
-import UIKit
+import FirebaseAuth
 import SnapKit
 import StorageService
-import FirebaseAuth
+import UIKit
 
 class ProfileViewController: UIViewController {
-    
+
     private let viewModel: PostViewModel
     private let coordinator: ProfileFlowCoorinator
-    
-    private var  posts = [Post]()
-    
+
+    private var posts = [Post]()
+
     let photos = Photo().fetchPhotos()
     let headerView = ProfileHeaderView()
     private lazy var avatar = headerView.avatarImageView
-    
-    
+
     private let activityIndicator = UIActivityIndicatorView(style: .medium)
-    
+
     private lazy var tableView: UITableView = {
         let tableView = UITableView(frame: .zero, style: .grouped)
         tableView.alpha = 0.0
@@ -34,9 +33,7 @@ class ProfileViewController: UIViewController {
         tableView.register(PostTableViewCell.self, forCellReuseIdentifier: PostTableViewCell.identifier)
         return tableView
     }()
-    
-    
-    
+
     init(viewModel: PostViewModel, coordinator: ProfileFlowCoorinator) {
         self.viewModel = viewModel
         self.coordinator = coordinator
@@ -46,29 +43,27 @@ class ProfileViewController: UIViewController {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
-        
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        layout()
-        setupViewModel()
-        viewModel.changeState(.viewIsReady)
-        
+
         Auth.auth().addStateDidChangeListener { auth, user in
             if user == nil {
                 self.coordinator.showLogin(nc: self.navigationController, coordinator: self.coordinator)
             }
         }
+
+        layout()
+        setupViewModel()
+        viewModel.changeState(.viewIsReady)
+
     }
-    
+
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         navigationController?.navigationBar.isHidden = true
     }
-    
-    
-    
+
     private func setupViewModel() {
         viewModel.stateChanged = { [weak self] state in
             guard let self = self else { return }
@@ -89,15 +84,13 @@ class ProfileViewController: UIViewController {
             }
         }
     }
-    
-    
-    
+
     private func layout() {
         view.addSubview(activityIndicator)
         activityIndicator.snp.makeConstraints {
             $0.center.equalToSuperview()
         }
-        
+
         view.addSubview(tableView)
         tableView.snp.makeConstraints {
             $0.top.bottom.leading.trailing.equalToSuperview()
@@ -105,15 +98,14 @@ class ProfileViewController: UIViewController {
     }
 }
 
-
-
 extension ProfileViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         switch indexPath.section {
         case 0:
-            let cell = tableView.dequeueReusableCell(
-                withIdentifier: PhotoTableViewCell.identifier,
-                for: indexPath) as! PhotoTableViewCell
+            let cell =
+                tableView.dequeueReusableCell(
+                    withIdentifier: PhotoTableViewCell.identifier,
+                    for: indexPath) as! PhotoTableViewCell
             cell.buttonArrow.addTarget(self, action: #selector(onButtonTap), for: .touchUpInside)
             cell.delegateNavigation = {
                 let photosVC = PhotosViewController()
@@ -121,19 +113,20 @@ extension ProfileViewController: UITableViewDataSource {
             }
             return cell
         default:
-            let cell = tableView.dequeueReusableCell(
-                withIdentifier: PostTableViewCell.identifier,
-                for: indexPath) as! PostTableViewCell
+            let cell =
+                tableView.dequeueReusableCell(
+                    withIdentifier: PostTableViewCell.identifier,
+                    for: indexPath) as! PostTableViewCell
             cell.setupCell(model: posts[indexPath.row])
             return cell
         }
     }
-    
+
     @objc private func onButtonTap() {
         let photosVC = PhotosViewController()
         navigationController?.pushViewController(photosVC, animated: true)
     }
-    
+
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         switch section {
         case 0:
@@ -144,13 +137,11 @@ extension ProfileViewController: UITableViewDataSource {
             return 0
         }
     }
-    
+
     func numberOfSections(in tableView: UITableView) -> Int {
         2
     }
 }
-
-
 
 extension ProfileViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
@@ -159,14 +150,14 @@ extension ProfileViewController: UITableViewDelegate {
         }
         return nil
     }
-    
+
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         if section == 0 {
             return 240
         }
         return 0
     }
-    
+
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         switch indexPath.section {
         case 0:

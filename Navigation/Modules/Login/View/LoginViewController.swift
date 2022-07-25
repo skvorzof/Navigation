@@ -45,6 +45,7 @@ class LoginViewController: UIViewController {
         let textField = CustomField(placeholder: "Ваша почта")
         textField.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
         textField.delegate = self
+        textField.addTarget(self, action: #selector(textFieldDidChenged), for: .editingChanged)
         return textField
     }()
 
@@ -53,48 +54,45 @@ class LoginViewController: UIViewController {
         textField.layer.maskedCorners = [.layerMaxXMaxYCorner, .layerMinXMaxYCorner]
         textField.isSecureTextEntry = true
         textField.delegate = self
+        textField.addTarget(self, action: #selector(textFieldDidChenged), for: .editingChanged)
         return textField
     }()
 
     private lazy var loginButton: CustomButton = {
-        let button = CustomButton(title: "Войти", titleColor: .white, backColor: .blue)
+        let bgcolor = UIColor(named: "AccentColor") ?? UIColor()
+        let button = CustomButton(title: "Вход / Регистрация", titleColor: .white, backColor: bgcolor)
         button.translatesAutoresizingMaskIntoConstraints = false
         button.clipsToBounds = true
-        button.setBackgroundImage(UIImage(named: "blue_pixel"), for: .normal)
         if button.isSelected || button.isHighlighted {
             button.alpha = 0.8
         } else {
             button.alpha = 1
         }
+        button.isEnabled = false
         button.addTarget(self, action: #selector(pressLoginButton), for: .touchUpInside)
         return button
     }()
 
-    //    private lazy var bruteButton: CustomButton = {
-    //        let button = CustomButton(title: "Подобрать пароль", titleColor: UIColor(named: "AccentColor") ?? UIColor.lightGray, backColor: .white)
-    //        return button
-    //    }()
-
-    //    private let activityIndicator = UIActivityIndicatorView(style: .medium)
-    //
-    //    private let timerLabel: UILabel = {
-    //        let label = UILabel()
-    //        label.textAlignment = .center
-    //        label.textColor = .systemGray2
-    //        return label
-    //    }()
-
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
+
         layout()
         tap()
-        //        counterTimer()
+        loginButton.setBackgroundColor(Constants.accentColor, for: .normal)
+        loginButton.setBackgroundColor(Constants.disableColor, for: .disabled)
+        loginButton.isEnabled = false
 
-        Auth.auth().addStateDidChangeListener { auth, user in
+        Auth.auth().addStateDidChangeListener { [weak self] auth, user in
+            guard let self = self else { return }
             if user != nil {
                 self.coordinator.showProfile(nc: self.navigationController, coordinator: self.coordinator)
             }
+        }
+
+        CheckerService.shared.completionMessage = { [weak self] message in
+            guard let self = self else { return }
+            self.present(self.showAllertController(message), animated: true)
         }
     }
 
@@ -114,18 +112,14 @@ class LoginViewController: UIViewController {
             object: nil)
     }
 
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        emailField.becomeFirstResponder()
-    }
-
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
         nc.removeObserver(self, name: UIResponder.keyboardDidShowNotification, object: nil)
         nc.removeObserver(self, name: UIResponder.keyboardDidHideNotification, object: nil)
     }
 
-    @objc private func keyboardShow(notification: NSNotification) {
+    @objc
+    private func keyboardShow(notification: NSNotification) {
         if let keyboardSize =
             (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue
         {
@@ -134,13 +128,24 @@ class LoginViewController: UIViewController {
         }
     }
 
-    @objc private func keyboardHide() {
+    @objc
+    private func keyboardHide() {
         scrollView.setContentOffset(.zero, animated: true)
     }
 
-    @objc private func pressLoginButton(sender: UIButton) {
+    @objc
+    private func pressLoginButton(sender: UIButton) {
         sender.isSelected = !sender.isSelected
         sender.isHighlighted = !sender.isHighlighted
+    }
+
+    @objc
+    private func textFieldDidChenged() {
+        if emailField.text?.isEmpty == false && passwordField.text!.count >= 6 {
+            loginButton.isEnabled = true
+        } else {
+            loginButton.isEnabled = false
+        }
     }
 
     private func tap() {
@@ -149,116 +154,26 @@ class LoginViewController: UIViewController {
             guard let email = emailField.text, !email.isEmpty,
                 let password = passwordField.text, !password.isEmpty
             else { return }
-            CheckerService.shared.completionMessage = { [weak self] message in
-                guard let self = self else { return }
-                self.present(self.showAllertController(message), animated: true)
-            }
+
             CheckerService.shared.checkCredentials(email: email, password: password)
-
-            //            guard let login = self?.emailField.text,
-            //                let password = self?.passwordField.text
-            //            else { return }
-            //
-            //            #if DEBUG
-            //
-            //                let isLoginOk = true
-            //                let userService = TestUserService()
-            //
-            //            #else
-            //
-            //                guard let isLoginOk = self?.delegate?.checkerLoginInspector(login: login, password: password) else { return }
-            //                let userService = CurrentUserService()
-            //
-            //            #endif
-            //
-            //            if isLoginOk {
-            //                self?.navigationController?.pushViewController(
-            //                    ProfileViewController(postViewModel: PostViewModel(), userService: userService, loginName: login),
-            //                    animated: false)
-            //            } else {
-            //                let alert = UIAlertController(title: "Ошибка", message: "Неправильный логин или пароль", preferredStyle: .alert)
-            //                let ok = UIAlertAction(title: "Ok", style: .default)
-            //                alert.addAction(ok)
-            //                self?.present(alert, animated: true)
-            //            }
         }
-
-        //        bruteButton.tapAction = { [crackPass] in
-        //            crackPass()
-        //        }
     }
-
-    //    private func crackPass() {
-    //        let widthPasswordTextField = passwordTextField.frame.width
-    //        activityIndicator.center = CGPoint(x: widthPasswordTextField - 20, y: 0)
-    //
-    //        passwordTextField.leftView?.addSubview(activityIndicator)
-    //        activityIndicator.startAnimating()
-    //
-    //        DispatchQueue.global().async { [loginViewModel, passwordTextField, activityIndicator] in
-    //            let pass = loginViewModel.force()
-    //
-    //            DispatchQueue.main.async {
-    //                passwordTextField.isSecureTextEntry = false
-    //                activityIndicator.stopAnimating()
-    //                passwordTextField.text = pass
-    //            }
-    //        }
-    //    }
-    //
-    //    private func counterTimer() {
-    //        var count = 0
-    //        Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true) {[timerLabel] timer in
-    //            count += 1
-    //            timerLabel.text = "Обновление через \(count)"
-    //
-    //            if count == 10 {
-    //                    timer.invalidate()
-    //                    timerLabel.text = ""
-    //            }
-    //        }
-    //    }
 
     private func showAllertController(_ message: String) -> UIAlertController {
         let alert = UIAlertController(title: "Внимание", message: message, preferredStyle: .alert)
         alert.addAction(
             UIAlertAction(
-                title: "Создать", style: .default,
-                handler: { _ in
-                    guard let email = self.emailField.text, !email.isEmpty,
-                        let password = self.passwordField.text, !password.isEmpty
-                    else { return }
-                    CheckerService.shared.signUp(email: email, password: password)
-                }))
-        alert.addAction(
-            UIAlertAction(
-                title: "Отменить", style: .cancel))
+                title: "Ок", style: .cancel))
         return alert
     }
 
     private func layout() {
         view.addSubview(scrollView)
-        [
-            contentView, logo, emailField, passwordField, loginButton,
-            //        bruteButton,
-            //         timerLabel
-        ].forEach({ scrollView.addSubview($0) })
+        [contentView, logo, emailField, passwordField, loginButton].forEach({ scrollView.addSubview($0) })
 
         scrollView.snp.makeConstraints {
             $0.top.leading.trailing.bottom.equalToSuperview()
         }
-
-        //
-        //        bruteButton.snp.makeConstraints {
-        //            $0.leading.trailing.equalToSuperview().inset(16)
-        //            $0.top.equalTo(loginButton.snp.bottom).offset(16)
-        //        }
-        //
-        //
-        //        timerLabel.snp.makeConstraints {
-        //            $0.leading.trailing.equalToSuperview().inset(16)
-        //            $0.top.equalTo(bruteButton.snp.bottom).offset(16)
-        //        }
 
         NSLayoutConstraint.activate([
             contentView.widthAnchor.constraint(equalTo: scrollView.widthAnchor),
@@ -294,6 +209,7 @@ class LoginViewController: UIViewController {
 extension LoginViewController: UITextFieldDelegate {
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         view.endEditing(true)
+        textField.resignFirstResponder()
         return true
     }
 }

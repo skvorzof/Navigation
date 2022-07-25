@@ -63,6 +63,7 @@
 		C9B6B38328830BB50056971D /* PlanetService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9B6B38228830BB50056971D /* PlanetService.swift */; };
 		C9B6B385288322E20056971D /* Resident.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9B6B384288322E20056971D /* Resident.swift */; };
 		C9B6B387288323340056971D /* ResidentService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9B6B386288323340056971D /* ResidentService.swift */; };
+		C9C466DB288F0025004666F0 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9C466DA288F0025004666F0 /* Constants.swift */; };
 		C9C4A4972858E42E007338FE /* MainCoordinatorProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9C4A4962858E42E007338FE /* MainCoordinatorProtocol.swift */; };
 		C9C4A4992859B178007338FE /* MainCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9C4A4982859B178007338FE /* MainCoordinator.swift */; };
 		C9C4A4A12859E53D007338FE /* ModuleFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9C4A4A02859E53D007338FE /* ModuleFactory.swift */; };
@@ -159,6 +160,7 @@
 		C9B6B38228830BB50056971D /* PlanetService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlanetService.swift; sourceTree = "<group>"; };
 		C9B6B384288322E20056971D /* Resident.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Resident.swift; sourceTree = "<group>"; };
 		C9B6B386288323340056971D /* ResidentService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResidentService.swift; sourceTree = "<group>"; };
+		C9C466DA288F0025004666F0 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		C9C4A4962858E42E007338FE /* MainCoordinatorProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainCoordinatorProtocol.swift; sourceTree = "<group>"; };
 		C9C4A4982859B178007338FE /* MainCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainCoordinator.swift; sourceTree = "<group>"; };
 		C9C4A4A02859E53D007338FE /* ModuleFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModuleFactory.swift; sourceTree = "<group>"; };
@@ -488,6 +490,7 @@
 				C94993DA2863A0F0003D80A2 /* BruteForce.swift */,
 				C90F7F37288290120001225C /* ObservableObject.swift */,
 				C9A3884327E67DCA00CE4307 /* Extensions.swift */,
+				C9C466DA288F0025004666F0 /* Constants.swift */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -814,6 +817,7 @@
 				C9661161285C7B2100F9DBD9 /* Post.swift in Sources */,
 				C96081612850B5CC009444DA /* Password.swift in Sources */,
 				C9436662285BBF9400C706A4 /* FeedViewModel.swift in Sources */,
+				C9C466DB288F0025004666F0 /* Constants.swift in Sources */,
 				C9164FED27D0F57400034102 /* SceneDelegate.swift in Sources */,
 				C9E1AA7B27D0FC9D0021A97A /* TabBarController.swift in Sources */,
 				C9661156285C75C200F9DBD9 /* PhotoCoordinator.swift in Sources */,
