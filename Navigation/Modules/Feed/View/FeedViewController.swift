@@ -29,8 +29,8 @@ class FeedViewController: UIViewController {
         return label
     }()
 
-    private lazy var textField: CustomTextField = {
-        let textField = CustomTextField(placeholder: "Введите пароль (q)")
+    private lazy var textField: CustomField = {
+        let textField = CustomField(placeholder: "Введите пароль (q)")
         textField.backgroundColor = .white
         textField.font = UIFont.systemFont(ofSize: 15, weight: .regular)
         textField.textColor = .black

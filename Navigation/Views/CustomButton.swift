@@ -8,6 +8,33 @@
 import UIKit
 
 class CustomButton: UIButton {
+    
+    enum ButtonState {
+        case normal
+        case disabled
+    }
+    
+    private var disabledBackgroundColor: UIColor?
+    private var defaultBackgroundColor: UIColor? {
+        didSet {
+            backgroundColor = defaultBackgroundColor
+        }
+    }
+    
+    override var isEnabled: Bool {
+        didSet {
+            if isEnabled {
+                if let color = defaultBackgroundColor {
+                    self.backgroundColor = color
+                }
+            } else {
+                if let color = disabledBackgroundColor {
+                    self.backgroundColor = color
+                }
+            }
+        }
+    }
+    
     let title: String
     let titleColor: UIColor
     let backColor: UIColor
@@ -19,6 +46,7 @@ class CustomButton: UIButton {
         self.titleColor = titleColor
         self.backColor = backColor
         super.init(frame: .zero)
+        
         self.setTitle(title, for: .normal)
         self.setTitleColor(titleColor, for: .normal)
         self.backgroundColor = backColor
@@ -32,5 +60,14 @@ class CustomButton: UIButton {
     
     @objc private func buttonTapped() {
         tapAction?()
+    }
+    
+    func setBackgroundColor(_ color: UIColor?, for state: ButtonState) {
+        switch state {
+        case .disabled:
+            disabledBackgroundColor = color
+        case .normal:
+            defaultBackgroundColor = color
+        }
     }
 }

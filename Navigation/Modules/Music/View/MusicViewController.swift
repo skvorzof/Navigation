@@ -8,18 +8,6 @@
 import AVFoundation
 import UIKit
 
-// MARK: - Constants
-private struct Constants {
-    static let playButtonName = "play.fill"
-    static let stopButtonName = "stop.fill"
-    static let pauseButtonName = "pause.fill"
-    static let backwardButtonName = "backward.fill"
-    static let forwardButtonName = "forward.fill"
-
-    static let stackViewSpaccing: CGFloat = 32
-    static let offset: CGFloat = 16
-}
-
 // MARK: - MusicViewController
 class MusicViewController: UIViewController {
 
