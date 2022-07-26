@@ -9,9 +9,6 @@ import Foundation
 import UIKit
 
 struct Constants {
-    static let accentColor = UIColor(named: "AccentColor")
-    static let disableColor = UIColor.gray.withAlphaComponent(0.2)
-    
     static let playButtonName = "play.fill"
     static let stopButtonName = "stop.fill"
     static let pauseButtonName = "pause.fill"

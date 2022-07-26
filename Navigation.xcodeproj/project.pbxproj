@@ -73,6 +73,7 @@
 		C9D315D82875C99A00DE52BC /* MusicViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9D315D72875C99A00DE52BC /* MusicViewController.swift */; };
 		C9D315DC2875CFA300DE52BC /* VideoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9D315DB2875CFA300DE52BC /* VideoViewController.swift */; };
 		C9DFC241283F3F6C00496850 /* iOSIntPackage in Frameworks */ = {isa = PBXBuildFile; productRef = C9DFC240283F3F6C00496850 /* iOSIntPackage */; };
+		C9E0AF43288FA1CB002F3EDC /* Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9E0AF42288FA1CB002F3EDC /* Color.swift */; };
 		C9E1AA7327D0FBCB0021A97A /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9E1AA7227D0FBCB0021A97A /* ProfileViewController.swift */; };
 		C9E1AA7527D0FBF60021A97A /* PostViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9E1AA7427D0FBF60021A97A /* PostViewController.swift */; };
 		C9E1AA7727D0FC240021A97A /* InfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9E1AA7627D0FC240021A97A /* InfoViewController.swift */; };
@@ -169,6 +170,7 @@
 		C9D204622844DD37005D108A /* TestUserService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestUserService.swift; sourceTree = "<group>"; };
 		C9D315D72875C99A00DE52BC /* MusicViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MusicViewController.swift; sourceTree = "<group>"; };
 		C9D315DB2875CFA300DE52BC /* VideoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoViewController.swift; sourceTree = "<group>"; };
+		C9E0AF42288FA1CB002F3EDC /* Color.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Color.swift; sourceTree = "<group>"; };
 		C9E1AA7227D0FBCB0021A97A /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 		C9E1AA7427D0FBF60021A97A /* PostViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostViewController.swift; sourceTree = "<group>"; };
 		C9E1AA7627D0FC240021A97A /* InfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoViewController.swift; sourceTree = "<group>"; };
@@ -491,6 +493,7 @@
 				C90F7F37288290120001225C /* ObservableObject.swift */,
 				C9A3884327E67DCA00CE4307 /* Extensions.swift */,
 				C9C466DA288F0025004666F0 /* Constants.swift */,
+				C9E0AF42288FA1CB002F3EDC /* Color.swift */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -789,6 +792,7 @@
 				C99A81F227EE3AF30080B6A5 /* PhotosViewController.swift in Sources */,
 				C93E992A2881DB3000444336 /* InfoViewModel.swift in Sources */,
 				C9661158285C75E300F9DBD9 /* PhotoViewModel.swift in Sources */,
+				C9E0AF43288FA1CB002F3EDC /* Color.swift in Sources */,
 				C9436632285B358500C706A4 /* FeedFlowCoordinator.swift in Sources */,
 				C93E99282881D91900444336 /* TodoService.swift in Sources */,
 				C9A3884027E6692100CE4307 /* CustomField.swift in Sources */,
