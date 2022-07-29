@@ -13,7 +13,7 @@ protocol DocumentServiceProtocol {
     func contentsOfDirectory(url: URL, completion: @escaping (Result<[Document], Error>) -> Void)
     func createDirectory(title: String)
     func createFile(image: UIImage)
-    func removeContent()
+    func removeContent(path: String)
 }
 
 // MARK: - DocumentService
@@ -31,7 +31,6 @@ final class DocumentService: DocumentServiceProtocol {
         var list: [Document] = []
 
         do {
-
             let contents = try fileManager.contentsOfDirectory(
                 at: url,
                 includingPropertiesForKeys: nil, options: .skipsHiddenFiles)
@@ -67,7 +66,7 @@ final class DocumentService: DocumentServiceProtocol {
 
     // MARK: - createFile
     func createFile(image: UIImage) {
-        
+
         let date = Date()
         let format = date.getFormattedDate(format: "yyyy-MM-dd HH:mm:ss")
 
@@ -91,11 +90,9 @@ final class DocumentService: DocumentServiceProtocol {
 
     }
 
-    func removeContent() {
-        guard let path = fileManager.urls(for: .documentDirectory, in: .userDomainMask).first else { return }
-
+    func removeContent(path: String) {
         do {
-
+            try fileManager.removeItem(atPath: path)
         } catch {
             print(error.localizedDescription)
         }

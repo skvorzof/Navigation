@@ -14,7 +14,6 @@ class DocumentsViewController: UIViewController {
     private let viewModel: DocumentsViewModel
     private let coordinator: DocumentsFlowCoordinator
 
-
     private lazy var folderIconBar = UIBarButtonItem(
         image: UIImage(systemName: "folder.badge.plus"),
         style: .plain,
@@ -53,11 +52,6 @@ class DocumentsViewController: UIViewController {
         setupModel()
     }
 
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        viewModel.stateChange(.tableInit)
-    }
-
     // MARK: - didTapFolderIcon
     @objc
     private func didTapFolderIcon() {
@@ -66,8 +60,7 @@ class DocumentsViewController: UIViewController {
             nameField.placeholder = "Имя папки"
         }
 
-        let confirm = UIAlertAction(title: "Создать", style: .default) {[viewModel] _ in
-
+        let confirm = UIAlertAction(title: "Создать", style: .default) { [viewModel] _ in
             if let textField = alert.textFields?.first, let text = textField.text {
                 DocumentService.shared.createDirectory(title: text)
                 viewModel.stateChange(.tableInit)
@@ -78,7 +71,6 @@ class DocumentsViewController: UIViewController {
 
         alert.addAction(confirm)
         alert.addAction(cancel)
-
         present(alert, animated: true, completion: nil)
 
     }
@@ -94,7 +86,7 @@ class DocumentsViewController: UIViewController {
     }
 
     private func setupModel() {
-        viewModel.changedState = {[table] state in
+        viewModel.changedState = { [table] state in
             switch state {
             case .initial:
                 break
@@ -104,6 +96,8 @@ class DocumentsViewController: UIViewController {
                 }
             }
         }
+
+        viewModel.stateChange(.tableInit)
     }
 
     // MARK: - setupUI
@@ -145,7 +139,6 @@ extension DocumentsViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if viewModel.documents[indexPath.row].type == .folder {
             coordinator.showDetail(nc: navigationController, coordinator: coordinator)
-            print(viewModel.documents[indexPath.row].url.absoluteURL)
         } else {
             let url = viewModel.documents[indexPath.row].url.path
             let vc = DocumentImageViewController(url: url)
@@ -156,6 +149,8 @@ extension DocumentsViewController: UITableViewDelegate {
 
 // MARK: - DocumentsViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate
 extension DocumentsViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+
+    // MARK: - didFinishPickingMediaWithInfo
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey: Any]) {
 
         if let image = info[UIImagePickerController.InfoKey(rawValue: "UIImagePickerControllerEditedImage")] as? UIImage {
@@ -167,5 +162,22 @@ extension DocumentsViewController: UIImagePickerControllerDelegate, UINavigation
 
     func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
         picker.dismiss(animated: true)
+    }
+
+    // MARK: - trailingSwipeActionsConfigurationForRowAt
+    func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+        let remove = UIContextualAction(style: .destructive, title: "Удалить") { [handleRemove, viewModel] (action, view, complectionHandler) in
+            handleRemove(viewModel.documents[indexPath.row].url.path)
+            complectionHandler(true)
+        }
+        remove.backgroundColor = .systemRed
+
+        let configuration = UISwipeActionsConfiguration(actions: [remove])
+        return configuration
+    }
+
+    private func handleRemove(_ path: String) {
+        DocumentService.shared.removeContent(path: path)
+        viewModel.stateChange(.tableInit)
     }
 }

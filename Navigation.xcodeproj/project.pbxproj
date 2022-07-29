@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		C904D122289275FA00A1A363 /* DocumentImageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C904D121289275FA00A1A363 /* DocumentImageViewController.swift */; };
+		C904D1382893D43500A1A363 /* DocumentsFlowCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = C904D1372893D42300A1A363 /* DocumentsFlowCoordinator.swift */; };
 		C90DAC21284A032A000A6675 /* iOSIntPackage in Frameworks */ = {isa = PBXBuildFile; productRef = C90DAC20284A032A000A6675 /* iOSIntPackage */; };
 		C90E05112837B888008C554C /* StorageService.h in Headers */ = {isa = PBXBuildFile; fileRef = C90E05102837B888008C554C /* StorageService.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C90E05142837B888008C554C /* StorageService.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C90E050E2837B888008C554C /* StorageService.framework */; };
@@ -59,7 +60,6 @@
 		C9ABCCF9288AB5AA00D17E00 /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = C9ABCCF8288AB5AA00D17E00 /* FirebaseAuth */; };
 		C9ABCCFE288AC7E300D17E00 /* ProfileFlowCoorinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9ABCCFD288AC7E300D17E00 /* ProfileFlowCoorinator.swift */; };
 		C9B1C33028902AE4005C6C35 /* DocumentsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9B1C32F28902AE4005C6C35 /* DocumentsViewController.swift */; };
-		C9B1C3332890362E005C6C35 /* DocumentsFlowCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9B1C3322890362E005C6C35 /* DocumentsFlowCoordinator.swift */; };
 		C9B1C3382890397D005C6C35 /* DocumentsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9B1C3372890397D005C6C35 /* DocumentsViewModel.swift */; };
 		C9B1C33A28903AD5005C6C35 /* DocumentService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9B1C33928903AD5005C6C35 /* DocumentService.swift */; };
 		C9B1C33C28903B95005C6C35 /* Document.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9B1C33B28903B95005C6C35 /* Document.swift */; };
@@ -114,6 +114,7 @@
 
 /* Begin PBXFileReference section */
 		C904D121289275FA00A1A363 /* DocumentImageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocumentImageViewController.swift; sourceTree = "<group>"; };
+		C904D1372893D42300A1A363 /* DocumentsFlowCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocumentsFlowCoordinator.swift; sourceTree = "<group>"; };
 		C90E050E2837B888008C554C /* StorageService.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = StorageService.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C90E05102837B888008C554C /* StorageService.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = StorageService.h; sourceTree = "<group>"; };
 		C90F7F37288290120001225C /* Observable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Observable.swift; sourceTree = "<group>"; };
@@ -163,7 +164,6 @@
 		C9ABC90728624931002684A1 /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
 		C9ABCCFD288AC7E300D17E00 /* ProfileFlowCoorinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileFlowCoorinator.swift; sourceTree = "<group>"; };
 		C9B1C32F28902AE4005C6C35 /* DocumentsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocumentsViewController.swift; sourceTree = "<group>"; };
-		C9B1C3322890362E005C6C35 /* DocumentsFlowCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = DocumentsFlowCoordinator.swift; path = ../../../../../../Downloads/DocumentsFlowCoordinator.swift; sourceTree = "<group>"; };
 		C9B1C3372890397D005C6C35 /* DocumentsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocumentsViewModel.swift; sourceTree = "<group>"; };
 		C9B1C33928903AD5005C6C35 /* DocumentService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocumentService.swift; sourceTree = "<group>"; };
 		C9B1C33B28903B95005C6C35 /* Document.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Document.swift; sourceTree = "<group>"; };
@@ -591,7 +591,7 @@
 		C9B1C3312890360F005C6C35 /* Coordinator */ = {
 			isa = PBXGroup;
 			children = (
-				C9B1C3322890362E005C6C35 /* DocumentsFlowCoordinator.swift */,
+				C904D1372893D42300A1A363 /* DocumentsFlowCoordinator.swift */,
 			);
 			path = Coordinator;
 			sourceTree = "<group>";
@@ -846,6 +846,7 @@
 				C9E1AA7527D0FBF60021A97A /* PostViewController.swift in Sources */,
 				C9B1C33C28903B95005C6C35 /* Document.swift in Sources */,
 				C98F336A287CA44F0064BB87 /* VideoViewModel.swift in Sources */,
+				C904D1382893D43500A1A363 /* DocumentsFlowCoordinator.swift in Sources */,
 				C9ABCCFE288AC7E300D17E00 /* ProfileFlowCoorinator.swift in Sources */,
 				C9AB5067284659D3001DF1CC /* Checker.swift in Sources */,
 				C9B1C3382890397D005C6C35 /* DocumentsViewModel.swift in Sources */,
@@ -874,7 +875,6 @@
 				C98F336F287CB32A0064BB87 /* VideoPlayerViewController.swift in Sources */,
 				C94FB4C927D884B4005ABB47 /* ProfileHeaderView.swift in Sources */,
 				C9B1C33028902AE4005C6C35 /* DocumentsViewController.swift in Sources */,
-				C9B1C3332890362E005C6C35 /* DocumentsFlowCoordinator.swift in Sources */,
 				C94C3C39284119DD00F4DE92 /* CurrentUserService.swift in Sources */,
 				C9D204632844DD37005D108A /* TestUserService.swift in Sources */,
 				C9B1C33A28903AD5005C6C35 /* DocumentService.swift in Sources */,
