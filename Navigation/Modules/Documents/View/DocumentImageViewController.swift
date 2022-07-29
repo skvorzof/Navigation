@@ -11,9 +11,9 @@ import UIKit
 class DocumentImageViewController: UIViewController {
     private let url: String
 
-    private let imageView: UIImageView = {
-        let imageView = UIImageView()
-        return imageView
+    private let cell: UITableViewCell = {
+        let cell = UITableViewCell()
+        return cell
     }()
 
     init(url: String) {
@@ -28,14 +28,14 @@ class DocumentImageViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        cell.imageView?.image = UIImage(named: url)
         setupUI()
     }
 
     private func setupUI() {
-        imageView.image = UIImage(named: url)
-        view.addSubview(imageView)
-        imageView.snp.makeConstraints {
-            $0.top.bottom.leading.trailing.equalTo(view.safeAreaLayoutGuide).inset(16)
+        view.addSubview(cell)
+        cell.snp.makeConstraints {
+            $0.top.bottom.leading.trailing.equalToSuperview()
         }
 
     }
