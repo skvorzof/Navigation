@@ -1,5 +1,5 @@
 //
-//  Dynamic.swift
+//  Observable.swift
 //  Navigation
 //
 //  Created by mitr on 16.07.2022.
@@ -7,7 +7,7 @@
 
 import Foundation
 
-final class ObservableObject<T> {
+final class Observable<T> {
 
     typealias Listener = (T) -> Void
     private var listener: Listener?
@@ -25,4 +25,5 @@ final class ObservableObject<T> {
     init(_ v: T) {
         value = v
     }
+
 }

@@ -59,8 +59,7 @@ class LoginViewController: UIViewController {
     }()
 
     private lazy var loginButton: CustomButton = {
-        let bgcolor = UIColor(named: "AccentColor") ?? UIColor()
-        let button = CustomButton(title: "Вход / Регистрация", titleColor: .white, backColor: bgcolor)
+        let button = CustomButton(title: "Вход / Регистрация", titleColor: .white, backColor: Color.accentColor)
         button.translatesAutoresizingMaskIntoConstraints = false
         button.clipsToBounds = true
         if button.isSelected || button.isHighlighted {
@@ -79,8 +78,8 @@ class LoginViewController: UIViewController {
 
         layout()
         tap()
-        loginButton.setBackgroundColor(Constants.accentColor, for: .normal)
-        loginButton.setBackgroundColor(Constants.disableColor, for: .disabled)
+        loginButton.setBackgroundColor(Color.accentColor, for: .normal)
+        loginButton.setBackgroundColor(Color.disableColor, for: .disabled)
         loginButton.isEnabled = false
 
         Auth.auth().addStateDidChangeListener { [weak self] auth, user in
@@ -210,6 +209,7 @@ extension LoginViewController: UITextFieldDelegate {
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         view.endEditing(true)
         textField.resignFirstResponder()
+        passwordField.resignFirstResponder()
         return true
     }
 }

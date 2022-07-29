@@ -13,6 +13,7 @@ class TabBarController: UITabBarController {
     private let profileVC = ModuleFactory(nc: UINavigationController(), flow: .profile)
     private let musicVC = ModuleFactory(nc: UINavigationController(), flow: .music)
     private let videoVC = ModuleFactory(nc: UINavigationController(), flow: .video)
+    private let documentsVC = ModuleFactory(nc: UINavigationController(), flow: .documents)
 
     
     override func viewDidLoad() {
@@ -24,6 +25,7 @@ class TabBarController: UITabBarController {
     
     private func setControllers() {
         viewControllers = [
+            documentsVC.nc,
             profileVC.nc,
             feedVC.nc,
             musicVC.nc,
