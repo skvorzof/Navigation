@@ -14,6 +14,7 @@ final class ModuleFactory {
         case profile
         case music
         case video
+        case documents
     }
 
     let nc: UINavigationController
@@ -44,13 +45,26 @@ final class ModuleFactory {
             nc.setViewControllers([vc], animated: false)
         case .music:
             let vc = MusicViewController()
+            vc.title = "Музыка"
+            nc.navigationBar.prefersLargeTitles = true
             nc.tabBarItem.title = "Музыка"
             nc.tabBarItem.image = UIImage(systemName: "music.note")
             nc.setViewControllers([vc], animated: false)
         case .video:
             let vc = VideoViewController()
+            vc.title = "Видео"
+            nc.navigationBar.prefersLargeTitles = true
             nc.tabBarItem.title = "Видео"
             nc.tabBarItem.image = UIImage(systemName: "film")
+            nc.setViewControllers([vc], animated: false)
+        case .documents:
+            let viewModel = DocumentsViewModel()
+            let coordinator = DocumentsFlowCoordinator()
+            let vc = DocumentsViewController(viewModel: viewModel, coordinator: coordinator)
+            vc.title = "Документы"
+            nc.navigationBar.prefersLargeTitles = true
+            nc.tabBarItem.title = "Документы"
+            nc.tabBarItem.image = UIImage(systemName: "folder.fill")
             nc.setViewControllers([vc], animated: false)
         }
     }

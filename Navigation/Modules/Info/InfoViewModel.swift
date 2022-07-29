@@ -25,7 +25,7 @@ final class InfoViewModel {
         }
     }
 
-    var todoTitle = ObservableObject("")
+    var todoTitle = Observable("")
     var planetModel: [Planet] = []
     var residents: [Resident] = []
 
