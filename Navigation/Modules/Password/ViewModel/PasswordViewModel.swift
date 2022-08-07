@@ -7,8 +7,10 @@
 
 import UIKit
 
-enum Mode {
-    case check
+// TODO: - Добавить стостояние check
+enum AuthState {
+    case password
+    case confirm
     case create
     case modify
 }
@@ -16,38 +18,52 @@ enum Mode {
 // MARK: - PasswordViewModel
 final class PasswordViewModel {
 
-    var mode: Mode = .check
-    private var keychainPassword = ""
-    var password = ""
     var sendMessage: ((String) -> Void)?
+    var authState: AuthState = .password
+    private var password = ""
+    private var confirmPassword = ""
+    private var keychainPassword = ""
 
     init() {
         if let responseKeychainPassword = KeychaineHelper.shared.getPassword() {
-            mode = .check
+            authState = .password
             keychainPassword = responseKeychainPassword
         } else {
-            mode = .create
+            authState = .create
         }
     }
 
-    func passwordValidation(textField: UITextField) -> Bool {
-        if PasswordCheckService.shared.validation(
-            textField: textField,
-            complition: { message, validPassword in
-                password = validPassword
-                if !message.isEmpty {
-                    sendMessage?(message)
+    func validateTextField(_ textField: UITextField) -> Bool {
+        guard let text = textField.text else { return false }
+        switch authState {
+        case .password:
+            password = text
+            textField.text = ""
+            textField.placeholder = "Confirm"
+        case .confirm:
+            confirmPassword = text
+            if confirmPassword == password {
+                print(confirmPassword, password)
+                if checkPassword() {
+                    return true
+                } else {
+                    sendMessage?("Неверный пароль")
+                    textField.placeholder = "Введите минимум 4 символа"
+                    authState = .password
                 }
-            })
-        {
-            return true
-        } else {
-            return false
+            } else {
+                sendMessage?("Password deferent")
+            }
+        case .create:
+            savePassword()
+        case .modify:
+            break
         }
+        return false
     }
 
     func checkPassword() -> Bool {
-        return password == keychainPassword
+        return confirmPassword == keychainPassword
     }
 
     func savePassword() {
@@ -57,7 +73,7 @@ final class PasswordViewModel {
         }
     }
 
-    func changePassword() {
+    func changePassword(_ password: String) {
         if KeychaineHelper.shared.modifyPassword(password) {
             sendMessage?("Пароль успешно изменён.")
         }

@@ -16,7 +16,6 @@ class SettingChangePasswordViewController: UIViewController {
         let field = CustomField(placeholder: "Введите минимум 4 символа")
         field.translatesAutoresizingMaskIntoConstraints = false
         field.isSecureTextEntry = true
-        field.delegate = self
         return field
     }()
 
@@ -31,6 +30,7 @@ class SettingChangePasswordViewController: UIViewController {
         view.backgroundColor = .white
         configureUI()
         configureViewModel()
+        textFieldAction()
         buttonAction()
     }
 
@@ -52,13 +52,27 @@ class SettingChangePasswordViewController: UIViewController {
             withDuration: 2.5, delay: 0.1, options: .curveEaseIn, animations: { toastLabel.alpha = 0.0 }, completion: { _ in toastLabel.removeFromSuperview() })
     }
 
+    private func textFieldAction() {
+        passwordField.textFielDidChanged = { [weak self] in
+            guard let self = self else { return }
+            guard let text = self.passwordField.text else { return }
+            self.button.isEnabled = text.count > 3 ? true : false
+        }
+    }
+
     private func buttonAction() {
-        button.tapAction = { [viewModel] in
-            viewModel.changePassword()
+        button.tapAction = { [weak self] in
+            guard let self = self else { return }
+            guard let text = self.passwordField.text else { return }
+            self.viewModel.changePassword(text)
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                self.presentingViewController?.dismiss(animated: true, completion: nil)
+            }
         }
     }
 
     private func configureViewModel() {
+        viewModel.authState = .modify
         viewModel.sendMessage = { [weak self] message in
             self?.showToast(message: message)
         }
@@ -85,16 +99,5 @@ class SettingChangePasswordViewController: UIViewController {
             button.topAnchor.constraint(equalTo: passwordField.bottomAnchor, constant: 16),
             button.heightAnchor.constraint(equalToConstant: 50),
         ])
-    }
-}
-
-extension SettingChangePasswordViewController: UITextFieldDelegate {
-    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        if viewModel.passwordValidation(textField: textField) {
-            button.isEnabled = true
-        } else {
-            button.isEnabled = false
-        }
-        return true
     }
 }

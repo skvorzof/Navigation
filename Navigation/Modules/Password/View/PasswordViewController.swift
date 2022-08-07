@@ -16,7 +16,6 @@ class PasswordViewController: UIViewController {
         let field = CustomField(placeholder: "Введите минимум 4 символа")
         field.translatesAutoresizingMaskIntoConstraints = false
         field.isSecureTextEntry = true
-        field.delegate = self
         return field
     }()
 
@@ -31,6 +30,7 @@ class PasswordViewController: UIViewController {
         view.backgroundColor = .white
         configureUI()
         configureViewModel()
+        textFieldAction()
         buttonAction()
     }
 
@@ -52,18 +52,28 @@ class PasswordViewController: UIViewController {
             withDuration: 2.5, delay: 0.1, options: .curveEaseIn, animations: { toastLabel.alpha = 0.0 }, completion: { _ in toastLabel.removeFromSuperview() })
     }
 
+    private func textFieldAction() {
+        passwordField.textFielDidChanged = { [weak self] in
+            guard let self = self else { return }
+            guard let text = self.passwordField.text else { return }
+            self.button.isEnabled = text.count > 3 ? true : false
+        }
+    }
+
     private func buttonAction() {
-        button.tapAction = { [weak self, viewModel] in
-            switch viewModel.mode {
-            case .check:
-                if viewModel.checkPassword() {
-                    let vc = TabBarController()
-                    self?.navigationController?.pushViewController(vc, animated: false)
-                } else {
-                    self?.showToast(message: "Неверный пароль.")
+        button.tapAction = { [weak self] in
+            guard let self = self else { return }
+            switch self.viewModel.authState {
+            case .password:
+                _ = self.viewModel.validateTextField(self.passwordField)
+                self.viewModel.authState = .confirm
+            case .confirm:
+                if self.viewModel.validateTextField(self.passwordField) {
+                    self.navigationController?.pushViewController(TabBarController(), animated: true)
                 }
             case .create:
-                viewModel.savePassword()
+                _ = self.viewModel.validateTextField(self.passwordField)
+                self.viewModel.authState = .create
             case .modify:
                 break
             }
@@ -77,11 +87,13 @@ class PasswordViewController: UIViewController {
     }
 
     private func configureUI() {
-        switch viewModel.mode {
-        case .check:
+        switch viewModel.authState {
+        case .password:
             button.setTitle("Войти", for: .normal)
         case .create:
             button.setTitle("Создать пароль", for: .normal)
+        case .confirm:
+            break
         case .modify:
             break
         }
@@ -102,18 +114,7 @@ class PasswordViewController: UIViewController {
             button.leadingAnchor.constraint(equalTo: passwordField.leadingAnchor),
             button.trailingAnchor.constraint(equalTo: passwordField.trailingAnchor),
             button.topAnchor.constraint(equalTo: passwordField.bottomAnchor, constant: 16),
-            button.heightAnchor.constraint(equalToConstant: 50)
+            button.heightAnchor.constraint(equalToConstant: 50),
         ])
-    }
-}
-
-extension PasswordViewController: UITextFieldDelegate {
-    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        if viewModel.passwordValidation(textField: textField) {
-            button.isEnabled = true
-        } else {
-            button.isEnabled = false
-        }
-        return true
     }
 }
