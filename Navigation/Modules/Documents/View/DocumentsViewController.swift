@@ -51,6 +51,11 @@ class DocumentsViewController: UIViewController {
         setupUI()
         setupModel()
     }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        viewModel.stateChange(.tableInit)
+    }
 
     // MARK: - didTapFolderIcon
     @objc
@@ -96,8 +101,6 @@ class DocumentsViewController: UIViewController {
                 }
             }
         }
-
-        viewModel.stateChange(.tableInit)
     }
 
     // MARK: - setupUI

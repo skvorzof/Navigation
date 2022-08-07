@@ -15,6 +15,7 @@ final class ModuleFactory {
         case music
         case video
         case documents
+        case setting
     }
 
     let nc: UINavigationController
@@ -65,6 +66,12 @@ final class ModuleFactory {
             nc.navigationBar.prefersLargeTitles = true
             nc.tabBarItem.title = "Документы"
             nc.tabBarItem.image = UIImage(systemName: "folder.fill")
+            nc.setViewControllers([vc], animated: false)
+        case .setting:
+            let vc = SettingViewController()
+            vc.title = "Настройки"
+            nc.tabBarItem.title = "Настройки"
+            nc.tabBarItem.image = UIImage(systemName: "gearshape.fill")
             nc.setViewControllers([vc], animated: false)
         }
     }
