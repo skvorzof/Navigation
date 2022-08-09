@@ -6,3 +6,11 @@
 //
 
 import Foundation
+
+enum DatabaseError: Error {
+    case wrongModel
+    case error(description: String)
+    case unknown
+}
+
+protocol DatabaseCoordinatable {}

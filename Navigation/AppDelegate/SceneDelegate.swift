@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import RealmSwift
 
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
@@ -17,8 +18,13 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         window = UIWindow(windowScene: scene)
 //        let mainCoordinator = MainCoordinator()
 //        window?.rootViewController = mainCoordinator.start()
-        let nc = UINavigationController(rootViewController: PasswordViewController())
+        let nc = UINavigationController(rootViewController: AuthViewController())
         window?.rootViewController = nc
         window?.makeKeyAndVisible()
+        
+//        do {
+//            let realm = try! Realm()
+//            print("Realm is located at:", realm.configuration.fileURL!)
+//        } catch {}
     }
 }
