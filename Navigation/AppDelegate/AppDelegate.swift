@@ -8,6 +8,7 @@
 import FirebaseAuth
 import FirebaseCore
 import UIKit
+import RealmSwift
 
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -17,6 +18,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // MARK: - AppConfiguration.getRandomUrl()
         //        let randomUrl = AppConfiguration.getRandomUrl()
         //        NetworkService.shared.getUrlSession(stingUrl: randomUrl)
+        checkRealmMigration()
         FirebaseApp.configure()
         return true
     }
@@ -27,5 +29,19 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         } catch let error {
             print(error.localizedDescription)
         }
+    }
+    
+    private func checkRealmMigration() {
+        let config = Realm.Configuration(
+            // Set the new schema version. This must be greater than the previously used
+            // version (if you've never set a schema version before, the version is 0).
+            schemaVersion: 2,
+            migrationBlock: { migration, oldSchemaVersion in
+                if oldSchemaVersion < 2 {
+                    // on future migration
+                }
+        })
+
+        Realm.Configuration.defaultConfiguration = config
     }
 }

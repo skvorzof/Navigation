@@ -52,6 +52,7 @@ class CustomButton: UIButton {
         self.backgroundColor = backColor
         self.layer.cornerRadius = 10
         self.addTarget(self, action: #selector(buttonTapped), for: .touchUpInside)
+        self.translatesAutoresizingMaskIntoConstraints = false
     }
     
     required init?(coder: NSCoder) {

@@ -1,0 +1,12 @@
+//
+//  Storable.swift
+//  Navigation
+//
+//  Created by Dima Skvortsov on 08.08.2022.
+//
+
+import RealmSwift
+
+protocol Storable {}
+
+extension Object: Storable {}

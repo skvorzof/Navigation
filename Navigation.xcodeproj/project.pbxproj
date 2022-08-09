@@ -9,7 +9,6 @@
 /* Begin PBXBuildFile section */
 		C904D122289275FA00A1A363 /* DocumentImageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C904D121289275FA00A1A363 /* DocumentImageViewController.swift */; };
 		C904D1382893D43500A1A363 /* DocumentsFlowCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = C904D1372893D42300A1A363 /* DocumentsFlowCoordinator.swift */; };
-		C90DAC21284A032A000A6675 /* iOSIntPackage in Frameworks */ = {isa = PBXBuildFile; productRef = C90DAC20284A032A000A6675 /* iOSIntPackage */; };
 		C90E05112837B888008C554C /* StorageService.h in Headers */ = {isa = PBXBuildFile; fileRef = C90E05102837B888008C554C /* StorageService.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C90E05142837B888008C554C /* StorageService.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C90E050E2837B888008C554C /* StorageService.framework */; };
 		C90E05152837B888008C554C /* StorageService.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C90E050E2837B888008C554C /* StorageService.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
@@ -84,6 +83,15 @@
 		C9C4A4A12859E53D007338FE /* ModuleFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9C4A4A02859E53D007338FE /* ModuleFactory.swift */; };
 		C9C6E6D9287D9A5800FB3069 /* NetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9C6E6D8287D9A5800FB3069 /* NetworkService.swift */; };
 		C9C6E6DB287D9FD300FB3069 /* AppConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9C6E6DA287D9FD300FB3069 /* AppConfiguration.swift */; };
+		C9CB44F828A1806A0021AF58 /* AuthViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9CB44F728A1806A0021AF58 /* AuthViewController.swift */; };
+		C9CB44FA28A18EDD0021AF58 /* AuthService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9CB44F928A18EDD0021AF58 /* AuthService.swift */; };
+		C9CB44FD28A191AF0021AF58 /* AuthViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9CB44FC28A191AF0021AF58 /* AuthViewModel.swift */; };
+		C9CB450428A198F60021AF58 /* Storable.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9CB450328A198F60021AF58 /* Storable.swift */; };
+		C9CB450728A199F50021AF58 /* Realm in Frameworks */ = {isa = PBXBuildFile; productRef = C9CB450628A199F50021AF58 /* Realm */; };
+		C9CB450928A199F50021AF58 /* RealmSwift in Frameworks */ = {isa = PBXBuildFile; productRef = C9CB450828A199F50021AF58 /* RealmSwift */; };
+		C9CB450C28A19A940021AF58 /* RealmCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9CB450B28A19A940021AF58 /* RealmCoordinator.swift */; };
+		C9CB450E28A19BCD0021AF58 /* DatabaseCoordinatable.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9CB450D28A19BCD0021AF58 /* DatabaseCoordinatable.swift */; };
+		C9CB451128A1A4190021AF58 /* UserRealmModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9CB451028A1A4190021AF58 /* UserRealmModel.swift */; };
 		C9D204632844DD37005D108A /* TestUserService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9D204622844DD37005D108A /* TestUserService.swift */; };
 		C9D315D82875C99A00DE52BC /* MusicViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9D315D72875C99A00DE52BC /* MusicViewController.swift */; };
 		C9D315DC2875CFA300DE52BC /* VideoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9D315DB2875CFA300DE52BC /* VideoViewController.swift */; };
@@ -197,6 +205,13 @@
 		C9C4A4A02859E53D007338FE /* ModuleFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModuleFactory.swift; sourceTree = "<group>"; };
 		C9C6E6D8287D9A5800FB3069 /* NetworkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkService.swift; sourceTree = "<group>"; };
 		C9C6E6DA287D9FD300FB3069 /* AppConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppConfiguration.swift; sourceTree = "<group>"; };
+		C9CB44F728A1806A0021AF58 /* AuthViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthViewController.swift; sourceTree = "<group>"; };
+		C9CB44F928A18EDD0021AF58 /* AuthService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthService.swift; sourceTree = "<group>"; };
+		C9CB44FC28A191AF0021AF58 /* AuthViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthViewModel.swift; sourceTree = "<group>"; };
+		C9CB450328A198F60021AF58 /* Storable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Storable.swift; sourceTree = "<group>"; };
+		C9CB450B28A19A940021AF58 /* RealmCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmCoordinator.swift; sourceTree = "<group>"; };
+		C9CB450D28A19BCD0021AF58 /* DatabaseCoordinatable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatabaseCoordinatable.swift; sourceTree = "<group>"; };
+		C9CB451028A1A4190021AF58 /* UserRealmModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserRealmModel.swift; sourceTree = "<group>"; };
 		C9D204622844DD37005D108A /* TestUserService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestUserService.swift; sourceTree = "<group>"; };
 		C9D315D72875C99A00DE52BC /* MusicViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MusicViewController.swift; sourceTree = "<group>"; };
 		C9D315DB2875CFA300DE52BC /* VideoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoViewController.swift; sourceTree = "<group>"; };
@@ -220,11 +235,12 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C9CB450728A199F50021AF58 /* Realm in Frameworks */,
 				C9DFC241283F3F6C00496850 /* iOSIntPackage in Frameworks */,
+				C9CB450928A199F50021AF58 /* RealmSwift in Frameworks */,
 				C9ABCCF9288AB5AA00D17E00 /* FirebaseAuth in Frameworks */,
 				C9F9C06D285E55BE005350CE /* SnapKit in Frameworks */,
 				C90E05142837B888008C554C /* StorageService.framework in Frameworks */,
-				C90DAC21284A032A000A6675 /* iOSIntPackage in Frameworks */,
 				C98F336D287CAB030064BB87 /* YouTubeiOSPlayerHelper in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -251,6 +267,7 @@
 		C90F7F392882AAC80001225C /* Modules */ = {
 			isa = PBXGroup;
 			children = (
+				C9CB44F528A1803F0021AF58 /* Auth */,
 				C99FB72F289C21C800386A1B /* Setting */,
 				C94AEF23289A6F8E0067AFBC /* Password */,
 				C9B1C32D2890296F005C6C35 /* Documents */,
@@ -287,6 +304,7 @@
 		C9164FE927D0F57400034102 /* Navigation */ = {
 			isa = PBXGroup;
 			children = (
+				C9CB450128A198A20021AF58 /* CoreLayer */,
 				C94AEF28289A83400067AFBC /* Helpers */,
 				C90F7F392882AAC80001225C /* Modules */,
 				C94C3C35284116FC00F4DE92 /* Models */,
@@ -297,8 +315,7 @@
 				C960815D285094B6009444DA /* Views */,
 				C98F3350287C3C720064BB87 /* Resource */,
 				C98980142889D1BF0087F416 /* Common */,
-				C98980132889D1A00087F416 /* Application */,
-				C9164FF827D0F57500034102 /* Info.plist */,
+				C98980132889D1A00087F416 /* AppDelegate */,
 				C9B2F4FF2889C74D00655583 /* GoogleService-Info.plist */,
 			);
 			path = Navigation;
@@ -535,14 +552,15 @@
 			path = View;
 			sourceTree = "<group>";
 		};
-		C98980132889D1A00087F416 /* Application */ = {
+		C98980132889D1A00087F416 /* AppDelegate */ = {
 			isa = PBXGroup;
 			children = (
+				C9164FF827D0F57500034102 /* Info.plist */,
 				C9C6E6DA287D9FD300FB3069 /* AppConfiguration.swift */,
 				C9164FEA27D0F57400034102 /* AppDelegate.swift */,
 				C9164FEC27D0F57400034102 /* SceneDelegate.swift */,
 			);
-			path = Application;
+			path = AppDelegate;
 			sourceTree = "<group>";
 		};
 		C98980142889D1BF0087F416 /* Common */ = {
@@ -727,6 +745,75 @@
 			path = Services;
 			sourceTree = "<group>";
 		};
+		C9CB44F528A1803F0021AF58 /* Auth */ = {
+			isa = PBXGroup;
+			children = (
+				C9CB44FE28A191E00021AF58 /* Model */,
+				C9CB44FB28A1919A0021AF58 /* ViewModel */,
+				C9CB44F628A1804C0021AF58 /* View */,
+				C9CB44F928A18EDD0021AF58 /* AuthService.swift */,
+			);
+			path = Auth;
+			sourceTree = "<group>";
+		};
+		C9CB44F628A1804C0021AF58 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				C9CB44F728A1806A0021AF58 /* AuthViewController.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		C9CB44FB28A1919A0021AF58 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				C9CB44FC28A191AF0021AF58 /* AuthViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		C9CB44FE28A191E00021AF58 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		C9CB450128A198A20021AF58 /* CoreLayer */ = {
+			isa = PBXGroup;
+			children = (
+				C9CB450F28A1A4020021AF58 /* Models */,
+				C9CB450228A198B90021AF58 /* Database */,
+			);
+			path = CoreLayer;
+			sourceTree = "<group>";
+		};
+		C9CB450228A198B90021AF58 /* Database */ = {
+			isa = PBXGroup;
+			children = (
+				C9CB450A28A19A7E0021AF58 /* Realm */,
+				C9CB450328A198F60021AF58 /* Storable.swift */,
+				C9CB450D28A19BCD0021AF58 /* DatabaseCoordinatable.swift */,
+			);
+			path = Database;
+			sourceTree = "<group>";
+		};
+		C9CB450A28A19A7E0021AF58 /* Realm */ = {
+			isa = PBXGroup;
+			children = (
+				C9CB450B28A19A940021AF58 /* RealmCoordinator.swift */,
+			);
+			path = Realm;
+			sourceTree = "<group>";
+		};
+		C9CB450F28A1A4020021AF58 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				C9CB451028A1A4190021AF58 /* UserRealmModel.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
 		C9D315D52875C97600DE52BC /* Music */ = {
 			isa = PBXGroup;
 			children = (
@@ -812,10 +899,11 @@
 			name = Navigation;
 			packageProductDependencies = (
 				C9DFC240283F3F6C00496850 /* iOSIntPackage */,
-				C90DAC20284A032A000A6675 /* iOSIntPackage */,
 				C9F9C06C285E55BE005350CE /* SnapKit */,
 				C98F336C287CAB030064BB87 /* YouTubeiOSPlayerHelper */,
 				C9ABCCF8288AB5AA00D17E00 /* FirebaseAuth */,
+				C9CB450628A199F50021AF58 /* Realm */,
+				C9CB450828A199F50021AF58 /* RealmSwift */,
 			);
 			productName = Navigation;
 			productReference = C9164FE727D0F57400034102 /* Navigation.app */;
@@ -850,10 +938,10 @@
 			mainGroup = C9164FDE27D0F57400034102;
 			packageReferences = (
 				C9DFC23F283F3F6C00496850 /* XCRemoteSwiftPackageReference "iOSIntPackage" */,
-				C90DAC1F284A032A000A6675 /* XCRemoteSwiftPackageReference "iOSIntPackage" */,
 				C9F9C06B285E55BE005350CE /* XCRemoteSwiftPackageReference "SnapKit" */,
 				C98F336B287CAB030064BB87 /* XCRemoteSwiftPackageReference "youtube-ios-player-helper" */,
 				C9ABCCF7288AB5AA00D17E00 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
+				C9CB450528A199F50021AF58 /* XCRemoteSwiftPackageReference "realm-swift" */,
 			);
 			productRefGroup = C9164FE827D0F57400034102 /* Products */;
 			projectDirPath = "";
@@ -922,6 +1010,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C9CB451128A1A4190021AF58 /* UserRealmModel.swift in Sources */,
 				C9AB506928465DC8001DF1CC /* LoginInspector.swift in Sources */,
 				C9C4A4992859B178007338FE /* MainCoordinator.swift in Sources */,
 				C94993DB2863A0F0003D80A2 /* BruteForce.swift in Sources */,
@@ -942,6 +1031,7 @@
 				C9436632285B358500C706A4 /* FeedFlowCoordinator.swift in Sources */,
 				C93E99282881D91900444336 /* TodoService.swift in Sources */,
 				C9A3884027E6692100CE4307 /* CustomField.swift in Sources */,
+				C9CB44FD28A191AF0021AF58 /* AuthViewModel.swift in Sources */,
 				C9B6B38328830BB50056971D /* PlanetService.swift in Sources */,
 				C9D315D82875C99A00DE52BC /* MusicViewController.swift in Sources */,
 				C9E1AA7327D0FBCB0021A97A /* ProfileViewController.swift in Sources */,
@@ -957,6 +1047,8 @@
 				C99A81EF27EDD9B90080B6A5 /* PhotoTableViewCell.swift in Sources */,
 				C9661160285C78E400F9DBD9 /* PostService.swift in Sources */,
 				C9C6E6D9287D9A5800FB3069 /* NetworkService.swift in Sources */,
+				C9CB450428A198F60021AF58 /* Storable.swift in Sources */,
+				C9CB44F828A1806A0021AF58 /* AuthViewController.swift in Sources */,
 				C98F336F287CB32A0064BB87 /* VideoPlayerViewController.swift in Sources */,
 				C94FB4C927D884B4005ABB47 /* ProfileHeaderView.swift in Sources */,
 				C9B1C33028902AE4005C6C35 /* DocumentsViewController.swift in Sources */,
@@ -965,9 +1057,11 @@
 				C9B1C33A28903AD5005C6C35 /* DocumentService.swift in Sources */,
 				C99FB747289E86F600386A1B /* SwitchTableViewCell.swift in Sources */,
 				C9B2F5022889C9C700655583 /* CheckerService.swift in Sources */,
+				C9CB450C28A19A940021AF58 /* RealmCoordinator.swift in Sources */,
 				C9AB506B284668BB001DF1CC /* LoginFactory.swift in Sources */,
 				C98F335E287C6C530064BB87 /* MusicViewModel.swift in Sources */,
 				C9B6B387288323340056971D /* ResidentService.swift in Sources */,
+				C9CB450E28A19BCD0021AF58 /* DatabaseCoordinatable.swift in Sources */,
 				C9661161285C7B2100F9DBD9 /* Post.swift in Sources */,
 				C96081612850B5CC009444DA /* Password.swift in Sources */,
 				C99FB73F289CDA2200386A1B /* SettingChangePasswordViewController.swift in Sources */,
@@ -988,6 +1082,7 @@
 				C9E1AA7927D0FC510021A97A /* FeedViewController.swift in Sources */,
 				C93E992C2881E4E400444336 /* Todo.swift in Sources */,
 				C960815F285094D3009444DA /* CustomButton.swift in Sources */,
+				C9CB44FA28A18EDD0021AF58 /* AuthService.swift in Sources */,
 				C9A3881C27E5C70700CE4307 /* LoginViewController.swift in Sources */,
 				C99FB735289C226200386A1B /* SettingViewController.swift in Sources */,
 				C9E1AA7727D0FC240021A97A /* InfoViewController.swift in Sources */,
@@ -1211,7 +1306,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = "";
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = Navigation/Info.plist;
+				INFOPLIST_FILE = Navigation/AppDelegate/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
@@ -1241,7 +1336,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = "";
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = Navigation/Info.plist;
+				INFOPLIST_FILE = Navigation/AppDelegate/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
@@ -1294,14 +1389,6 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		C90DAC1F284A032A000A6675 /* XCRemoteSwiftPackageReference "iOSIntPackage" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/TrueMax/iOSIntPackage.git";
-			requirement = {
-				branch = imagepublisher;
-				kind = branch;
-			};
-		};
 		C98F336B287CAB030064BB87 /* XCRemoteSwiftPackageReference "youtube-ios-player-helper" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/youtube/youtube-ios-player-helper.git";
@@ -1314,8 +1401,16 @@
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/firebase/firebase-ios-sdk";
 			requirement = {
-				branch = master;
-				kind = branch;
+				kind = upToNextMajorVersion;
+				minimumVersion = 9.3.0;
+			};
+		};
+		C9CB450528A199F50021AF58 /* XCRemoteSwiftPackageReference "realm-swift" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/realm/realm-swift";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 10.28.4;
 			};
 		};
 		C9DFC23F283F3F6C00496850 /* XCRemoteSwiftPackageReference "iOSIntPackage" */ = {
@@ -1337,11 +1432,6 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		C90DAC20284A032A000A6675 /* iOSIntPackage */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = C90DAC1F284A032A000A6675 /* XCRemoteSwiftPackageReference "iOSIntPackage" */;
-			productName = iOSIntPackage;
-		};
 		C98F336C287CAB030064BB87 /* YouTubeiOSPlayerHelper */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = C98F336B287CAB030064BB87 /* XCRemoteSwiftPackageReference "youtube-ios-player-helper" */;
@@ -1351,6 +1441,16 @@
 			isa = XCSwiftPackageProductDependency;
 			package = C9ABCCF7288AB5AA00D17E00 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
 			productName = FirebaseAuth;
+		};
+		C9CB450628A199F50021AF58 /* Realm */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = C9CB450528A199F50021AF58 /* XCRemoteSwiftPackageReference "realm-swift" */;
+			productName = Realm;
+		};
+		C9CB450828A199F50021AF58 /* RealmSwift */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = C9CB450528A199F50021AF58 /* XCRemoteSwiftPackageReference "realm-swift" */;
+			productName = RealmSwift;
 		};
 		C9DFC240283F3F6C00496850 /* iOSIntPackage */ = {
 			isa = XCSwiftPackageProductDependency;
