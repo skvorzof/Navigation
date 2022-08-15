@@ -16,6 +16,7 @@ final class ModuleFactory {
         case video
         case documents
         case setting
+        case favorite
     }
 
     let nc: UINavigationController
@@ -40,7 +41,8 @@ final class ModuleFactory {
         case .profile:
             let viewModel = PostViewModel()
             let coordinator = ProfileFlowCoorinator()
-            let vc = ProfileViewController(viewModel: viewModel, coordinator: coordinator)
+            let databaseCoordinator = MigrationService.shared.coreDataCoordinator
+            let vc = ProfileViewController(viewModel: viewModel, coordinator: coordinator, databaseCoordinator: databaseCoordinator)
             nc.tabBarItem.title = "Профиль"
             nc.tabBarItem.image = UIImage(systemName: "person.fill")
             nc.setViewControllers([vc], animated: false)
@@ -72,6 +74,13 @@ final class ModuleFactory {
             vc.title = "Настройки"
             nc.tabBarItem.title = "Настройки"
             nc.tabBarItem.image = UIImage(systemName: "gearshape.fill")
+            nc.setViewControllers([vc], animated: false)
+        case .favorite:
+            let databaseCoordinator = MigrationService.shared.coreDataCoordinator
+            let vc = FavoriteViewController(databaseCoordinator: databaseCoordinator)
+            vc.title = "Избранное"
+            nc.tabBarItem.title = "Избранное"
+            nc.tabBarItem.image = UIImage(systemName: "star")
             nc.setViewControllers([vc], animated: false)
         }
     }

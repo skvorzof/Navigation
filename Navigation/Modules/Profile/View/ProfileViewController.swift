@@ -14,6 +14,7 @@ class ProfileViewController: UIViewController {
 
     private let viewModel: PostViewModel
     private let coordinator: ProfileFlowCoorinator
+    private let databaseCoordinator: DatabaseCoordinatable
 
     private var posts = [Post]()
 
@@ -34,9 +35,14 @@ class ProfileViewController: UIViewController {
         return tableView
     }()
 
-    init(viewModel: PostViewModel, coordinator: ProfileFlowCoorinator) {
+    init(
+        viewModel: PostViewModel,
+        coordinator: ProfileFlowCoorinator,
+        databaseCoordinator: DatabaseCoordinatable
+    ) {
         self.viewModel = viewModel
         self.coordinator = coordinator
+        self.databaseCoordinator = databaseCoordinator
         super.init(nibName: nil, bundle: nil)
     }
 
@@ -47,11 +53,11 @@ class ProfileViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        Auth.auth().addStateDidChangeListener { auth, user in
-            if user == nil {
-                self.coordinator.showLogin(nc: self.navigationController, coordinator: self.coordinator)
-            }
-        }
+        //        Auth.auth().addStateDidChangeListener { auth, user in
+        //            if user == nil {
+        //                self.coordinator.showLogin(nc: self.navigationController, coordinator: self.coordinator)
+        //            }
+        //        }
 
         layout()
         setupViewModel()
@@ -81,6 +87,39 @@ class ProfileViewController: UIViewController {
                 }
             case .error:
                 ()
+            }
+        }
+    }
+
+    private func savePostInDatabase(_ filterPost: Post, index: Int, using data: [Post]) {
+        databaseCoordinator.create(Favorite.self, keyedValues: [filterPost.keyedValues]) { [weak self] result in
+            guard let self = self else { return }
+            switch result {
+            case .success(let favorite):
+                var newData = data
+                newData[index] = filterPost
+                //TODO: -
+                let userInfo = ["favorite": filterPost]
+                NotificationCenter.default.post(name: .wasLikedPost, object: nil, userInfo: userInfo)
+            case .failure(let error):
+                print("Error \(error)")
+            }
+        }
+    }
+
+    private func removePostFromDatabase(_ filterPost: Post, index: Int, using data: [Post]) {
+        let predicate = NSPredicate(format: "title == %@", filterPost.title)
+        databaseCoordinator.delete(Favorite.self, predicate: predicate) { [weak self] result in
+            guard let self = self else { return }
+            switch result {
+            case .success(let favorites):
+                var newData = data
+                newData[index] = filterPost
+                // TODO: -
+                let userInfo = ["favorite": filterPost]
+                NotificationCenter.default.post(name: .wasLikedPost, object: nil, userInfo: userInfo)
+            case .failure(let error):
+                print("Error \(error)")
             }
         }
     }
@@ -117,7 +156,18 @@ extension ProfileViewController: UITableViewDataSource {
                 tableView.dequeueReusableCell(
                     withIdentifier: PostTableViewCell.identifier,
                     for: indexPath) as! PostTableViewCell
-            cell.setupCell(model: posts[indexPath.row])
+            //            cell.setupCell(model: posts[indexPath.row])
+            let post = posts[indexPath.row]
+            let model = PostTableViewCell.ViewModel(
+                title: post.title,
+                author: post.author,
+                descriptions: post.descriptions,
+                image: post.image,
+                likes: post.likes,
+                views: post.views,
+                isFavorite: post.isFavorite)
+            cell.delegate = self
+            cell.setup(with: model)
             return cell
         }
     }
@@ -164,10 +214,24 @@ extension ProfileViewController: UITableViewDelegate {
             let photosVC = PhotosViewController()
             navigationController?.pushViewController(photosVC, animated: true)
         default:
-            let postVC = PostViewController()
-            postVC.title = posts[indexPath.row].title
-            postVC.setupPost(model: posts[indexPath.row])
-            navigationController?.pushViewController(postVC, animated: true)
+            break
+        //            let postVC = PostViewController()
+        //            postVC.title = posts[indexPath.row].title
+        //            postVC.setupPost(model: posts[indexPath.row])
+        //            navigationController?.pushViewController(postVC, animated: true)
         }
+    }
+}
+
+extension ProfileViewController: PostTableViewCellDelefate {
+    func wasFavoritePost(with title: String) {
+        guard var filterPost = posts.first(where: { $0.title == title }),
+            let index = posts.firstIndex(where: { $0.title == title })
+        else { return }
+
+        filterPost.isFavorite.toggle()
+        filterPost.isFavorite
+            ? self.savePostInDatabase(filterPost, index: index, using: posts)
+            : self.removePostFromDatabase(filterPost, index: index, using: posts)
     }
 }

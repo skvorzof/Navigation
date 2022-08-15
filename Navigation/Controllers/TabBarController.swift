@@ -15,6 +15,7 @@ class TabBarController: UITabBarController {
     private let videoVC = ModuleFactory(nc: UINavigationController(), flow: .video)
     private let documentsVC = ModuleFactory(nc: UINavigationController(), flow: .documents)
     private let settingVC = ModuleFactory(nc: UINavigationController(), flow: .setting)
+    private let favoriteVC = ModuleFactory(nc: UINavigationController(), flow: .favorite)
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -26,12 +27,13 @@ class TabBarController: UITabBarController {
 
     private func setControllers() {
         viewControllers = [
+            profileVC.nc,
+            favoriteVC.nc,
             feedVC.nc,
             documentsVC.nc,
             settingVC.nc,
             musicVC.nc,
             videoVC.nc,
-            profileVC.nc,
         ]
     }
 }
