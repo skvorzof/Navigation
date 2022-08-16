@@ -22,6 +22,18 @@ final class RealmCoordinator {
 }
 
 extension RealmCoordinator: DatabaseCoordinatable {
+    func update<T>(_ model: T.Type, predicate: NSPredicate?, keyedValues: [String : Any], completion: @escaping (Result<[T], DatabaseError>) -> Void) where T : Storable {
+        
+    }
+    
+    func delete<T>(_ model: T.Type, predicate: NSPredicate?, completion: @escaping (Result<[T], DatabaseError>) -> Void) where T : Storable {
+        
+    }
+    
+    func deleteAll<T>(_ model: T.Type, completion: @escaping (Result<[T], DatabaseError>) -> Void) where T : Storable {
+        
+    }
+    
 
     func create<T>(_ model: T.Type, keyedValues: [[String: Any]], completion: @escaping (Result<[T], DatabaseError>) -> Void) where T: Storable {
         do {

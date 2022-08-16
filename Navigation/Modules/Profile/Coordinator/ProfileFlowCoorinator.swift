@@ -17,7 +17,8 @@ final class ProfileFlowCoorinator {
     
     func showProfile(nc: UINavigationController?, coordinator: ProfileFlowCoorinator) {
         let viewModel = PostViewModel()
-        let vc = ProfileViewController(viewModel: viewModel, coordinator: coordinator)
+        let databaseCoordinator = MigrationService.shared.coreDataCoordinator
+        let vc = ProfileViewController(viewModel: viewModel, coordinator: coordinator, databaseCoordinator: databaseCoordinator)
         nc?.pushViewController(vc, animated: true)
     }
 }
