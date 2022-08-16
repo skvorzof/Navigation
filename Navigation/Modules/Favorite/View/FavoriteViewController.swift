@@ -19,9 +19,10 @@ class FavoriteViewController: UIViewController {
     private let databaseCoordinator: DatabaseCoordinatable
 
     private lazy var table: UITableView = {
-        let table = UITableView(frame: .zero, style: .plain)
-        table.frame = view.bounds
+        let table = UITableView()
+        table.translatesAutoresizingMaskIntoConstraints = false
         table.register(UITableViewCell.self, forCellReuseIdentifier: "favoriteCell")
+        table.register(FavoriteCell.self, forCellReuseIdentifier: FavoriteCell.identifier)
         table.dataSource = self
         table.delegate = self
         return table
@@ -57,8 +58,16 @@ class FavoriteViewController: UIViewController {
     }
 
     private func setupView() {
+        navigationController?.navigationBar.prefersLargeTitles = true
         view.backgroundColor = .white
         view.addSubview(table)
+        
+        NSLayoutConstraint.activate([
+            table.topAnchor.constraint(equalTo: view.topAnchor),
+            table.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
+            table.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16),
+            table.bottomAnchor.constraint(equalTo: view.bottomAnchor)
+        ])
     }
 
     private func fetchFavoritesFromDatabase() {
@@ -131,10 +140,10 @@ extension FavoriteViewController: UITableViewDataSource {
             let cell = tableView.dequeueReusableCell(withIdentifier: "favoriteCell", for: indexPath)
             return cell
         case .hasModel(let model):
-            let cell = tableView.dequeueReusableCell(withIdentifier: "favoriteCell", for: indexPath)
+            let cell = tableView.dequeueReusableCell(withIdentifier: FavoriteCell.identifier, for: indexPath) as? FavoriteCell
             let favorite = model[indexPath.row]
-            cell.textLabel?.text = favorite.title
-            return cell
+            cell?.setup(model: favorite)
+            return cell!
         }
     }
 }
@@ -149,5 +158,11 @@ extension FavoriteViewController: UITableViewDelegate {
         case .empty:
             break
         }
+    }
+}
+
+extension FavoriteViewController {
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 50.0
     }
 }
