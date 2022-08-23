@@ -28,6 +28,18 @@ class FavoriteViewController: UIViewController {
         return table
     }()
 
+    private lazy var addFilterIconBar = UIBarButtonItem(
+        image: UIImage(systemName: "magnifyingglass"),
+        style: .plain,
+        target: self,
+        action: #selector(didTapButtonFilter))
+
+    private lazy var clearFilterIconBar = UIBarButtonItem(
+        image: UIImage(systemName: "xmark"),
+        style: .plain,
+        target: self,
+        action: #selector(didTapButtonFilterClear))
+
     init(databaseCoordinator: DatabaseCoordinatable) {
         self.databaseCoordinator = databaseCoordinator
         super.init(nibName: nil, bundle: nil)
@@ -47,27 +59,57 @@ class FavoriteViewController: UIViewController {
         super.viewDidLoad()
         setupView()
         fetchFavoritesFromDatabase()
-        //        databaseCoordinator.deleteAll(Favorite.self) { result in
-        //            switch result {
-        //            case .success(_):
-        //                print("OK")
-        //            case .failure(_):
-        //                break
-        //            }
-        //        }
     }
 
     private func setupView() {
+        navigationItem.rightBarButtonItems = [clearFilterIconBar, addFilterIconBar]
         navigationController?.navigationBar.prefersLargeTitles = true
         view.backgroundColor = .white
         view.addSubview(table)
-        
+
         NSLayoutConstraint.activate([
             table.topAnchor.constraint(equalTo: view.topAnchor),
             table.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
             table.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16),
-            table.bottomAnchor.constraint(equalTo: view.bottomAnchor)
+            table.bottomAnchor.constraint(equalTo: view.bottomAnchor),
         ])
+    }
+
+    @objc
+    private func didTapButtonFilter() {
+        let alertController = UIAlertController(title: "Показать только  от автора", message: nil, preferredStyle: .alert)
+        alertController.addTextField { textField in
+            textField.placeholder = "например: dmtr"
+        }
+        let continueAction = UIAlertAction(title: "Готово", style: .default) { [weak alertController, databaseCoordinator] _ in
+            guard let textFields = alertController?.textFields else { return }
+            if let author = textFields[0].text, !author.isEmpty {
+                let perdicate = NSPredicate(format: "author == %@", author)
+                databaseCoordinator.fetch(
+                    Favorite.self,
+                    predicate: perdicate
+                ) { result in
+                    switch result {
+                    case .success(let favoriteModels):
+                        let favorites = favoriteModels.map {
+                            Post(favorite: $0)
+                        }
+                        self.state = favorites.isEmpty ? .empty : .hasModel(model: favorites)
+                        self.table.reloadData()
+                    case .failure(let error):
+                        print("Error \(error.localizedDescription)")
+                        self.state = .empty
+                    }
+                }
+            }
+        }
+        alertController.addAction(continueAction)
+        self.present(alertController, animated: true)
+    }
+
+    @objc
+    private func didTapButtonFilterClear() {
+        fetchFavoritesFromDatabase()
     }
 
     private func fetchFavoritesFromDatabase() {
@@ -164,5 +206,42 @@ extension FavoriteViewController: UITableViewDelegate {
 extension FavoriteViewController {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 50.0
+    }
+}
+
+extension FavoriteViewController {
+    func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+        switch state {
+        case .hasModel(let model):
+            let deleteAction = UIContextualAction(style: .destructive, title: nil) { [weak self] (_, _, completion) in
+                guard let self = self else { return }
+                var newModel = model
+                let deletedFavorite = model[indexPath.row]
+                newModel.remove(at: indexPath.row)
+                self.state = .hasModel(model: newModel)
+
+                self.table.beginUpdates()
+                self.table.deleteRows(at: [indexPath], with: .fade)
+                self.table.endUpdates()
+
+                let perdicate = NSPredicate(format: "title == %@", deletedFavorite.title)
+                self.databaseCoordinator.delete(
+                    Favorite.self,
+                    predicate: perdicate
+                ) { result in
+                    switch result {
+                    case .success(_):
+                        print("🫡OK \(deletedFavorite.title)")
+                    case .failure(let error):
+                        print("😱 \(error.localizedDescription)")
+                    }
+                }
+
+            }
+            deleteAction.image = UIImage(systemName: "trash")
+            return UISwipeActionsConfiguration(actions: [deleteAction])
+        case .empty:
+            return nil
+        }
     }
 }
