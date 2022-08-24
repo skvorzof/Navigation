@@ -7,7 +7,6 @@
 
 import UIKit
 
-// TODO: - Добавить стостояние check
 enum AuthState {
     case password
     case confirm

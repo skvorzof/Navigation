@@ -231,7 +231,7 @@ extension FavoriteViewController {
                 ) { result in
                     switch result {
                     case .success(_):
-                        print("🫡OK \(deletedFavorite.title)")
+                        break
                     case .failure(let error):
                         print("😱 \(error.localizedDescription)")
                     }

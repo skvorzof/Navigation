@@ -92,13 +92,12 @@ class ProfileViewController: UIViewController {
     }
 
     private func savePostInDatabase(_ filterPost: Post, index: Int, using data: [Post]) {
-        databaseCoordinator.create(Favorite.self, keyedValues: [filterPost.keyedValues]) { [weak self] result in
-            guard let self = self else { return }
+        databaseCoordinator.create(Favorite.self, keyedValues: [filterPost.keyedValues]) { result in
             switch result {
-            case .success(let favorite):
+            case .success(_):
                 var newData = data
                 newData[index] = filterPost
-                //TODO: -
+
                 let userInfo = ["favorite": filterPost]
                 NotificationCenter.default.post(name: .wasLikedPost, object: nil, userInfo: userInfo)
             case .failure(let error):
@@ -109,13 +108,12 @@ class ProfileViewController: UIViewController {
 
     private func removePostFromDatabase(_ filterPost: Post, index: Int, using data: [Post]) {
         let predicate = NSPredicate(format: "title == %@", filterPost.title)
-        databaseCoordinator.delete(Favorite.self, predicate: predicate) { [weak self] result in
-            guard let self = self else { return }
+        databaseCoordinator.delete(Favorite.self, predicate: predicate) { result in
             switch result {
-            case .success(let favorites):
+            case .success(_):
                 var newData = data
                 newData[index] = filterPost
-                // TODO: -
+
                 let userInfo = ["favorite": filterPost]
                 NotificationCenter.default.post(name: .wasLikedPost, object: nil, userInfo: userInfo)
             case .failure(let error):
@@ -156,7 +154,6 @@ extension ProfileViewController: UITableViewDataSource {
                 tableView.dequeueReusableCell(
                     withIdentifier: PostTableViewCell.identifier,
                     for: indexPath) as! PostTableViewCell
-            //            cell.setupCell(model: posts[indexPath.row])
             let post = posts[indexPath.row]
             let model = PostTableViewCell.ViewModel(
                 title: post.title,

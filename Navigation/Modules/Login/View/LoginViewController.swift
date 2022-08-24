@@ -122,8 +122,7 @@ class LoginViewController: UIViewController {
         if let keyboardSize =
             (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue
         {
-            //            TODO: Разобраться с высотой
-            scrollView.setContentOffset(CGPoint(x: 0, y: keyboardSize.height / 2), animated: true)
+            scrollView.setContentOffset(CGPoint(x: 0, y: keyboardSize.height), animated: true)
         }
     }
 
