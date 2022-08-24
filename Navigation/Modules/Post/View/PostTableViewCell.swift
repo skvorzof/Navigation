@@ -163,7 +163,6 @@ class PostTableViewCell: UITableViewCell {
 
 extension PostTableViewCell {
     func setup(with viewModel: ViewModel) {
-        guard let viewModel = viewModel as? ViewModel else { return }
         self.viewModel = viewModel
         self.titlePost.text = viewModel.title
         self.authorPost.text = viewModel.author

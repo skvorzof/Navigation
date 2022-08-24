@@ -27,8 +27,8 @@ class TabBarController: UITabBarController {
 
     private func setControllers() {
         viewControllers = [
-            profileVC.nc,
             favoriteVC.nc,
+            profileVC.nc,
             feedVC.nc,
             documentsVC.nc,
             settingVC.nc,
