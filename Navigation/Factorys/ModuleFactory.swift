@@ -76,8 +76,7 @@ final class ModuleFactory {
             nc.tabBarItem.image = UIImage(systemName: "gearshape.fill")
             nc.setViewControllers([vc], animated: false)
         case .favorite:
-            let databaseCoordinator = MigrationService.shared.coreDataCoordinator
-            let vc = FavoriteViewController(databaseCoordinator: databaseCoordinator)
+            let vc = FavoriteViewController()
             vc.title = "Избранное"
             nc.tabBarItem.title = "Избранное"
             nc.tabBarItem.image = UIImage(systemName: "star")

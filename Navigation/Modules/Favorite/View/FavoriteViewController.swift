@@ -5,23 +5,18 @@
 //  Created by Dima Skvortsov on 15.08.2022.
 //
 
+import CoreData
 import UIKit
 
 class FavoriteViewController: UIViewController {
 
-    private enum State {
-        case empty
-        case hasModel(model: [Post])
-    }
+    let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
 
-    private var state: State = .empty
-
-    private let databaseCoordinator: DatabaseCoordinatable
+    private var fetchedResultsController: NSFetchedResultsController<Favorite>?
 
     private lazy var table: UITableView = {
         let table = UITableView()
         table.translatesAutoresizingMaskIntoConstraints = false
-        table.register(UITableViewCell.self, forCellReuseIdentifier: "favoriteCell")
         table.register(FavoriteCell.self, forCellReuseIdentifier: FavoriteCell.identifier)
         table.dataSource = self
         table.delegate = self
@@ -40,25 +35,11 @@ class FavoriteViewController: UIViewController {
         target: self,
         action: #selector(didTapButtonFilterClear))
 
-    init(databaseCoordinator: DatabaseCoordinatable) {
-        self.databaseCoordinator = databaseCoordinator
-        super.init(nibName: nil, bundle: nil)
-
-        NotificationCenter.default.addObserver(self, selector: #selector(wasAddedFavorites(_:)), name: .wasLikedPost, object: nil)
-    }
-
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-
-    deinit {
-        NotificationCenter.default.removeObserver(self)
-    }
-
     override func viewDidLoad() {
         super.viewDidLoad()
         setupView()
-        fetchFavoritesFromDatabase()
+        setupFetchedResultsController(for: context, filter: nil)
+        fetchFavorites()
     }
 
     private func setupView() {
@@ -75,32 +56,34 @@ class FavoriteViewController: UIViewController {
         ])
     }
 
+    private func setupFetchedResultsController(for context: NSManagedObjectContext, filter: String?) {
+        let request = Favorite.fetchRequest()
+        let sortDescriptor = NSSortDescriptor(key: "title", ascending: true)
+        request.sortDescriptors = [sortDescriptor]
+
+        if let filter = filter {
+            request.predicate = NSPredicate(format: "(author contains[cd] %@)", filter)
+        }
+
+        fetchedResultsController = NSFetchedResultsController(
+            fetchRequest: request,
+            managedObjectContext: context,
+            sectionNameKeyPath: nil,
+            cacheName: nil)
+        fetchedResultsController?.delegate = self
+    }
+
     @objc
     private func didTapButtonFilter() {
         let alertController = UIAlertController(title: "Показать только  от автора", message: nil, preferredStyle: .alert)
         alertController.addTextField { textField in
             textField.placeholder = "например: dmtr"
         }
-        let continueAction = UIAlertAction(title: "Готово", style: .default) { [weak alertController, databaseCoordinator] _ in
-            guard let textFields = alertController?.textFields else { return }
+        let continueAction = UIAlertAction(title: "Готово", style: .default) { [weak self] _ in
+            guard let textFields = alertController.textFields else { return }
             if let author = textFields[0].text, !author.isEmpty {
-                let perdicate = NSPredicate(format: "author == %@", author)
-                databaseCoordinator.fetch(
-                    Favorite.self,
-                    predicate: perdicate
-                ) { result in
-                    switch result {
-                    case .success(let favoriteModels):
-                        let favorites = favoriteModels.map {
-                            Post(favorite: $0)
-                        }
-                        self.state = favorites.isEmpty ? .empty : .hasModel(model: favorites)
-                        self.table.reloadData()
-                    case .failure(let error):
-                        print("Error \(error.localizedDescription)")
-                        self.state = .empty
-                    }
-                }
+                self?.setupFetchedResultsController(for: self!.context, filter: author)
+                self?.fetchFavorites()
             }
         }
         alertController.addAction(continueAction)
@@ -109,58 +92,16 @@ class FavoriteViewController: UIViewController {
 
     @objc
     private func didTapButtonFilterClear() {
-        fetchFavoritesFromDatabase()
+        setupFetchedResultsController(for: context, filter: nil)
+        fetchFavorites()
     }
 
-    private func fetchFavoritesFromDatabase() {
-        databaseCoordinator.fetchAll(Favorite.self) { result in
-            switch result {
-            case .success(let favoriteModels):
-                let favorites = favoriteModels.map {
-                    Post(favorite: $0)
-                }
-                self.state = favorites.isEmpty ? .empty : .hasModel(model: favorites)
-                self.table.reloadData()
-            case .failure(let error):
-                print("Error \(error.localizedDescription)")
-                self.state = .empty
-            }
-        }
-    }
-
-    @objc
-    private func wasAddedFavorites(_ notification: NSNotification) {
-        guard self.isViewLoaded else { return }
-
-        if let favorite = notification.userInfo?["favorite"] as? Post {
-            switch state {
-            case .empty:
-                if favorite.isFavorite {
-                    let model = [favorite]
-                    self.state = .hasModel(model: model)
-                    self.table.beginUpdates()
-                    self.table.insertRows(at: [IndexPath(row: 0, section: 0)], with: .fade)
-                    self.table.endUpdates()
-                }
-            case .hasModel(let model):
-                var newModel = model
-                if favorite.isFavorite {
-                    newModel.append(favorite)
-                    self.state = .hasModel(model: newModel)
-                    let lastIndex = newModel.count - 1
-                    self.table.beginUpdates()
-                    self.table.insertRows(at: [IndexPath(row: lastIndex, section: 0)], with: .fade)
-                    self.table.endUpdates()
-                } else {
-                    guard let index = model.firstIndex(where: { $0 == favorite }) else { return }
-
-                    newModel.remove(at: index)
-                    self.state = .hasModel(model: newModel)
-                    self.table.beginUpdates()
-                    self.table.deleteRows(at: [IndexPath(row: index, section: 0)], with: .fade)
-                    self.table.endUpdates()
-                }
-            }
+    private func fetchFavorites() {
+        do {
+            try fetchedResultsController?.performFetch()
+            table.reloadData()
+        } catch {
+            fatalError("Can`t fetch from bd")
         }
     }
 }
@@ -168,38 +109,28 @@ class FavoriteViewController: UIViewController {
 // MARK: - UITableViewDataSource
 extension FavoriteViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        switch state {
-        case .empty:
-            return 0
-        case .hasModel(let model):
-            return model.count
-        }
+        guard let sections = fetchedResultsController?.sections else { return 0 }
+        return sections[section].numberOfObjects
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        switch state {
-        case .empty:
-            let cell = tableView.dequeueReusableCell(withIdentifier: "favoriteCell", for: indexPath)
-            return cell
-        case .hasModel(let model):
-            let cell = tableView.dequeueReusableCell(withIdentifier: FavoriteCell.identifier, for: indexPath) as? FavoriteCell
-            let favorite = model[indexPath.row]
-            cell?.setup(model: favorite)
-            return cell!
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: FavoriteCell.identifier, for: indexPath) as? FavoriteCell else {
+            return UITableViewCell()
         }
+
+        guard let favoriteModel = fetchedResultsController?.object(at: indexPath) else { return UITableViewCell() }
+        let model = Post(favorite: favoriteModel)
+        cell.setup(model: model)
+        return cell
     }
 }
 
 extension FavoriteViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        switch state {
-        case .hasModel(let model):
-            let model = model[indexPath.row]
-            let vc = PostViewController(viewModel: model)
-            navigationController?.pushViewController(vc, animated: true)
-        case .empty:
-            break
-        }
+        guard let favoriteModel = fetchedResultsController?.object(at: indexPath) else { return }
+        let model = Post(favorite: favoriteModel)
+        let vc = PostViewController(viewModel: model)
+        navigationController?.pushViewController(vc, animated: true)
     }
 }
 
@@ -211,37 +142,54 @@ extension FavoriteViewController {
 
 extension FavoriteViewController {
     func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
-        switch state {
-        case .hasModel(let model):
-            let deleteAction = UIContextualAction(style: .destructive, title: nil) { [weak self] (_, _, completion) in
-                guard let self = self else { return }
-                var newModel = model
-                let deletedFavorite = model[indexPath.row]
-                newModel.remove(at: indexPath.row)
-                self.state = .hasModel(model: newModel)
 
-                self.table.beginUpdates()
-                self.table.deleteRows(at: [indexPath], with: .fade)
-                self.table.endUpdates()
+        let deleteAction = UIContextualAction(style: .destructive, title: nil) { [weak self] (_, _, completion) in
+            guard let self = self else { return }
 
-                let perdicate = NSPredicate(format: "title == %@", deletedFavorite.title)
-                self.databaseCoordinator.delete(
-                    Favorite.self,
-                    predicate: perdicate
-                ) { result in
-                    switch result {
-                    case .success(_):
-                        break
-                    case .failure(let error):
-                        print("😱 \(error.localizedDescription)")
-                    }
-                }
+            guard let removeModel = self.fetchedResultsController?.object(at: indexPath) else { return }
 
+            do {
+                self.context.delete(removeModel)
+                try self.context.save()
+            } catch {
+                fatalError("Delete context error")
             }
-            deleteAction.image = UIImage(systemName: "trash")
-            return UISwipeActionsConfiguration(actions: [deleteAction])
-        case .empty:
-            return nil
+
         }
+        deleteAction.image = UIImage(systemName: "trash")
+        return UISwipeActionsConfiguration(actions: [deleteAction])
+    }
+}
+
+extension FavoriteViewController: NSFetchedResultsControllerDelegate {
+    func controllerWillChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
+        table.beginUpdates()
+    }
+
+    func controller(
+        _ controller: NSFetchedResultsController<NSFetchRequestResult>, didChange anObject: Any, at indexPath: IndexPath?, for type: NSFetchedResultsChangeType,
+        newIndexPath: IndexPath?
+    ) {
+        switch type {
+        case .insert:
+            guard let newIndexPath = newIndexPath else { return }
+            table.insertRows(at: [newIndexPath], with: .right)
+        case .delete:
+            guard let indexPath = indexPath else { return }
+            table.deleteRows(at: [indexPath], with: .left)
+        case .move:
+            guard let indexPath = indexPath, let newIndexPath = newIndexPath else { return }
+            table.deleteRows(at: [indexPath], with: .left)
+            table.insertRows(at: [newIndexPath], with: .right)
+        case .update:
+            guard let indexPath = indexPath else { return }
+            table.reloadRows(at: [indexPath], with: .left)
+        @unknown default:
+            fatalError()
+        }
+    }
+
+    func controllerDidChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
+        table.endUpdates()
     }
 }
