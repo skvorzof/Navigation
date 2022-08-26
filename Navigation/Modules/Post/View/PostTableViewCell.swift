@@ -24,6 +24,8 @@ class PostTableViewCell: UITableViewCell {
         var isFavorite: Bool
     }
 
+    let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
+
     private var viewModel: ViewModel?
     weak var delegate: PostTableViewCellDelefate?
 
@@ -113,8 +115,30 @@ class PostTableViewCell: UITableViewCell {
     @objc
     private func didDoubleTap() {
         guard let viewModel = viewModel else { return }
+        
+        let request = Favorite.fetchRequest()
+        do {
+            let result = try context.fetch(request)
+            for item in result {
+                if item.title == viewModel.title {
+                    return
+                }
+            }
+        }catch {
+            fatalError("Can`t find to db")
+        }
 
-        delegate?.wasFavoritePost(with: viewModel.title)
+        let favorite = Favorite(context: context)
+        favorite.title = viewModel.title
+        favorite.author = viewModel.author
+        favorite.image = viewModel.image
+        favorite.isFavorite = viewModel.isFavorite
+
+        do {
+            try context.save()
+        } catch {
+            fatalError("Can`t save to db")
+        }
     }
 
     private func layout() {

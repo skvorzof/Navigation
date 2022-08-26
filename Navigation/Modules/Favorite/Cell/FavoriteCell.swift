@@ -11,6 +11,7 @@ class FavoriteCell: UITableViewCell {
 
     private lazy var postImage: UIImageView = {
         let imageView = UIImageView()
+        imageView.backgroundColor = .systemGray4
         imageView.translatesAutoresizingMaskIntoConstraints = false
         return imageView
     }()
