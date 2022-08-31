@@ -20,28 +20,27 @@ final class AuthViewModel {
 
     func obtainObjects() -> Bool {
         do {
-            let users = try! Realm().objects(UserRealmModel.self)
+            let realm = try Realm()
+
+            let users = realm.objects(UserRealmModel.self)
+
             return users.isEmpty ? false : true
+        } catch let error as NSError {
+            print("Error \(error.localizedDescription)")
         }
+        return false
     }
 
     func create() {
         let user = UserRealmModel(login: login, password: password, _id: "")
         do {
-            let realm = try! Realm()
+            let realm = try Realm()
 
-            try! realm.write {
+            try realm.write {
                 realm.add(user)
             }
+        } catch let error as NSError {
+            print("Eroor \(error.localizedDescription)")
         }
     }
-
-    func getRealmPath() {
-        do {
-            let realm = try! Realm()
-            let path = realm.configuration.fileURL?.path
-            print("Realm path: \(String(describing: path))")
-        }
-    }
-
 }
