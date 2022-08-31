@@ -22,6 +22,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         window?.rootViewController = nc
         window?.makeKeyAndVisible()
         
+// MARK: -  Realm is located
 //        do {
 //            let realm = try! Realm()
 //            print("Realm is located at:", realm.configuration.fileURL!)

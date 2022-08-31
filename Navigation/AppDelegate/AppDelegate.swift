@@ -7,7 +7,6 @@
 
 import FirebaseAuth
 import FirebaseCore
-import UIKit
 import RealmSwift
 import CoreData
 
@@ -31,17 +30,35 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             print(error.localizedDescription)
         }
     }
-    
+
+    func inLibraryFolder(fileName: String) -> URL {
+        return URL(
+            fileURLWithPath: NSSearchPathForDirectoriesInDomains(
+                .libraryDirectory,
+                .userDomainMask,
+                true
+            )[0],
+            isDirectory: true
+        )
+        .appendingPathComponent(fileName)
+    }
+
     private func checkRealmMigration() {
+
+        // SecKey = pass
+        let secKey: [UInt8] = [0x70, 0x61, 0x73, 0x73]
+        let data = Data(secKey)
+        let key = String(data: data, encoding: .utf8)
+        guard let key = key else { return }
+
         let config = Realm.Configuration(
-            // Set the new schema version. This must be greater than the previously used
-            // version (if you've never set a schema version before, the version is 0).
+            fileURL: inLibraryFolder(fileName: "encrypted.realm"), encryptionKey: key.sha512(),
             schemaVersion: 2,
             migrationBlock: { migration, oldSchemaVersion in
                 if oldSchemaVersion < 2 {
                     // on future migration
                 }
-        })
+            })
 
         Realm.Configuration.defaultConfiguration = config
     }

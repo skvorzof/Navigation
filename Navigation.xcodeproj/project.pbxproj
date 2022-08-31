@@ -250,6 +250,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				C9CB450728A199F50021AF58 /* Realm in Frameworks */,
+				C9DECDC028BF5E0C00EC7A4C /* SwiftCrypto in Frameworks */,
 				C9DFC241283F3F6C00496850 /* iOSIntPackage in Frameworks */,
 				C9CB450928A199F50021AF58 /* RealmSwift in Frameworks */,
 				C9ABCCF9288AB5AA00D17E00 /* FirebaseAuth in Frameworks */,
@@ -957,6 +958,7 @@
 				C9ABCCF8288AB5AA00D17E00 /* FirebaseAuth */,
 				C9CB450628A199F50021AF58 /* Realm */,
 				C9CB450828A199F50021AF58 /* RealmSwift */,
+				C9DECDBF28BF5E0C00EC7A4C /* SwiftCrypto */,
 			);
 			productName = Navigation;
 			productReference = C9164FE727D0F57400034102 /* Navigation.app */;
@@ -995,6 +997,7 @@
 				C98F336B287CAB030064BB87 /* XCRemoteSwiftPackageReference "youtube-ios-player-helper" */,
 				C9ABCCF7288AB5AA00D17E00 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
 				C9CB450528A199F50021AF58 /* XCRemoteSwiftPackageReference "realm-swift" */,
+				C9DECDBE28BF5E0C00EC7A4C /* XCRemoteSwiftPackageReference "SwiftCrypto" */,
 			);
 			productRefGroup = C9164FE827D0F57400034102 /* Products */;
 			projectDirPath = "";
@@ -1473,6 +1476,14 @@
 				minimumVersion = 10.28.4;
 			};
 		};
+		C9DECDBE28BF5E0C00EC7A4C /* XCRemoteSwiftPackageReference "SwiftCrypto" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/jernejstrasner/SwiftCrypto";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.0.0;
+			};
+		};
 		C9DFC23F283F3F6C00496850 /* XCRemoteSwiftPackageReference "iOSIntPackage" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/TrueMax/iOSIntPackage.git";
@@ -1511,6 +1522,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = C9CB450528A199F50021AF58 /* XCRemoteSwiftPackageReference "realm-swift" */;
 			productName = RealmSwift;
+		};
+		C9DECDBF28BF5E0C00EC7A4C /* SwiftCrypto */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = C9DECDBE28BF5E0C00EC7A4C /* XCRemoteSwiftPackageReference "SwiftCrypto" */;
+			productName = SwiftCrypto;
 		};
 		C9DFC240283F3F6C00496850 /* iOSIntPackage */ = {
 			isa = XCSwiftPackageProductDependency;
