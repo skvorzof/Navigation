@@ -1502,7 +1502,7 @@
 			repositoryURL = "https://github.com/jernejstrasner/SwiftCrypto";
 			requirement = {
 				kind = upToNextMajorVersion;
-				minimumVersion = 1.0.0;
+				minimumVersion = 1.0.1;
 			};
 		};
 		C9DFC23F283F3F6C00496850 /* XCRemoteSwiftPackageReference "iOSIntPackage" */ = {
