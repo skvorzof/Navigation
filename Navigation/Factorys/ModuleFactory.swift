@@ -17,6 +17,7 @@ final class ModuleFactory {
         case documents
         case setting
         case favorite
+        case map
     }
 
     let nc: UINavigationController
@@ -80,6 +81,14 @@ final class ModuleFactory {
             vc.title = "Избранное"
             nc.tabBarItem.title = "Избранное"
             nc.tabBarItem.image = UIImage(systemName: "star")
+            nc.setViewControllers([vc], animated: false)
+        case .map:
+            let presenter = MapPresenter()
+            let vc = MapViewController(presenter: presenter)
+            presenter.view = vc
+            vc.title = "Карта"
+            nc.tabBarItem.title = "Карта"
+            nc.tabBarItem.image = UIImage(systemName: "map")
             nc.setViewControllers([vc], animated: false)
         }
     }

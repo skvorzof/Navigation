@@ -16,6 +16,7 @@ class TabBarController: UITabBarController {
     private let documentsVC = ModuleFactory(nc: UINavigationController(), flow: .documents)
     private let settingVC = ModuleFactory(nc: UINavigationController(), flow: .setting)
     private let favoriteVC = ModuleFactory(nc: UINavigationController(), flow: .favorite)
+    private let mapVC = ModuleFactory(nc: UINavigationController(), flow: .map)
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -27,6 +28,7 @@ class TabBarController: UITabBarController {
 
     private func setControllers() {
         viewControllers = [
+            mapVC.nc,
             favoriteVC.nc,
             profileVC.nc,
             feedVC.nc,

@@ -18,8 +18,8 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         window = UIWindow(windowScene: scene)
 //        let mainCoordinator = MainCoordinator()
 //        window?.rootViewController = mainCoordinator.start()
-        let nc = UINavigationController(rootViewController: AuthViewController())
-        window?.rootViewController = nc
+//        let nc = UINavigationController(rootViewController: AuthViewController())
+        window?.rootViewController = TabBarController()
         window?.makeKeyAndVisible()
         
 // MARK: -  Realm is located
