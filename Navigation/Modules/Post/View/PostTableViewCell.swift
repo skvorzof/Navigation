@@ -49,7 +49,7 @@ class PostTableViewCell: UITableViewCell {
         label.translatesAutoresizingMaskIntoConstraints = false
         label.font = UIFont.systemFont(ofSize: 14, weight: .regular)
         label.textColor = .systemGray
-        label.text = "Автор: "
+        label.text = "author".localized()
         return label
     }()
 
@@ -179,6 +179,12 @@ class PostTableViewCell: UITableViewCell {
             stackView.bottomAnchor.constraint(equalTo: customView.bottomAnchor, constant: -offset),
         ])
     }
+    
+    override func prepareForReuse() {
+        authorPost.text = "author".localized()
+        likesPost.text = "👍 "
+        viewsPost.text = "👀 "
+    }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
@@ -189,10 +195,16 @@ extension PostTableViewCell {
     func setup(with viewModel: ViewModel) {
         self.viewModel = viewModel
         self.titlePost.text = viewModel.title
-        self.authorPost.text = viewModel.author
+        self.authorPost.text! += viewModel.author
         self.descriptionPost.text = viewModel.descriptions
         self.imagePost.image = UIImage(named: viewModel.image)
-        self.likesPost.text = String(viewModel.likes)
-        self.viewsPost.text = String(viewModel.views)
+        
+        let likesString = "likes_count".localized
+        let formatterLikesString = String.localizedStringWithFormat(likesString, viewModel.likes)
+        self.likesPost.text! += formatterLikesString
+        
+        let viewsString = "views_count".localized
+        let formatterViewsString = String.localizedStringWithFormat(viewsString, viewModel.views)
+        self.viewsPost.text! += formatterViewsString
     }
 }

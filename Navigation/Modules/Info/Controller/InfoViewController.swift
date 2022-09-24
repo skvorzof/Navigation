@@ -34,7 +34,7 @@ class InfoViewController: UIViewController {
     }()
 
     lazy var button: CustomButton = {
-        let button = CustomButton(title: "Предупреждение", titleColor: .white, backColor: .red)
+        let button = CustomButton(title: "warning".localized(), titleColor: .white, backColor: .red)
         button.addTarget(self, action: #selector(tap), for: .touchUpInside)
         return button
     }()
@@ -42,7 +42,7 @@ class InfoViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
-        title = "Информация"
+        title = "info".localized()
 
         setupUI()
         addButton()
@@ -63,23 +63,23 @@ class InfoViewController: UIViewController {
 
     @objc private func tap(sender: UIButton) {
         let alert = UIAlertController(
-            title: "Внимание",
-            message: "Вы уверены?",
+            title: "attention".localized(),
+            message: "areYouSure?".localized(),
             preferredStyle: .alert)
 
         let cancelAction = UIAlertAction(
-            title: "Нет",
+            title: "no".localized(),
             style: .cancel,
             handler: { _ in
-                print("Не уверен")
+                print("notSure".localized())
             })
         alert.addAction(cancelAction)
 
         let deletelAction = UIAlertAction(
-            title: "Да",
+            title: "yes".localized(),
             style: .destructive,
             handler: { _ in
-                print("Уверен")
+                print("sure".localized())
             })
         alert.addAction(deletelAction)
         present(alert, animated: true, completion: nil)

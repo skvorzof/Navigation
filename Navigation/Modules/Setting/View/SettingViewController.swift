@@ -45,7 +45,6 @@ class SettingViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        title = "Настройки"
         navigationController?.navigationBar.prefersLargeTitles = true
         configureSettings()
         configureUI()
@@ -61,9 +60,9 @@ class SettingViewController: UIViewController {
     private func configureModel() {
         models = [
             .switchCell(
-                model: SettingSwitchOption(title: "Сортировка", isOn: userSettings?.sortedDocument ?? true)),
+                model: SettingSwitchOption(title: "sorting".localized(), isOn: userSettings?.sortedDocument ?? true)),
             .staticCell(
-                model: SettingOption(title: "Поменять пароль") {
+                model: SettingOption(title: "changePassword".localized()) {
                     self.present(SettingChangePasswordViewController(), animated: true)
                 }),
         ]

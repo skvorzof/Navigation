@@ -1,0 +1,10 @@
+/* 
+  FeedViewController.strings
+  Navigation
+
+  Created by Dima Skvortsov on 24.09.2022.
+  
+*/
+"setPass" = "Введите пароль (q)";
+"check" = "Проверить";
+"information" = "Информация";

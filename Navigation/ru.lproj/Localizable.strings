@@ -1,0 +1,39 @@
+/* 
+  Localizable.strings
+  Navigation
+
+  Created by Dima Skvortsov on 24.09.2022.
+  
+*/
+"true" = "Верно";
+"false" = "Неверно";
+
+"passwordNotEntered" = "Пароль не введён";
+"passwordIsIncorrect" = "Пароль неверный";
+
+"unknownError" = "Неизвестная ошибка";
+"error" = "Ошибка";
+
+"ok" = "OK";
+
+"warning" = "Предупреждение";
+"info" = "Информация";
+"attention" = "Внимание";
+
+"areYouSure?" = "Вы уверены?";
+"notSure" = "Не уверен";
+"sure" = "Уверен";
+
+"no" = "Нет";
+"yes" = "Да";
+
+"wait" = "Подождите...";
+"showStatus" = "Показать статус";
+"setTheStatus" = "Установить статус";
+
+"author" = "Автор: ";
+
+"sorting" = "Сортировка";
+"changePassword" = "Поменять пароль";
+
+"gallery" = "Галерея";

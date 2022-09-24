@@ -1,0 +1,40 @@
+/* 
+  Localizable.strings
+  Navigation
+
+  Created by Dima Skvortsov on 24.09.2022.
+  
+*/
+"true" = "真的";
+"false" = "错误的";
+
+"passwordNotEntered" = "未输入密码";
+"passwordIsIncorrect" = "密码不正确";
+
+"unknownError" = "未知错误";
+"error" = "错误";
+
+"ok" = "好的";
+
+"warning" = "警告";
+"info" = "信息";
+"attention" = "注意力";
+
+"areYouSure?" = "你确定吗？";
+"notSure" = "没有把握";
+"sure" = "当然";
+
+"no" = "不";
+"yes" = "是的";
+
+
+"wait" = "等待...";
+"showStatus" = "显示状态";
+"setTheStatus" = "设置状态";
+
+"author" = "作者: ";
+
+"sorting" = "排序";
+"changePassword" = "更改密码";
+
+"gallery" = "画廊";
