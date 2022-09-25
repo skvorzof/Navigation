@@ -39,7 +39,7 @@ class PhotosViewController: UIViewController {
                 self.collectionView.reloadData()
             }
         }
-        title = "Галерея"
+        title = "gallery".localized()
         layout()
     }
     

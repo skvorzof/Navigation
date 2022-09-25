@@ -1,0 +1,39 @@
+/* 
+  Localizable.strings
+  Navigation
+
+  Created by Dima Skvortsov on 24.09.2022.
+  
+*/
+"true" = "True";
+"false" = "False";
+
+"passwordNotEntered" = "Password not entered";
+"passwordIsIncorrect" = "The password is incorrect";
+
+"unknownError" = "Unknown error";
+"error" = "Error";
+
+"ok" = "OK";
+
+"warning" = "Warning";
+"info" = "Information";
+"attention" = "Attention";
+
+"areYouSure?" = "Are you sure?";
+"notSure" = "Not sure";
+"sure" = "Sure";
+
+"no" = "No";
+"yes" = "Yes";
+
+"wait" = "Wait...";
+"showStatus" = "Show status";
+"setTheStatus" = "Set the status";
+
+"author" = "Author: ";
+
+"sorting" = "Sorting";
+"changePassword" = "Change Password";
+
+"gallery" = "Gallery";

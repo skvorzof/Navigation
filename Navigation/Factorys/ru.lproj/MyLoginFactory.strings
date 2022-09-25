@@ -1,0 +1,15 @@
+/* 
+  MyLoginFactory.strings
+  Navigation
+
+  Created by Dima Skvortsov on 24.09.2022.
+  
+*/
+"feed" = "Лента";
+"profile" = "Профиль";
+"music" = "Музыка";
+"video" = "Видео";
+"documents" = "Документы";
+"settings" = "Настройки";
+"favorites" = "Избранное";
+"map" = "Карта";

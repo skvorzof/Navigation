@@ -1,0 +1,10 @@
+/* 
+  FeedViewController.strings
+  Navigation
+
+  Created by Dima Skvortsov on 24.09.2022.
+  
+*/
+"setPass" = "设置密码 (q)";
+"check" = "查看";
+"information" = "信息";

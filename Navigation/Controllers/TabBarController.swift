@@ -28,10 +28,10 @@ class TabBarController: UITabBarController {
 
     private func setControllers() {
         viewControllers = [
-            mapVC.nc,
-            favoriteVC.nc,
             profileVC.nc,
             feedVC.nc,
+            mapVC.nc,
+            favoriteVC.nc,
             documentsVC.nc,
             settingVC.nc,
             musicVC.nc,

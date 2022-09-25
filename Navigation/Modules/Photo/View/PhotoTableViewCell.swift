@@ -42,7 +42,7 @@ class PhotoTableViewCell: UITableViewCell {
     private let titleView: UILabel = {
         let titleView = UILabel()
         titleView.translatesAutoresizingMaskIntoConstraints = false
-        titleView.text = "Галерея"
+        titleView.text = "gallery".localized()
         titleView.textColor = .black
         titleView.font = .systemFont(ofSize: 24, weight: .bold)
         return titleView

@@ -1,0 +1,15 @@
+/* 
+  MyLoginFactory.strings
+  Navigation
+
+  Created by Dima Skvortsov on 24.09.2022.
+  
+*/
+"feed" = "Feed";
+"profile" = "Profile";
+"music" = "Music";
+"video" = "Video";
+"documents" = "Documents";
+"settings" = "Settings";
+"favorites" = "Favorites";
+"map" = "Map";

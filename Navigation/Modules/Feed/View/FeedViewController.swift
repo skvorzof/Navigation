@@ -30,7 +30,7 @@ class FeedViewController: UIViewController {
     }()
 
     private lazy var textField: CustomField = {
-        let textField = CustomField(placeholder: "Введите пароль (q)")
+        let textField = CustomField(placeholder: "setPass".localized(tableName: "FeedViewController"))
         textField.backgroundColor = .white
         textField.font = UIFont.systemFont(ofSize: 15, weight: .regular)
         textField.textColor = .black
@@ -44,12 +44,12 @@ class FeedViewController: UIViewController {
     }()
 
     private lazy var checkButton: CustomButton = {
-        let button = CustomButton(title: "Проверить", titleColor: .blue, backColor: .white)
+        let button = CustomButton(title: "check".localized(tableName: "FeedViewController"), titleColor: .blue, backColor: .white)
         return button
     }()
 
     private lazy var leftButton: CustomButton = {
-        let button = CustomButton(title: "Информация", titleColor: .black, backColor: .yellow)
+        let button = CustomButton(title: "information".localized(tableName: "FeedViewController"), titleColor: .black, backColor: .yellow)
         button.titleLabel?.font = .systemFont(ofSize: 14)
         return button
     }()
@@ -89,25 +89,25 @@ class FeedViewController: UIViewController {
 
             do {
                 let _ = try passwordModel.check(password: password)
-                textLabel.text = "Верно"
+                textLabel.text = "true".localized()
                 textLabel.textColor = .systemGreen
             } catch {
-                textLabel.text = "Неверно"
+                textLabel.text = "false".localized()
                 textLabel.textColor = .systemRed
 
                 let message: String
                 switch error {
                 case CheckError.emptyPassword:
-                    message = "Пароль не введён"
+                    message = "passwordNotEntered".localized()
                 case CheckError.wrongPassword:
-                    message = "Пароль неверный"
+                    message = "passwordIsIncorrect".localized()
                 default:
-                    message = "Неизвестная ошибка"
+                    message = "unknownError".localized()
                 }
 
-                let alert = UIAlertController(title: "Ошибка", message: message, preferredStyle: .alert)
+                let alert = UIAlertController(title: "error".localized(), message: message, preferredStyle: .alert)
                 let cancelAction = UIAlertAction(
-                    title: "OK",
+                    title: "ok".localized(),
                     style: .cancel,
                     handler: nil)
                 alert.addAction(cancelAction)

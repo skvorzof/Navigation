@@ -11,7 +11,7 @@ import UIKit
 
 class ProfileHeaderView: UIView {
 
-    private var statusText = "Подожтите..."
+    private var statusText = "wait".localized()
 
     let avatarImageView: UIImageView = {
         let imageView = UIImageView()
@@ -59,7 +59,7 @@ class ProfileHeaderView: UIView {
     }()
 
     private lazy var setStatusButton: CustomButton = {
-        let button = CustomButton(title: "Показать статус", titleColor: .white, backColor: .blue)
+        let button = CustomButton(title: "showStatus".localized(), titleColor: .white, backColor: .blue)
         button.titleLabel?.font = .systemFont(ofSize: 14)
         button.backgroundColor = UIColor(named: "AccentColor")
         button.layer.cornerRadius = 12
@@ -120,7 +120,7 @@ class ProfileHeaderView: UIView {
         if let newStatusText = textField.text {
             if newStatusText != "" {
                 statusText = newStatusText
-                setStatusButton.setTitle("Установить статус", for: .normal)
+                setStatusButton.setTitle("setTheStatus".localized(), for: .normal)
             }
         }
     }
@@ -128,7 +128,7 @@ class ProfileHeaderView: UIView {
     private func taps() {
         setStatusButton.tapAction = { [weak self] in
             self?.statusLabel.text = self?.statusText
-            self?.setStatusButton.setTitle("Показать статус", for: .normal)
+            self?.setStatusButton.setTitle("showStatus".localized(), for: .normal)
         }
     }
 
