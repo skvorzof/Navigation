@@ -33,7 +33,7 @@ class AuthViewController: UIViewController {
     }()
 
     private lazy var button: CustomButton = {
-        let button = CustomButton(title: "Войти", titleColor: .white, backColor: Color.accentColor)
+        let button = CustomButton(title: "Войти", titleColor: .white, backColor: .buttonBackground)
         return button
     }()
 
@@ -68,10 +68,10 @@ class AuthViewController: UIViewController {
     }
 
     private func setupView() {
-        view.backgroundColor = .white
+        view.backgroundColor = .backgroundColor
 
-        button.setBackgroundColor(Color.accentColor, for: .normal)
-        button.setBackgroundColor(Color.disableColor, for: .disabled)
+        button.setBackgroundColor(.buttonBackground, for: .normal)
+        button.setBackgroundColor(.buttonDisabledBackground, for: .disabled)
         button.isEnabled = false
 
         view.addSubview(stackView)

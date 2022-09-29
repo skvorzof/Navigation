@@ -35,4 +35,30 @@ extension String {
     }
 }
 
+extension UIColor {
+    static var backgroundColor: UIColor {
+        Self.makeColor(light: .white, dark: Color.backgroudColor)
+    }
 
+    static var textColor: UIColor {
+        Self.makeColor(light: .black, dark: .white)
+    }
+
+    static var buttonBackground: UIColor {
+        Self.makeColor(light: Color.accentColor, dark: Color.accentColor)
+    }
+
+    static var buttonDisabledBackground: UIColor {
+        Self.makeColor(light: Color.disableColor, dark: Color.disableColor)
+    }
+
+    private static func makeColor(light: UIColor, dark: UIColor) -> UIColor {
+        guard #available(iOS 13.0, *) else {
+            return light
+        }
+
+        return UIColor { (traitCollection) -> UIColor in
+            return traitCollection.userInterfaceStyle == .light ? light : dark
+        }
+    }
+}

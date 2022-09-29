@@ -21,9 +21,14 @@ class TabBarController: UITabBarController {
     override func viewDidLoad() {
         super.viewDidLoad()
         navigationItem.setHidesBackButton(true, animated: false)
-        view.backgroundColor = .white
-        tabBar.backgroundColor = .white
+        view.backgroundColor = .backgroundColor
+        tabBar.backgroundColor = .backgroundColor
         setControllers()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        navigationController?.navigationBar.isHidden = true
     }
 
     private func setControllers() {

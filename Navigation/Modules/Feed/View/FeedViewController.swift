@@ -31,29 +31,19 @@ class FeedViewController: UIViewController {
 
     private lazy var textField: CustomField = {
         let textField = CustomField(placeholder: "setPass".localized(tableName: "FeedViewController"))
-        textField.backgroundColor = .white
-        textField.font = UIFont.systemFont(ofSize: 15, weight: .regular)
-        textField.textColor = .black
-        textField.layer.cornerRadius = 12
-        textField.layer.borderWidth = 1
-        textField.layer.shadowColor = UIColor.black.cgColor
-        let leftView = UIView(frame: CGRect(x: 0, y: 0, width: 10, height: 2))
-        textField.leftView = leftView
-        textField.leftViewMode = .always
         return textField
     }()
 
     private lazy var checkButton: CustomButton = {
-        let button = CustomButton(title: "check".localized(tableName: "FeedViewController"), titleColor: .blue, backColor: .white)
+        let button = CustomButton(title: "check".localized(tableName: "FeedViewController"), titleColor: .white, backColor: Color.accentColor)
         return button
     }()
 
     private lazy var leftButton: CustomButton = {
-        let button = CustomButton(title: "information".localized(tableName: "FeedViewController"), titleColor: .black, backColor: .yellow)
+        let button = CustomButton(title: "information".localized(tableName: "FeedViewController"), titleColor: .white, backColor: Color.accentColor)
         button.titleLabel?.font = .systemFont(ofSize: 14)
         return button
     }()
-
 
     init(viewModel: FeedViewModel, coordinator: FeedFlowCoordinator) {
         self.viewModel = viewModel
@@ -75,8 +65,9 @@ class FeedViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         let appearance = UINavigationBarAppearance()
-        appearance.backgroundColor = .white
+        appearance.backgroundColor = .backgroundColor
         navigationController?.navigationBar.scrollEdgeAppearance = appearance
+        navigationController?.navigationBar.isHidden = false
     }
 
     private func taps() {

@@ -39,7 +39,7 @@ class SettingViewController: UIViewController {
         table.frame = view.bounds
         table.dataSource = self
         table.delegate = self
-        table.backgroundColor = .white
+        table.backgroundColor = .backgroundColor
         return table
     }()
 
@@ -69,6 +69,7 @@ class SettingViewController: UIViewController {
     }
 
     private func configureUI() {
+        view.backgroundColor = .backgroundColor
         view.addSubview(table)
     }
 }

@@ -12,6 +12,8 @@ import UIKit
 class ProfileHeaderView: UIView {
 
     private var statusText = "wait".localized()
+    
+    private let sizeAvatar = 110.0
 
     let avatarImageView: UIImageView = {
         let imageView = UIImageView()
@@ -29,7 +31,7 @@ class ProfileHeaderView: UIView {
     let fullNameLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont.systemFont(ofSize: 18, weight: .bold)
-        label.textColor = .black
+        label.textColor = .textColor
         label.text = "МитрофанОглы"
         return label
     }()
@@ -44,11 +46,14 @@ class ProfileHeaderView: UIView {
 
     private lazy var statusTextField: UITextField = {
         let textField = UITextField()
-        textField.backgroundColor = .white
+        textField.backgroundColor = .systemGray6
         textField.font = UIFont.systemFont(ofSize: 15, weight: .regular)
-        textField.textColor = .black
+        textField.textColor = .textColor
+        textField.tintColor = .textColor
+        textField.placeholder = "Новый статус"
         textField.layer.cornerRadius = 12
         textField.layer.borderWidth = 1
+        textField.layer.borderColor = UIColor.lightGray.cgColor
         textField.layer.shadowColor = UIColor.black.cgColor
         let leftView = UIView(frame: CGRect(x: 0, y: 0, width: 10, height: 2))
         textField.leftView = leftView
@@ -59,9 +64,8 @@ class ProfileHeaderView: UIView {
     }()
 
     private lazy var setStatusButton: CustomButton = {
-        let button = CustomButton(title: "showStatus".localized(), titleColor: .white, backColor: .blue)
+        let button = CustomButton(title: "showStatus".localized(), titleColor: .white, backColor: Color.accentColor)
         button.titleLabel?.font = .systemFont(ofSize: 14)
-        button.backgroundColor = UIColor(named: "AccentColor")
         button.layer.cornerRadius = 12
         button.layer.shadowOffset.width = 3
         button.layer.shadowOffset.height = 3
@@ -73,7 +77,7 @@ class ProfileHeaderView: UIView {
 
     private let overlayView: UIView = {
         let view = UIView()
-        view.backgroundColor = .black
+        view.backgroundColor = .backgroundColor
         view.alpha = 0
         return view
     }()
@@ -81,7 +85,7 @@ class ProfileHeaderView: UIView {
     private lazy var closeButton: UIButton = {
         let button = UIButton()
         let config = UIImage.SymbolConfiguration(pointSize: 30)
-        button.tintColor = .white
+        button.tintColor = .textColor
         button.setImage(UIImage(systemName: "xmark.circle", withConfiguration: config), for: .normal)
         button.alpha = 0
         button.addTarget(self, action: #selector(animateAvatarOut), for: .touchUpInside)
@@ -102,7 +106,7 @@ class ProfileHeaderView: UIView {
         }
         
     #if DEBUG
-        backgroundColor = UIColor(red: 243.0/255.0, green: 230.0/255.0, blue: 139.0/255.0, alpha: 1.0)
+        backgroundColor = .backgroundColor
     #else
         backgroundColor = .systemGray6
     #endif
@@ -169,8 +173,8 @@ class ProfileHeaderView: UIView {
 
         xAvatar = avatarImageView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16)
         yAvatar = avatarImageView.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: 16)
-        widthAvatar = avatarImageView.widthAnchor.constraint(equalToConstant: 110)
-        heightAvatar = avatarImageView.heightAnchor.constraint(equalToConstant: 110)
+        widthAvatar = avatarImageView.widthAnchor.constraint(equalToConstant: sizeAvatar)
+        heightAvatar = avatarImageView.heightAnchor.constraint(equalToConstant: sizeAvatar)
 
         NSLayoutConstraint.activate([
             xAvatar,
@@ -223,8 +227,8 @@ class ProfileHeaderView: UIView {
 
         NSLayoutConstraint.deactivate([xAvatar, yAvatar, widthAvatar, heightAvatar])
 
-        widthAvatar = avatarImageView.widthAnchor.constraint(equalToConstant: 110)
-        heightAvatar = avatarImageView.heightAnchor.constraint(equalToConstant: 110)
+        widthAvatar = avatarImageView.widthAnchor.constraint(equalToConstant: sizeAvatar)
+        heightAvatar = avatarImageView.heightAnchor.constraint(equalToConstant: sizeAvatar)
         yAvatar = avatarImageView.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: 16)
         xAvatar = avatarImageView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16)
 

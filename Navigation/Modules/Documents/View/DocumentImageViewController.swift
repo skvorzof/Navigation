@@ -13,6 +13,7 @@ class DocumentImageViewController: UIViewController {
 
     private let cell: UITableViewCell = {
         let cell = UITableViewCell()
+        cell.backgroundColor = .backgroundColor
         return cell
     }()
 
@@ -33,6 +34,7 @@ class DocumentImageViewController: UIViewController {
     }
 
     private func setupUI() {
+        view.backgroundColor = .backgroundColor
         view.addSubview(cell)
         cell.snp.makeConstraints {
             $0.top.bottom.leading.trailing.equalToSuperview()

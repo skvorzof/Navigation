@@ -43,7 +43,7 @@ class PhotoTableViewCell: UITableViewCell {
         let titleView = UILabel()
         titleView.translatesAutoresizingMaskIntoConstraints = false
         titleView.text = "gallery".localized()
-        titleView.textColor = .black
+        titleView.textColor = .label
         titleView.font = .systemFont(ofSize: 24, weight: .bold)
         return titleView
     }()
@@ -51,7 +51,7 @@ class PhotoTableViewCell: UITableViewCell {
      lazy var buttonArrow: UIButton = {
         let button = UIButton()
         let config = UIImage.SymbolConfiguration(pointSize: 24)
-        button.tintColor = .black
+        button.tintColor = .label
         button.translatesAutoresizingMaskIntoConstraints = false
         button.setImage(UIImage(systemName: "arrow.right", withConfiguration: config), for: .normal)
         return button

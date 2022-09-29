@@ -32,6 +32,7 @@ class ProfileViewController: UIViewController {
         tableView.contentInset.bottom = -40
         tableView.register(PhotoTableViewCell.self, forCellReuseIdentifier: PhotoTableViewCell.identifier)
         tableView.register(PostTableViewCell.self, forCellReuseIdentifier: PostTableViewCell.identifier)
+        tableView.translatesAutoresizingMaskIntoConstraints = false
         return tableView
     }()
 
@@ -52,14 +53,13 @@ class ProfileViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
         //        Auth.auth().addStateDidChangeListener { auth, user in
         //            if user == nil {
         //                self.coordinator.showLogin(nc: self.navigationController, coordinator: self.coordinator)
         //            }
         //        }
 
-        layout()
+        setupView()
         setupViewModel()
         viewModel.changeState(.viewIsReady)
 
@@ -68,6 +68,23 @@ class ProfileViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         navigationController?.navigationBar.isHidden = true
+    }
+
+    private func setupView() {
+        view.addSubview(tableView)
+
+        activityIndicator.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(activityIndicator)
+
+        NSLayoutConstraint.activate([
+            tableView.topAnchor.constraint(equalTo: view.topAnchor),
+            tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+            tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+
+            activityIndicator.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            activityIndicator.centerYAnchor.constraint(equalTo: view.centerYAnchor)
+        ])
     }
 
     private func setupViewModel() {
@@ -119,18 +136,6 @@ class ProfileViewController: UIViewController {
             case .failure(let error):
                 print("Error \(error)")
             }
-        }
-    }
-
-    private func layout() {
-        view.addSubview(activityIndicator)
-        activityIndicator.snp.makeConstraints {
-            $0.center.equalToSuperview()
-        }
-
-        view.addSubview(tableView)
-        tableView.snp.makeConstraints {
-            $0.top.bottom.leading.trailing.equalToSuperview()
         }
     }
 }

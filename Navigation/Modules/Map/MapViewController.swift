@@ -103,7 +103,7 @@ class MapViewController: UIViewController, MapViewProtocol {
     }
 
     private func setupView() {
-        view.backgroundColor = .white
+        view.backgroundColor = .backgroundColor
 
         navigationItem.rightBarButtonItem = clearPinsButton
         navigationController?.navigationBar.tintColor = .red

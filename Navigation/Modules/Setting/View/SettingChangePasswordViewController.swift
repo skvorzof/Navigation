@@ -79,10 +79,11 @@ class SettingChangePasswordViewController: UIViewController {
     }
 
     private func configureUI() {
+        view.backgroundColor = .backgroundColor
+        
         button.setTitle("Сменить пароль", for: .normal)
-
-        button.setBackgroundColor(UIColor.systemBlue, for: .normal)
-        button.setBackgroundColor(UIColor.gray.withAlphaComponent(0.2), for: .disabled)
+        button.setBackgroundColor(.buttonBackground, for: .normal)
+        button.setBackgroundColor(.buttonDisabledBackground, for: .disabled)
         button.isEnabled = false
 
         view.addSubview(passwordField)

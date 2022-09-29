@@ -16,6 +16,7 @@ class FavoriteViewController: UIViewController {
 
     private lazy var table: UITableView = {
         let table = UITableView()
+        table.backgroundColor = .backgroundColor
         table.translatesAutoresizingMaskIntoConstraints = false
         table.register(FavoriteCell.self, forCellReuseIdentifier: FavoriteCell.identifier)
         table.dataSource = self
@@ -45,7 +46,7 @@ class FavoriteViewController: UIViewController {
     private func setupView() {
         navigationItem.rightBarButtonItems = [clearFilterIconBar, addFilterIconBar]
         navigationController?.navigationBar.prefersLargeTitles = true
-        view.backgroundColor = .white
+        view.backgroundColor = .backgroundColor
         view.addSubview(table)
 
         NSLayoutConstraint.activate([

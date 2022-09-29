@@ -18,14 +18,15 @@ class CustomField: UITextField {
     init(placeholder: String) {
         super.init(frame: .zero)
         translatesAutoresizingMaskIntoConstraints = false
-        textColor = .black
+        textColor = .textColor
+        tintColor = .textColor
         font = UIFont.systemFont(ofSize: 16, weight: .regular)
         autocapitalizationType = .none
-        tintColor = UIColor(named: "AccentColor")
         backgroundColor = .systemGray6
         layer.borderColor = UIColor.lightGray.cgColor
         layer.borderWidth = 0.5
         layer.cornerRadius = 10
+        layer.shadowColor = UIColor.black.cgColor
         let leftView = UIView(frame: CGRect(x: 0, y: 0, width: 10, height: 2))
         self.leftView = leftView
         leftViewMode = .always
