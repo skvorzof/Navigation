@@ -36,6 +36,7 @@ final class ModuleFactory {
             let viewModel = FeedViewModel()
             let coordinator = FeedFlowCoordinator()
             let vc = FeedViewController(viewModel: viewModel, coordinator: coordinator)
+            vc.title = "Лента"
             nc.tabBarItem.title = "feed".localized(tableName: "MyLoginFactory")
             nc.tabBarItem.image = UIImage(systemName: "house.fill")
             nc.setViewControllers([vc], animated: false)
@@ -44,6 +45,7 @@ final class ModuleFactory {
             let coordinator = ProfileFlowCoorinator()
             let databaseCoordinator = MigrationService.shared.coreDataCoordinator
             let vc = ProfileViewController(viewModel: viewModel, coordinator: coordinator, databaseCoordinator: databaseCoordinator)
+            vc.title = "Профиль"
             nc.tabBarItem.title = "profile".localized(tableName: "MyLoginFactory")
             nc.tabBarItem.image = UIImage(systemName: "person.fill")
             nc.setViewControllers([vc], animated: false)

@@ -31,6 +31,7 @@ class DocumentsViewController: UIViewController {
         table.register(UITableViewCell.self, forCellReuseIdentifier: "cell")
         table.dataSource = self
         table.delegate = self
+        table.backgroundColor = .backgroundColor
         return table
     }()
 
@@ -105,6 +106,7 @@ class DocumentsViewController: UIViewController {
 
     // MARK: - setupUI
     private func setupUI() {
+        view.backgroundColor = .backgroundColor
         view.addSubview(table)
 
         table.snp.makeConstraints {
@@ -132,6 +134,7 @@ extension DocumentsViewController: UITableViewDataSource {
         var content: UIListContentConfiguration = cell.defaultContentConfiguration()
         content.text = viewModel.documents[indexPath.row].url.lastPathComponent
         cell.contentConfiguration = content
+        cell.backgroundColor = .backgroundColor
         return cell
     }
 

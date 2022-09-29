@@ -24,6 +24,7 @@ class MusicViewController: UIViewController {
         let tableView = UITableView()
         tableView.dataSource = self
         tableView.delegate = self
+        tableView.backgroundColor = .backgroundColor
         return tableView
     }()
 
@@ -84,7 +85,7 @@ class MusicViewController: UIViewController {
 
     // MARK: - createButtons
     private func createButton(_ button: UIButton, image: String, action: Selector) {
-        button.tintColor = .black
+        button.tintColor = .textColor
         button.setImage(UIImage(systemName: image), for: .normal)
         button.addTarget(self, action: action, for: .touchUpInside)
         stackView.addArrangedSubview(button)
@@ -180,6 +181,7 @@ extension MusicViewController: UITableViewDataSource {
         content.text = viewModel.tracks[indexPath.row].title
         content.secondaryText = viewModel.tracks[indexPath.row].artist
         cell.contentConfiguration = content
+        cell.backgroundColor = .backgroundColor
         return cell
     }
 }
