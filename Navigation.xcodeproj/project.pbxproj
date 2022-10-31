@@ -42,6 +42,7 @@
 		C9661160285C78E400F9DBD9 /* PostService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C966115F285C78E400F9DBD9 /* PostService.swift */; };
 		C9661161285C7B2100F9DBD9 /* Post.swift in Sources */ = {isa = PBXBuildFile; fileRef = C950451627D7C0530091A844 /* Post.swift */; };
 		C9661165285C7E4700F9DBD9 /* PostViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9661164285C7E4700F9DBD9 /* PostViewModel.swift */; };
+		C9669CAF290FF41100AEB768 /* LocalAuthorizationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9669CAE290FF41100AEB768 /* LocalAuthorizationService.swift */; };
 		C98F335E287C6C530064BB87 /* MusicViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C98F335D287C6C530064BB87 /* MusicViewModel.swift */; };
 		C98F3364287C8C670064BB87 /* 3.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = C98F335F287C8C650064BB87 /* 3.mp3 */; };
 		C98F3365287C8C670064BB87 /* 1.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = C98F3360287C8C660064BB87 /* 1.mp3 */; };
@@ -190,6 +191,7 @@
 		C9661157285C75E300F9DBD9 /* PhotoViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoViewModel.swift; sourceTree = "<group>"; };
 		C966115F285C78E400F9DBD9 /* PostService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostService.swift; sourceTree = "<group>"; };
 		C9661164285C7E4700F9DBD9 /* PostViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostViewModel.swift; sourceTree = "<group>"; };
+		C9669CAE290FF41100AEB768 /* LocalAuthorizationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalAuthorizationService.swift; sourceTree = "<group>"; };
 		C98F335D287C6C530064BB87 /* MusicViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MusicViewModel.swift; sourceTree = "<group>"; };
 		C98F335F287C8C650064BB87 /* 3.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = 3.mp3; sourceTree = "<group>"; };
 		C98F3360287C8C660064BB87 /* 1.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = 1.mp3; sourceTree = "<group>"; };
@@ -823,6 +825,7 @@
 				C9B6B386288323340056971D /* ResidentService.swift */,
 				C9B2F5012889C9C700655583 /* CheckerService.swift */,
 				C9B1C33928903AD5005C6C35 /* DocumentService.swift */,
+				C9669CAE290FF41100AEB768 /* LocalAuthorizationService.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -1138,6 +1141,7 @@
 				C9B606A428AB605300DA7F92 /* FavoriteCell.swift in Sources */,
 				C9D315D82875C99A00DE52BC /* MusicViewController.swift in Sources */,
 				C9E1AA7327D0FBCB0021A97A /* ProfileViewController.swift in Sources */,
+				C9669CAF290FF41100AEB768 /* LocalAuthorizationService.swift in Sources */,
 				C99A81F527EE47810080B6A5 /* PhotoCollectionViewCell.swift in Sources */,
 				C9B6069F28AA6F3200DA7F92 /* CoreDataModel.xcdatamodeld in Sources */,
 				C9C4A4972858E42E007338FE /* MainCoordinatorProtocol.swift in Sources */,

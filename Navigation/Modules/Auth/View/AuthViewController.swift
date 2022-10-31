@@ -37,6 +37,12 @@ class AuthViewController: UIViewController {
         return button
     }()
 
+    private lazy var authorizationButton: CustomButton = {
+        let button = CustomButton(title: "Биометрия", titleColor: .white, backColor: .systemBlue)
+        button.translatesAutoresizingMaskIntoConstraints = false
+        return button
+    }()
+
     private func showToast(message: String) {
         let toastLabel = UILabel(
             frame: CGRect(
@@ -74,18 +80,24 @@ class AuthViewController: UIViewController {
         button.setBackgroundColor(.buttonDisabledBackground, for: .disabled)
         button.isEnabled = false
 
+        authorizationButton.setBackgroundColor(.systemBlue, for: .normal)
+        authorizationButton.setBackgroundColor(.white, for: .disabled)
+        authorizationButton.isEnabled = true
+
         view.addSubview(stackView)
         stackView.addArrangedSubview(loginField)
         stackView.addArrangedSubview(passwordField)
         stackView.addArrangedSubview(button)
+        stackView.addArrangedSubview(authorizationButton)
 
         let stackViewConstraints = stackViewConstraints()
         let loginFieldConstraints = loginFieldConstraints()
         let passwordFieldConstraints = passwordFieldConstraints()
         let buttonConstraints = buttonConstraints()
+        let authorizationButtonConstraints = authorizationButtonConstraints()
 
         NSLayoutConstraint.activate(
-            stackViewConstraints + loginFieldConstraints + passwordFieldConstraints + buttonConstraints)
+            stackViewConstraints + loginFieldConstraints + passwordFieldConstraints + buttonConstraints + authorizationButtonConstraints)
     }
 
     private func loginFieldConstraints() -> [NSLayoutConstraint] {
@@ -100,6 +112,11 @@ class AuthViewController: UIViewController {
 
     private func buttonConstraints() -> [NSLayoutConstraint] {
         let height = button.heightAnchor.constraint(equalToConstant: 50)
+        return [height]
+    }
+
+    private func authorizationButtonConstraints() -> [NSLayoutConstraint] {
+        let height = authorizationButton.heightAnchor.constraint(equalToConstant: 50)
         return [height]
     }
 
@@ -142,6 +159,17 @@ class AuthViewController: UIViewController {
                 self.navigationController?.pushViewController(TabBarController(), animated: true)
             } else {
                 self.showToast(message: "Ошибка валидации")
+            }
+        }
+
+        authorizationButton.tapAction = { [weak self] in
+            guard let self = self else { return }
+            LocalAuthorizationService.shared.authorizeIfPossible { result in
+                if result {
+                    DispatchQueue.main.async {
+                        self.navigationController?.pushViewController(TabBarController(), animated: true)
+                    }
+                }
             }
         }
     }
