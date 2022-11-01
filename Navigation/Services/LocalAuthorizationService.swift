@@ -18,6 +18,11 @@ final class LocalAuthorizationService {
     var canUseBiometrics = false
     var error: NSError?
 
+    func getTypeAuthorize(complition: @escaping (LABiometryType) -> Void) {
+        let _ = context.canEvaluatePolicy(policy, error: nil)
+        complition(context.biometryType)
+    }
+
     func authorizeIfPossible(_ authorizationFinished: @escaping (Bool) -> Void) {
 
         canUseBiometrics = context.canEvaluatePolicy(policy, error: &error)

@@ -37,9 +37,10 @@ class AuthViewController: UIViewController {
         return button
     }()
 
-    private lazy var authorizationButton: CustomButton = {
-        let button = CustomButton(title: "Биометрия", titleColor: .white, backColor: .systemBlue)
+    private lazy var authorizationButton: UIButton = {
+        let button = UIButton()
         button.translatesAutoresizingMaskIntoConstraints = false
+        button.addTarget(self, action: #selector(didTapAuthorizationButton), for: .touchUpInside)
         return button
     }()
 
@@ -65,6 +66,20 @@ class AuthViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        LocalAuthorizationService.shared.getTypeAuthorize { [weak self] type in
+            guard let self = self else { return }
+            switch type {
+            case .faceID:
+                self.authorizationButton.setImage(UIImage(systemName: "faceid"), for: .normal)
+            case .touchID:
+                self.authorizationButton.setImage(UIImage(systemName: "touchid"), for: .normal)
+            case .none:
+                self.authorizationButton.isEnabled = false
+            @unknown default:
+                self.authorizationButton.isEnabled = false
+            }
+        }
+
         if viewModel.obtainObjects() {
             navigationController?.pushViewController(TabBarController(), animated: false)
         }
@@ -79,10 +94,6 @@ class AuthViewController: UIViewController {
         button.setBackgroundColor(.buttonBackground, for: .normal)
         button.setBackgroundColor(.buttonDisabledBackground, for: .disabled)
         button.isEnabled = false
-
-        authorizationButton.setBackgroundColor(.systemBlue, for: .normal)
-        authorizationButton.setBackgroundColor(.white, for: .disabled)
-        authorizationButton.isEnabled = true
 
         view.addSubview(stackView)
         stackView.addArrangedSubview(loginField)
@@ -161,14 +172,14 @@ class AuthViewController: UIViewController {
                 self.showToast(message: "Ошибка валидации")
             }
         }
+    }
 
-        authorizationButton.tapAction = { [weak self] in
-            guard let self = self else { return }
-            LocalAuthorizationService.shared.authorizeIfPossible { result in
-                if result {
-                    DispatchQueue.main.async {
-                        self.navigationController?.pushViewController(TabBarController(), animated: true)
-                    }
+    @objc
+    private func didTapAuthorizationButton() {
+        LocalAuthorizationService.shared.authorizeIfPossible { result in
+            if result {
+                DispatchQueue.main.async {
+                    self.navigationController?.pushViewController(TabBarController(), animated: true)
                 }
             }
         }
